@@ -1,6 +1,7 @@
 ﻿using Information_System_MVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,20 +43,20 @@ namespace Information_System_MVC.Controllers
         }
 
         // GET: BookedTickets/Create
+        [HttpGet]
         public ActionResult Create()
         {
-
-
             return View();
         }
 
         // POST: BookedTickets/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(BookedTicket ticket)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.BookedTickets.Add(ticket);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -66,19 +67,32 @@ namespace Information_System_MVC.Controllers
         }
 
         // GET: BookedTickets/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+
+            return HttpNotFound();
         }
 
         // POST: BookedTickets/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, BookedTicket ticket)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -88,19 +102,33 @@ namespace Information_System_MVC.Controllers
         }
 
         // GET: BookedTickets/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(ticket);
         }
 
         // POST: BookedTickets/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                BookedTicket ticket = db.BookedTickets.Find(id);
+                if (ticket == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.BookedTickets.Remove(ticket);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
