@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Профессии</h3>
+    <table>
+        <tr>
+            <td>Название</td>
+            <td>Права в системе</td>
+        </tr>
+        @foreach (var item in ViewBag.Professions)
+        {
+            <tr>
+                <td>
+                    <p>
+                        @item.Name
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.Power
+                    </p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

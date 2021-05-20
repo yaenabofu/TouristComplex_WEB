@@ -1,0 +1,112 @@
+﻿using Information_System_MVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Information_System_MVC.Controllers
+{
+    public class BookedTicketsController : Controller
+    {
+        ISContext db = new ISContext();
+
+        // GET: BookedTickets
+        [HttpGet]
+        public ActionResult Index()
+        {
+            IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
+
+            ViewBag.BookedTickets = bookedTickets;
+
+            return View();
+        }
+
+        // GET: BookedTickets/Details/5
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+
+            return HttpNotFound();
+        }
+
+        // GET: BookedTickets/Create
+        public ActionResult Create()
+        {
+
+
+            return View();
+        }
+
+        // POST: BookedTickets/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: BookedTickets/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: BookedTickets/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: BookedTickets/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: BookedTickets/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
