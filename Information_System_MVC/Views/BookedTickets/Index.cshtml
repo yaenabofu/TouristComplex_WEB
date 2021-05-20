@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h6>Забронированные билеты</h6>
+    <table>
+        <tr>
+            <td>Код записи</td>
+            <td>Код мероприятия</td>
+            <td>Количество билетов</td>
+            <td>Стоимость заказа</td>
+            <td>Логин заказчика</td>
+            <td>Заказ оплачен?</td>
+            <br />
+        </tr>
+        @foreach (var item in ViewBag.BookedTickets)
+        {
+            <tr>
+                <td>
+                    <p>
+                        @item.Id
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.EventId
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.Quantity
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.Cost
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.Login
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @item.IsPaid
+                    </p>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

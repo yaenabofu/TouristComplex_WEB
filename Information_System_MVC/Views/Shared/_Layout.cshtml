@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Calibri, Helvetica, sans-serif;
         }
 
         .navbar {
@@ -29,7 +29,7 @@
 
             .dropdown .dropbtn {
                 font-size: 16px;
-                border: none;
+                border: inherit;
                 outline: none;
                 color: white;
                 padding: 14px 16px;
@@ -47,7 +47,7 @@
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0,100,0,0.2);
             z-index: 1;
         }
 
@@ -68,13 +68,34 @@
             display: block;
         }
     </style>
+    <meta charset="utf-8">
+    <title>border</title>
+    <style>
+        .brd {
+            width: 570px;
+            height: 20px;
+            margin: auto;
+            width: 50%;
+            border: 0px solid black;
+            padding: 0px;
+            border: 0px solid rgb(0, 0, 0, 0);
+            background: #ffffff;
+            padding: 0px 5px;
+        }
+    </style>
 </head>
 <body>
     <div id="container">
-        <div id="header">
-            Tourist complex management system
+        <div class="brd">
+            <a href="#">
+                <h3 font-style="Canvas">
+                    Информационная система для управления туристическим комплексом
+                </h3>
+            </a>
         </div>
-        <br/>
+    </div>
+    <div>
+        <br />
         <div class="navbar">
             <div class="dropdown">
                 <button class="dropbtn">
@@ -121,12 +142,9 @@
             </div>
             <a href="#home">Поиск</a>
             <a href="#news">Тестирование</a>
+            <a href="#news">Личный кабинет</a>
         </div>
     </div>
-
-
-    <h3>Dropdown Menu inside a Navigation Bar</h3>
-    <p>Hover over the "Dropdown" link to see the dropdown menu.</p>
 
     @RenderBody()
 </body>
