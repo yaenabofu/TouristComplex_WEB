@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,32 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class BuildingController : Controller
     {
-        // GET: Building
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Building> buildings = db.Buildings;
+
+            ViewBag.Buildings = buildings;
+
             return View();
         }
 
-        // GET: Building/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Building building = db.Buildings.Find(id);
+
+            if (building != null)
+            {
+                return View(building);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Building/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Building/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Building building)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                db.Buildings.Add(building);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -42,20 +60,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Building/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Building building = db.Buildings.Find(id);
+
+            if (building != null)
+            {
+                return View(building);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Building/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Building building)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(building).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +93,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Building/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Building building = db.Buildings.Find(id);
+
+            if (building == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(building);
         }
 
-        // POST: Building/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Building building = db.Buildings.Find(id);
+                if (building == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Buildings.Remove(building);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

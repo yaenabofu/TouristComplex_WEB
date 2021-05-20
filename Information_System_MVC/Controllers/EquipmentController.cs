@@ -8,13 +8,13 @@ namespace Information_System_MVC.Controllers
 {
     public class EquipmentController : Controller
     {
-        // GET: Equipment
         public ActionResult Index()
         {
+
+
             return View();
         }
 
-        // GET: Equipment/Details/5
         public ActionResult Details(int id)
         {
             return View();
