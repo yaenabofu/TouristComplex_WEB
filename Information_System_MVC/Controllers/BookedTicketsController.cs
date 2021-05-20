@@ -13,7 +13,6 @@ namespace Information_System_MVC.Controllers
         ISContext db = new ISContext();
 
         // GET: BookedTickets
-        [HttpGet]
         public ActionResult Index()
         {
             IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
@@ -87,7 +86,7 @@ namespace Information_System_MVC.Controllers
 
         // POST: BookedTickets/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, BookedTicket ticket)
+        public ActionResult Edit(BookedTicket ticket)
         {
             try
             {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Product> products = db.Products;
+
+            ViewBag.Products = products;
+
             return View();
         }
 
-        // GET: Product/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Product product = db.Products.Find(id);
+
+            if (product != null)
+            {
+                return View(product);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Product/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Product product)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Products.Add(product);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Product product = db.Products.Find(id);
+
+            if (product != null)
+            {
+                return View(product);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Product product)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Product/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Product product = db.Products.Find(id);
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product);
         }
 
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Product product = db.Products.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Products.Remove(product);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

@@ -79,7 +79,7 @@ namespace Information_System_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Building building)
+        public ActionResult Edit(Building building)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Information_System_MVC.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             Building building = db.Buildings.Find(id);

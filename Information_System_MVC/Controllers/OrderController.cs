@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: Order
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Order> orders = db.Orders;
+
+            ViewBag.Orders = orders;
+
             return View();
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Order order = db.Orders.Find(id);
+
+            if (order != null)
+            {
+                return View(order);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Order/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Order/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Order order)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Orders.Add(order);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Order/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Order order = db.Orders.Find(id);
+
+            if (order != null)
+            {
+                return View(order);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Order/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Order order)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Order/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Order ticket = db.Orders.Find(id);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(ticket);
         }
 
-        // POST: Order/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Order order = db.Orders.Find(id);
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Orders.Remove(order);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

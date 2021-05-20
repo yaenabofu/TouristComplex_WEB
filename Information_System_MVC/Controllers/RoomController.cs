@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class RoomController : Controller
     {
-        // GET: Room
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Room> rooms = db.Rooms;
+
+            ViewBag.Rooms = rooms;
+
             return View();
         }
 
-        // GET: Room/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Room room = db.Rooms.Find(id);
+
+            if (room != null)
+            {
+                return View(room);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Room/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Room/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Room room)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Rooms.Add(room);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Room/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Room room = db.Rooms.Find(id);
+
+            if (room != null)
+            {
+                return View(room);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Room/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Room room)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(room).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Room/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Room room = db.Rooms.Find(id);
+
+            if (room == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(room);
         }
 
-        // POST: Room/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Room room = db.Rooms.Find(id);
+                if (room == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Rooms.Remove(room);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

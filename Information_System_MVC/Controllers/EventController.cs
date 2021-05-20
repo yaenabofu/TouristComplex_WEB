@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,45 @@ namespace Information_System_MVC.Controllers
 {
     public class EventController : Controller
     {
-        // GET: Event
+        ISContext db = new ISContext();
         public ActionResult Index()
         {
+            IEnumerable<Event> events = db.Events;
+
+            ViewBag.Events = events;
+
             return View();
         }
-
-        // GET: Event/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
-        }
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
 
-        // GET: Event/Create
+            Event event1 = db.Events.Find(id);
+
+            if (event1 != null)
+            {
+                return View(event1);
+            }
+
+            return HttpNotFound();
+        }
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Event/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Event event1)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Events.Add(event1);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +58,30 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Event/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Event event1 = db.Events.Find(id);
+
+            if (event1 != null)
+            {
+                return View(event1);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Event/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Event event1)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(event1).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -63,21 +89,32 @@ namespace Information_System_MVC.Controllers
                 return View();
             }
         }
-
-        // GET: Event/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Event event1 = db.Events.Find(id);
+
+            if (event1 == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(event1);
         }
 
-        // POST: Event/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                Event event1 = db.Events.Find(id);
+                if (event1 == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Events.Remove(event1);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class TouristController : Controller
     {
-        // GET: Tourist
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Tourist> tourist = db.Tourists;
+
+            ViewBag.Tourists = tourist;
+
             return View();
         }
 
-        // GET: Tourist/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Tourist tourist = db.Tourists.Find(id);
+
+            if (tourist != null)
+            {
+                return View(tourist);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Tourist/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Tourist/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Tourist tourist)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Tourists.Add(tourist);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Tourist/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Tourist tourist = db.Tourists.Find(id);
+
+            if (tourist != null)
+            {
+                return View(tourist);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Tourist/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Tourist tourist)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(tourist).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Tourist/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Tourist tourist = db.Tourists.Find(id);
+
+            if (tourist == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(tourist);
         }
 
-        // POST: Tourist/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Tourist tourist = db.Tourists.Find(id);
+                if (tourist == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Tourists.Remove(tourist);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

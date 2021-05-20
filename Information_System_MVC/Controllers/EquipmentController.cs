@@ -1,38 +1,53 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace Information_System_MVC.Controllers
 {
     public class EquipmentController : Controller
     {
+        ISContext db = new ISContext();
         public ActionResult Index()
         {
+            IEnumerable<Equipment> equipments = db.Equipments;
 
+            ViewBag.Equipments = equipments;
 
             return View();
         }
 
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Equipment equipment = db.Equipments.Find(id);
+
+            if (equipment != null)
+            {
+                return View(equipment);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Equipment/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Equipment/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Equipment equipment)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Equipments.Add(equipment);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +57,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Equipment/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Equipment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Equipment equipment)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(equipment).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -63,21 +89,31 @@ namespace Information_System_MVC.Controllers
                 return View();
             }
         }
-
-        // GET: Equipment/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            Equipment equipment = db.Equipments.Find(id);
 
-        // POST: Equipment/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+            if (equipment == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(equipment);
+        }
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Equipment equipment = db.Equipments.Find(id);
+                if (equipment == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Equipments.Remove(equipment);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

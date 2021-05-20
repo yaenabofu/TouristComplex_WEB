@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class ProfessionController : Controller
     {
-        // GET: Profession
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Profession> professions = db.Professions;
+
+            ViewBag.Professions = professions;
+
             return View();
         }
 
-        // GET: Profession/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Profession profession = db.Professions.Find(id);
+
+            if (profession != null)
+            {
+                return View(profession);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Profession/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Profession/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Profession profession)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Professions.Add(profession);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Profession/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Profession profession = db.Professions.Find(id);
+
+            if (profession != null)
+            {
+                return View(profession);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Profession/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Profession profession)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(profession).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Profession/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Profession profession = db.Professions.Find(id);
+
+            if (profession == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(profession);
         }
 
-        // POST: Profession/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Profession profession = db.Professions.Find(id);
+                if (profession == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Professions.Remove(profession);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

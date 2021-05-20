@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,31 +10,48 @@ namespace Information_System_MVC.Controllers
 {
     public class WorkPlaceController : Controller
     {
-        // GET: WorkPlace
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<WorkPlace> workPlaces = db.WorkPlaces;
+
+            ViewBag.WorkPlaces = workPlaces;
+
             return View();
         }
 
-        // GET: WorkPlace/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            WorkPlace workPlace = db.WorkPlaces.Find(id);
+
+            if (workPlace != null)
+            {
+                return View(workPlace);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: WorkPlace/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: WorkPlace/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(WorkPlace workPlace)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.WorkPlaces.Add(workPlace);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +61,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: WorkPlace/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            WorkPlace workPlace = db.WorkPlaces.Find(id);
+
+            if (workPlace != null)
+            {
+                return View(workPlace);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: WorkPlace/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(WorkPlace workPlace)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(workPlace).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +94,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: WorkPlace/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            WorkPlace workPlace = db.WorkPlaces.Find(id);
+
+            if (workPlace == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(workPlace);
         }
 
-        // POST: WorkPlace/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                WorkPlace workPlace = db.WorkPlaces.Find(id);
+                if (workPlace == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.WorkPlaces.Remove(workPlace);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

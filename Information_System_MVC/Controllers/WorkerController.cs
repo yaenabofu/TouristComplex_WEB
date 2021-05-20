@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Information_System_MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,31 +9,48 @@ namespace Information_System_MVC.Controllers
 {
     public class WorkerController : Controller
     {
-        // GET: Worker
+        ISContext db = new ISContext();
+
         public ActionResult Index()
         {
+            IEnumerable<Worker> workers = db.Workers;
+
+            ViewBag.Workers = workers;
+
             return View();
         }
 
-        // GET: Worker/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Worker worker = db.Workers.Find(id);
+
+            if (worker != null)
+            {
+                return View(worker);
+            }
+
+            return HttpNotFound();
         }
 
-        // GET: Worker/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Worker/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Worker worker)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Workers.Add(worker);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,20 +60,31 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Worker/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Worker worker = db.Workers.Find(id);
+
+            if (worker != null)
+            {
+                return View(worker);
+            }
+
+            return HttpNotFound();
         }
 
-        // POST: Worker/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Worker worker)
         {
             try
             {
-                // TODO: Add update logic here
-
+                db.Entry(worker).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -64,20 +93,32 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        // GET: Worker/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            Worker worker = db.Workers.Find(id);
+
+            if (worker == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(worker);
         }
 
-        // POST: Worker/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Worker worker = db.Workers.Find(id);
+                if (worker == null)
+                {
+                    return HttpNotFound();
+                }
 
+                db.Workers.Remove(worker);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
