@@ -65,11 +65,11 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
             }
 
-            BookedTicket ticket = db.BookedTickets.Find(id);
+            Equipment equipment = db.Equipments.Find(id);
 
-            if (ticket != null)
+            if (equipment != null)
             {
-                return View(ticket);
+                return View(equipment);
             }
 
             return HttpNotFound();

@@ -4,15 +4,15 @@
 }
 
 <div>
-    <h3>Здания на территории</h3>
+    <h3>Здания на территории -> Просмотр всех записей</h3>
     <form action="/Building/Create">
         <input type="submit" value="Добавить запись" />
     </form>
-    
+
     <table>
         <tr>
-            <td><label>Код здания</label></td>
-            <td><label>Количество номеров</label></td>
+            <td><p>Код здания</p></td>
+            <td><p>Количество номеров</p></td>
         </tr>
         @foreach (var item in ViewBag.Buildings)
         {
@@ -24,19 +24,13 @@
                     <input id="RoomCount" name="RoomCount" value=" @item.RoomCount" readonly />
                 </td>
                 <td>
-                    <form action="/Building/Edit/@item.Id">
-                        <input type="submit" value="Изменить" />
-                    </form>
+                    <a href="/Building/Edit/@item.Id">Изменить</a>
                 </td>
                 <td>
-                    <form action="/Building/Details/@item.Id">
-                        <input type="submit" value="Подробно" />
-                    </form>
+                    <a href="/Building/Details/@item.Id">Подробно</a>
                 </td>
                 <td>
-                    <form action="/Building/Delete/@item.Id">
-                        <input type="submit" value="Удалить" />
-                    </form>
+                    <a href="/Building/Delete/@item.Id">Удалить</a>
                 </td>
             </tr>
             <br />

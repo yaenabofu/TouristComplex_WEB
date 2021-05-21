@@ -190,8 +190,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BookedTickets\Index.cshtml" />
     <Content Include="Views\BookedTickets\Details.cshtml" />
@@ -201,13 +199,20 @@
     <Content Include="Views\Building\Details.cshtml" />
     <Content Include="Views\Building\Delete.cshtml" />
     <Content Include="Views\Equipment\Index.cshtml" />
+    <Content Include="Views\Equipment\Details.cshtml" />
+    <Content Include="Views\Equipment\Create.cshtml" />
+    <Content Include="Views\Equipment\Edit.cshtml" />
+    <Content Include="Views\Equipment\Delete.cshtml" />
+    <Content Include="Views\Profession\Index.cshtml" />
+    <Content Include="Views\Profession\Create.cshtml" />
+    <Content Include="Views\Profession\Edit.cshtml" />
+    <Content Include="Views\Profession\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\Profession\" />
     <Folder Include="Views\Room\" />
     <Folder Include="Views\Tourist\" />
     <Folder Include="Views\Worker\" />

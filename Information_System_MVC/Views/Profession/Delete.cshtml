@@ -1,0 +1,25 @@
+﻿@model Information_System_MVC.Models.Profession
+@{
+    ViewBag.Title = "Профессии";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Профессии -> Удаление записи</h3>
+    <fieldset>
+        <p>Код профессии</p>
+        <input id="Id" name="Id" value="@Model.Id" readonly />
+        @Html.ValidationMessageFor(model => model.Id)
+        <p>Название</p>
+        <input id="Name" name="Name" value="@Model.Name" readonly />
+        @Html.ValidationMessageFor(model => model.Name)
+        <p>Права в системе</p>
+        <input id="Power" name="Power" value="@Model.Power" readonly />
+        @Html.ValidationMessageFor(model => model.Power)
+        <br /> <br />
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </fieldset>
+</div>

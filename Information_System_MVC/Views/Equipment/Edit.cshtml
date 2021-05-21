@@ -1,0 +1,36 @@
+﻿@model Information_System_MVC.Models.Equipment
+@{
+    ViewBag.Title = "Здания на территории";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Оборудование -> Редактирование записи</h3>
+    @using (Html.BeginForm("Edit", "Equipment", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Код оборудования</p>
+         
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+
+           
+            <p>Название</p>
+        
+            <input id="Name" name="Name" value="@Model.Name" />
+            @Html.ValidationMessageFor(model => model.Name)
+
+           
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+           
+            <p>Код профессии</p>
+            <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+            @Html.ValidationMessageFor(model => model.ProfessionId)
+            <br /> <br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
+    }
+</div>

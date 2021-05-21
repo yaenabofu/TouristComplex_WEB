@@ -1,0 +1,25 @@
+﻿@model Information_System_MVC.Models.Profession
+@{
+    ViewBag.Title = "Профессии";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Профессии -> Редактирование записи</h3>
+    @using (Html.BeginForm("Edit", "Profession", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Код профессии</p>
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+            <p>Название</p>
+            <input id="Name" name="Name" value="@Model.Name" />
+            @Html.ValidationMessageFor(model => model.Name)
+            <p>Права в системе</p>
+            <input id="Power" name="Power" value="@Model.Power" />
+            @Html.ValidationMessageFor(model => model.Power)
+            <br /> <br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
+    }
+</div>

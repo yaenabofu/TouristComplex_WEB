@@ -1,0 +1,27 @@
+﻿@model Information_System_MVC.Models.Equipment
+@{
+    ViewBag.Title = "Оборудование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Оборудование -> Подробная информация</h3>
+    @using (Html.BeginForm("Details", "Equipment", FormMethod.Get))
+    {
+        <fieldset>
+            <p>Код оборудования</p>
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+            <p>Название</p>
+            <input id="Name" name="Name" value="@Model.Name" readonly />
+            @Html.ValidationMessageFor(model => model.Name)
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
+            @Html.ValidationMessageFor(model => model.Quantity)
+            <p>Код профессии</p>
+            <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+            @Html.ValidationMessageFor(model => model.ProfessionId)
+            <br /> <br />
+        </fieldset>
+    }
+</div>

@@ -1,0 +1,29 @@
+﻿@model Information_System_MVC.Models.Equipment
+@{
+    ViewBag.Title = "Оборудование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Оборудование -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Equipment", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Название</p>
+            <input id="Name" name="Name" value="" />
+            @Html.ValidationMessageFor(model => model.Name)
+
+            <br />
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" value="" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            <br />
+            <p>Код профессии</p>
+            <input id="ProfessionId" name="ProfessionId" value="" />
+            @Html.ValidationMessageFor(model => model.ProfessionId)
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

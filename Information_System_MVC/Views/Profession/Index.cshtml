@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Профессии";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Профессии -> Просмотр всех записей</h3>
+    <form action="/Profession/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код профессии</p></td>
+            <td><p>Название</p></td>
+            <td><p>Права в системе</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Professions)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @item.Name" readonly />
+                </td>
+                <td>
+                    <input id="Power" name="Power" value=" @item.Power" readonly />
+                </td>
+                <td>
+                    <a href="/Profession/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+                <td>
+                    <a href="/Profession/Delete/@item.Id">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+
