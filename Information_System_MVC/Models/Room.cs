@@ -26,7 +26,8 @@ namespace Information_System_MVC.Models
 
         //Связь со зданием
         [Display(Name = "Код здания")]
-        public int BuildingId { get; set; }
+        [Required]
+        public int? BuildingId { get; set; }
         public Building Building { get; set; }
 
         //Связь с туристами

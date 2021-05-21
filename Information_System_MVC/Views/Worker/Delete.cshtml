@@ -1,0 +1,49 @@
+﻿@model Information_System_MVC.Models.Worker
+@{
+    ViewBag.Title = "Работники";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Работники -> Удаление записи</h3>
+    <fieldset>
+        <p>Код работника</p>
+        <input id="Id" name="Id" value="@Model.Id" />
+        @Html.ValidationMessageFor(model => model.Name)
+        <p>Логин</p>
+        <input id="Login" name="Login" value="@Model.Login" readonly />
+        @Html.ValidationMessageFor(model => model.Login)
+        <p>Пароль</p>
+        <input id="Password" name="Password" value="@Model.Password" readonly />
+        @Html.ValidationMessageFor(model => model.Password)
+        <p>Имя</p>
+        <input id="Name" name="Name" value="@Model.Name" readonly />
+        @Html.ValidationMessageFor(model => model.Name)
+        <p>Фамилия</p>
+        <input id="Surname" name="Surname" value="@Model.Surname" readonly />
+        @Html.ValidationMessageFor(model => model.Surname)
+        <p>Отчество</p>
+        <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" readonly />
+        @Html.ValidationMessageFor(model => model.Thirdname)
+        <p>Дата рождения</p>
+        <input id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" readonly />
+        @Html.ValidationMessageFor(model => model.DateOfBirth)
+        <p>Телефонный номер</p>
+        <input id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" readonly />
+        @Html.ValidationMessageFor(model => model.PhoneNumber)
+        <p>Рабочие дни</p>
+        <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" readonly />
+        @Html.ValidationMessageFor(model => model.WorkDays)
+        <p>Код профессии</p>
+        <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+        @Html.ValidationMessageFor(model => model.ProfessionId)
+        <p>Код рабочего места</p>
+        <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />
+        @Html.ValidationMessageFor(model => model.WorkPlaceId)
+        <br /><br />
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </fieldset>
+</div>

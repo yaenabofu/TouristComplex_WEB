@@ -1,0 +1,34 @@
+﻿@model Information_System_MVC.Models.Room
+@{
+    ViewBag.Title = "Номера";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Номера -> Удаление записи</h3>
+    <fieldset>
+        <p>Код номера</p>
+        <input id="Id" name="Id" value="@Model.Id" readonly />
+        @Html.ValidationMessageFor(model => model.Id)
+        <p>Цена</p>
+        <input id="Price" name="Price" value="@Model.Price" readonly />
+        @Html.ValidationMessageFor(model => model.Price)
+        <p>Количество кроватей</p>
+        <input id="Beds" name="Beds" value="@Model.Beds" readonly />
+        @Html.ValidationMessageFor(model => model.Beds)
+        <p>Количество комнат</p>
+        <input id="SingleRooms" name="SingleRooms" value="@Model.SingleRooms" readonly />
+        @Html.ValidationMessageFor(model => model.SingleRooms)
+        <p>Свободен?</p>
+        <input id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable" readonly />
+        @Html.ValidationMessageFor(model => model.IsAvailable)
+        <p>Код здания</p>
+        <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />
+        @Html.ValidationMessageFor(model => model.BuildingId)
+        <br /><br />
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </fieldset>
+</div>

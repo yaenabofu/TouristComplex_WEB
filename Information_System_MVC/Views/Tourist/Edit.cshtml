@@ -1,0 +1,49 @@
+﻿@model Information_System_MVC.Models.Tourist
+@{
+    ViewBag.Title = "Туристы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Туристы -> Редактирование записи</h3>
+    @using (Html.BeginForm("Edit", "Tourist", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Код туриста</p>
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+            <p>Логин</p>
+            <input id="Login" name="Login" value="@Model.Login" readonly />
+            @Html.ValidationMessageFor(model => model.Login)
+            <p>Пароль</p>
+            <input id="Password" name="Password" value="@Model.Password" readonly />
+            @Html.ValidationMessageFor(model => model.Password)
+            <p>Имя</p>
+            <input id="Name" name="Name" value="@Model.Name" />
+            @Html.ValidationMessageFor(model => model.Name)
+            <p>Фамилия</p>
+            <input id="Surname" name="Surname" value="@Model.Surname" />
+            @Html.ValidationMessageFor(model => model.Surname)
+            <p>Отчество</p>
+            <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" />
+            @Html.ValidationMessageFor(model => model.Thirdname)
+            <p>Дата рождения</p>
+            <input id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" />
+            @Html.ValidationMessageFor(model => model.DateOfBirth)
+            <p>Эл. почта</p>
+            <input id="Email" name="Email" value="@Model.Email" />
+            @Html.ValidationMessageFor(model => model.Email)
+            <p>Дата приезда</p>
+            <input id="DateOfComing" name="DateOfComing" value="@Model.DateOfComing" readonly />
+            @Html.ValidationMessageFor(model => model.DateOfComing)
+            <p>Дата отъезда</p>
+            <input id="DateOfLeaving" name="DateOfLeaving" value="@Model.DateOfLeaving" />
+            @Html.ValidationMessageFor(model => model.DateOfLeaving)
+            <p>Номер комнаты</p>
+            <input id="RoomId" name="RoomId" value="@Model.RoomId" />
+            @Html.ValidationMessageFor(model => model.RoomId)
+            <br /><br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
+    }
+</div>

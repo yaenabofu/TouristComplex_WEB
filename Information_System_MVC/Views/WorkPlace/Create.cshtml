@@ -1,0 +1,22 @@
+﻿@model Information_System_MVC.Models.WorkPlace
+@{
+    ViewBag.Title = "Рабочие места";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Рабочие места -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "WorkPlace", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Код места в здании</p>
+            <input id="PlaceId" name="PlaceId" value="" />
+            @Html.ValidationMessageFor(model => model.PlaceId)
+            <p>Код здания</p>
+            <input id="BuildingId" name="BuildingId" value="" />
+            @Html.ValidationMessageFor(model => model.BuildingId)
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

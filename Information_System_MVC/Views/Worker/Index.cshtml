@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Работники";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Работники -> Просмотр всех записей</h3>
+    <form action="/Worker/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код работника</p></td>
+            <td><p>Логин</p></td>
+            <td><p>Пароль</p></td>
+            <td><p>Имя</p></td>
+            <td><p>Фамилия</p></td>
+            <td><p>Отчество</p></td>
+            <td><p>Дата рождения</p></td>
+            <td><p>Телефонный номер</p></td>
+            <td><p>Рабочие дни</p></td>
+            <td><p>Код профессии</p></td>
+            <td><p>Код рабочего места</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Workers)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Login" name="Login" value=" @item.Login" readonly />
+                </td>
+                <td>
+                    <input id="Password" name="Password" value=" @item.Password" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @item.Name" readonly />
+                </td>
+                <td>
+                    <input id="Surname" name="Surname" value=" @item.Surname" readonly />
+                </td>
+                <td>
+                    <input id="Thirdname" name="Thirdname" value=" @item.Thirdname" readonly />
+                </td>
+                <td>
+                    <input id="DateOfBirth" name="DateOfBirth" value=" @item.DateOfBirth" readonly />
+                </td>
+                <td>
+                    <input id="PhoneNumber" name="PhoneNumber" value=" @item.PhoneNumber" readonly />
+                </td>
+                <td>
+                    <input id="WorkDays" name="WorkDays" value=" @item.WorkDays" readonly />
+                </td>
+                <td>
+                    <input id="ProfessionId" name="ProfessionId" value=" @item.ProfessionId" readonly />
+                </td>
+                <td>
+                    <input id="WorkPlaceId" name="WorkPlaceId" value=" @item.WorkPlaceId" readonly />
+                </td>
+                <td>
+                    <a href="/Worker/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+                <td>
+                    <a href="/Worker/Delete/@item.Id">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

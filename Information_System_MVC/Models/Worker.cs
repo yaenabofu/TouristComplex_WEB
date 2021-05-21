@@ -15,6 +15,7 @@ namespace Information_System_MVC.Models
         [Display(Name = "Логин")]
         public string Login { get; set; }
         [Display(Name = "Пароль")]
+        [Required]
         public string Password { get; set; }
         [Required]
         [Display(Name = "Имя")]
@@ -37,10 +38,12 @@ namespace Information_System_MVC.Models
 
         //Связь с профессией 
         [Display(Name = "Код профессии")]
+        [Required]
         public int? ProfessionId { get; set; }
         public Profession Profession { get; set; }
         //Связь с рабочим местом
         [Display(Name = "Код рабочего места")]
+        [Required]
         public int? WorkPlaceId { get; set; }
         public WorkPlace WorkPlace { get; set; }
     }

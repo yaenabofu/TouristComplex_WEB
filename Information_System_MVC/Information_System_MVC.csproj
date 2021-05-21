@@ -207,16 +207,28 @@
     <Content Include="Views\Profession\Create.cshtml" />
     <Content Include="Views\Profession\Edit.cshtml" />
     <Content Include="Views\Profession\Delete.cshtml" />
+    <Content Include="Views\Worker\Index.cshtml" />
+    <Content Include="Views\Worker\Create.cshtml" />
+    <Content Include="Views\Worker\Edit.cshtml" />
+    <Content Include="Views\Worker\Delete.cshtml" />
+    <Content Include="Views\WorkPlace\Index.cshtml" />
+    <Content Include="Views\WorkPlace\Create.cshtml" />
+    <Content Include="Views\WorkPlace\Edit.cshtml" />
+    <Content Include="Views\WorkPlace\Delete.cshtml" />
+    <Content Include="Views\Tourist\Index.cshtml" />
+    <Content Include="Views\Tourist\Create.cshtml" />
+    <Content Include="Views\Tourist\Edit.cshtml" />
+    <Content Include="Views\Tourist\Delete.cshtml" />
+    <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Views\Room\Create.cshtml" />
+    <Content Include="Views\Room\Edit.cshtml" />
+    <Content Include="Views\Room\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\Room\" />
-    <Folder Include="Views\Tourist\" />
-    <Folder Include="Views\Worker\" />
-    <Folder Include="Views\WorkPlace\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,34 @@
+﻿@model Information_System_MVC.Models.Room
+@{
+    ViewBag.Title = "Номера";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Номера -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Room", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Код номера</p>
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+            <p>Цена</p>
+            <input id="Price" name="Price" value="" />
+            @Html.ValidationMessageFor(model => model.Price)
+            <p>Количество кроватей</p>
+            <input id="Beds" name="Beds" value="" />
+            @Html.ValidationMessageFor(model => model.Beds)
+            <p>Количество комнат</p>
+            <input id="SingleRooms" name="SingleRooms" value="" />
+            @Html.ValidationMessageFor(model => model.SingleRooms)
+            <p>Свободен?</p>
+            <input id="IsAvailable" name="IsAvailable" value="" />
+            @Html.ValidationMessageFor(model => model.IsAvailable)
+            <p>Код здания</p>
+            <input id="BuildingId" name="BuildingId" value="" />
+            @Html.ValidationMessageFor(model => model.BuildingId)
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

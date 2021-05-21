@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Туристы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Туристы -> Просмотр всех записей</h3>
+    <form action="/Tourist/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код туриста</p></td>
+            <td><p>Логин</p></td>
+            <td><p>Пароль</p></td>
+            <td><p>Эл. почта</p></td>
+            <td><p>Имя</p></td>
+            <td><p>Фамилия</p></td>
+            <td><p>Отчество</p></td>
+            <td><p>Дата рождения</p></td>
+            <td><p>Дата приезда</p></td>
+            <td><p>Дата отъезда</p></td>
+            <td><p>Страна</p></td>
+            <td><p>Номер комнаты</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Tourists)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Login" name="Login" value=" @item.Login" readonly />
+                </td>
+                <td>
+                    <input id="Password" name="Password" value=" @item.Password" readonly />
+                </td>
+                <td>
+                    <input id="Email" name="Email" value=" @item.Email" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @item.Name" readonly />
+                </td>
+                <td>
+                    <input id="Surname" name="Surname" value=" @item.Surname" readonly />
+                </td>
+                <td>
+                    <input id="Thirdname" name="Thirdname" value=" @item.Thirdname" readonly />
+                </td>
+                <td>
+                    <input id="DateOfBirth" name="DateOfBirth" value=" @item.DateOfBirth" readonly />
+                </td>
+                <td>
+                    <input id="DateOfComing" name="DateOfComing" value=" @item.DateOfComing" readonly />
+                </td>
+                <td>
+                    <input id="DateOfLeaving" name="DateOfLeaving" value=" @item.DateOfLeaving" readonly />
+                </td>
+                <td>
+                    <input id="Country" name="Country" value=" @item.Country" readonly />
+                </td>
+                <td>
+                    <input id="RoomId" name="RoomId" value=" @item.RoomId" readonly />
+                </td>
+                <td>
+                    <a href="/Tourist/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+                <td>
+                    <a href="/Tourist/Delete/@item.Id">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+
