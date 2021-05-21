@@ -5,18 +5,19 @@
 }
 
 <div>
-    <h3>Здания на территории -> Удаление записи</h3>
-    @using (Html.BeginForm("Edit", "Building", FormMethod.Get))
+    <h3>Здания на территории -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Building", FormMethod.Post))
     {
         <fieldset>
-            @Html.LabelFor(x => x.Id, "Код здания")
+            @*<label>Код здания</label>
+                <br /> <br />
+                <input id="Id" name="Id" value="@Model.Id" readonly />
+                @Html.ValidationMessageFor(model => model.Id)
+                <br /> <br />*@
+            @*@Html.LabelFor(x => x.RoomCount, "Количество комнат")*@
             <br /> <br />
-            <input id="RoomCount" name="RoomCount" value="@Model.Id" readonly />
-            @Html.ValidationMessageFor(model => model.Id)
-            <br /> <br />
-            @Html.LabelFor(x => x.RoomCount, "Количество комнат")
-            <br /> <br />
-            <input id="RoomCount" name="RoomCount" value="@Model.RoomCount" />
+            <label>Количество комнат</label>
+            <input id="RoomCount" name="RoomCount" value="" />
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
             <input type="submit" value="Добавить" />

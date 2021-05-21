@@ -200,10 +200,10 @@
     <Content Include="Views\Building\Edit.cshtml" />
     <Content Include="Views\Building\Details.cshtml" />
     <Content Include="Views\Building\Delete.cshtml" />
+    <Content Include="Views\Equipment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Equipment\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Product\" />
