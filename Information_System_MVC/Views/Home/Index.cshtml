@@ -2,27 +2,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <h3>Профессии</h3>
-    <table>
-        <tr>
-            <td>Название</td>
-            <td>Права в системе</td>
-        </tr>
-        @foreach (var item in ViewBag.Professions)
-        {
-            <tr>
-                <td>
-                    <p>
-                        @item.Name
-                    </p>
-                </td>
-                <td>
-                    <p>
-                        @item.Power
-                    </p>
-                </td>
-            </tr>
-        }
-    </table>
-</div>
+<body>
+    <container>
+        <row>
+            <h3>Новости</h3>
+        </row>
+        <row>
+            <h3>Обзор системы</h3>
+            <iframe width="420" height="345"
+                    src="https://www.youtube.com/embed/lHCFLfI-BZQ">
+            </iframe>
+        </row>
+        <row>
+            <h3>Поддержка</h3>
+        </row>
+    </container>
+</body>

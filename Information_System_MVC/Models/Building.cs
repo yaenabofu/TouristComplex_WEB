@@ -10,10 +10,10 @@ namespace Information_System_MVC.Models
     public class Building
     {
         [HiddenInput(DisplayValue = false)]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        [Display(Name = "Количество комнат")]
-        public int RoomsCount { get; set; }
+        [Display(Name = "Кол-во комнат")]
+        public int RoomCount { get; set; }
         //Связь с рабочими местами
         public ICollection<WorkPlace> WorkPlaces { get; set; }
         //Связь с комнатами

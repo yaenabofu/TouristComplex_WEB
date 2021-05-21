@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Здания на территории";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Здания на территории</h3>
+    <table>
+        <tr>
+            <td><label>Код здания</label></td>
+            <td><label>Количество номеров</label></td>
+        </tr>
+        @foreach (var item in ViewBag.Buildings)
+        {
+            <tr>
+                <td>
+                    <input id="RoomCount" name="RoomCount" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="RoomCount" name="RoomCount" value=" @item.RoomCount" readonly />
+                </td>
+                <td>
+                    <form action="/Building/Edit/@item.Id">
+                        <input type="submit" value="Изменить" />
+                    </form>
+                </td>
+                <td>
+                    <form action="/Building/Details/@item.Id">
+                        <input type="submit" value="Подробно" />
+                    </form>
+                </td>
+                <td>
+                    <form action="/Building/Delete/@item.Id">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

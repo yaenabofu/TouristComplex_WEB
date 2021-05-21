@@ -1,0 +1,25 @@
+﻿@model Information_System_MVC.Models.Building
+@{
+    ViewBag.Title = "Здания на территории";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Здания на территории -> Удаление записи</h3>
+    @using (Html.BeginForm("Edit", "Building", FormMethod.Get))
+    {
+        <fieldset>
+            @Html.LabelFor(x => x.Id, "Код здания")
+            <br /> <br />
+            <input id="RoomCount" name="RoomCount" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+            <br /> <br />
+            @Html.LabelFor(x => x.RoomCount, "Количество комнат")
+            <br /> <br />
+            <input id="RoomCount" name="RoomCount" value="@Model.RoomCount" />
+            @Html.ValidationMessageFor(model => model.RoomCount)
+            <br /> <br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

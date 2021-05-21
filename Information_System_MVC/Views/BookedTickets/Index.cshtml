@@ -1,9 +1,12 @@
 ﻿@{
+    ViewBag.Title = "Забронированные билеты";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-    <h6>Забронированные билеты</h6>
+    <h3>Забронированные билеты</h3>
+    <h3> -> </h3>
+    <h3>Просмотр всех записей</h3>
     <table>
         <tr>
             <td>Код записи</td>
@@ -12,7 +15,6 @@
             <td>Стоимость заказа</td>
             <td>Логин заказчика</td>
             <td>Заказ оплачен?</td>
-            <br />
         </tr>
         @foreach (var item in ViewBag.BookedTickets)
         {

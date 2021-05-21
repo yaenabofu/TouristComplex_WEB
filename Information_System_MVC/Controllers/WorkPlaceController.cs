@@ -46,7 +46,7 @@ namespace Information_System_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(WorkPlace workPlace)
+        public ActionResult Create([Bind(Include = "Id,PlaceId,BuildingId")] WorkPlace workPlace)
         {
             try
             {

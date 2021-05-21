@@ -13,6 +13,10 @@ namespace Information_System_MVC.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+        public ActionResult Contact()
+        {
             IEnumerable<Profession> professions = db.Professions;
 
             ViewBag.Professions = professions;

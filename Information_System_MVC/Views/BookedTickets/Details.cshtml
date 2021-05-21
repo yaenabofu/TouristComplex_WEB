@@ -1,0 +1,46 @@
+﻿@model Information_System_MVC.Models.BookedTicket
+@{
+    ViewBag.Title = "Забронированные билеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Забронированные билеты</h3>
+    <h3> -> </h3>
+    <h3>Просмотр записи № @Model.Id</h3>
+    @using (Html.BeginForm("Details", "BookedTickets", FormMethod.Get))
+    {
+        <fieldset>
+            <p>
+                Код мероприятия
+            </p>
+            <p>
+                <input id="eventCode" name="eventCode" value="" readonly />
+            </p>
+            <p>
+                Количество билетов
+            </p>
+            <p>
+                <input id="countOfTickets" name="countOfTickets" value="" readonly />
+            </p>
+            <p>
+                Стоимость заказа
+            </p>
+            <p>
+                <input id="cost" name="cost" value="" readonly />
+            </p>
+            <p>
+                Логин заказчика
+            </p>
+            <p>
+                <input id="login" name="login" value="" readonly />
+            </p>
+            <p>
+                Заказ оплачен?
+            </p>
+            <p>
+                <input id="isPaid" name="isPaid" value="" />
+            </p>
+        </fieldset>
+    }
+</div>

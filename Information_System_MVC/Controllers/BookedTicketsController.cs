@@ -12,7 +12,6 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
-        // GET: BookedTickets
         public ActionResult Index()
         {
             IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
@@ -22,7 +21,6 @@ namespace Information_System_MVC.Controllers
             return View();
         }
 
-        // GET: BookedTickets/Details/5
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -40,32 +38,6 @@ namespace Information_System_MVC.Controllers
 
             return HttpNotFound();
         }
-
-        // GET: BookedTickets/Create
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: BookedTickets/Create
-        [HttpPost]
-        public ActionResult Create(BookedTicket ticket)
-        {
-            try
-            {
-                db.BookedTickets.Add(ticket);
-                db.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BookedTickets/Edit/5
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -91,42 +63,6 @@ namespace Information_System_MVC.Controllers
             try
             {
                 db.Entry(ticket).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BookedTickets/Delete/5
-        [HttpGet]
-        public ActionResult Delete(int id)
-        {
-            BookedTicket ticket = db.BookedTickets.Find(id);
-
-            if (ticket == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(ticket);
-        }
-
-        // POST: BookedTickets/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                BookedTicket ticket = db.BookedTickets.Find(id);
-                if (ticket == null)
-                {
-                    return HttpNotFound();
-                }
-
-                db.BookedTickets.Remove(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

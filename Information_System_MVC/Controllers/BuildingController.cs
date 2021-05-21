@@ -46,18 +46,16 @@ namespace Information_System_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Building building)
+        public ActionResult Create([Bind(Include = "Id,RoomCount")] Building building)
         {
-            try
+            if (ModelState.IsValid)
             {
                 db.Buildings.Add(building);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View();
         }
 
         [HttpGet]
