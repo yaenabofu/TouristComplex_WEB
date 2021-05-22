@@ -45,7 +45,6 @@ namespace Information_System_MVC.Models
         //Связь с комнатой
         public Room Room { get; set; }
         [Display(Name = "Код номера")]
-        [Required]
         public int? RoomId { get; set; }
         //Связь с забронированными билетами
         public ICollection<BookedTicket> BookedTickets { get; set; }

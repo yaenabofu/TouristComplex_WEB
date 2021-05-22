@@ -25,8 +25,8 @@ namespace Information_System_MVC.Models
         public bool IsPaid { get; set; }
 
         //Связи
-        [Display(Name = "Код мероприятия")]
         [Required]
+        [Display(Name = "Код мероприятия")]
         public int? EventId { get; set; }
         public Event Event { get; set; }
         [Display(Name = "Код туриста")]

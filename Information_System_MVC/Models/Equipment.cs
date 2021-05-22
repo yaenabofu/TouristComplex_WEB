@@ -19,6 +19,7 @@ namespace Information_System_MVC.Models
         public int Quantity { get; set; }
 
         //Связь с профессией
+        [Required]
         [Display(Name = "Код профессии")]
         public int? ProfessionId { get; set; }
 
