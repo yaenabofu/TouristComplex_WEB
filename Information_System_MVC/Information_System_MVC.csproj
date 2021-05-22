@@ -131,6 +131,7 @@
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProfessionController.cs" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Login\Enter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
