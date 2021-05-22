@@ -39,27 +39,27 @@ namespace Information_System_MVC.Controllers
             return HttpNotFound();
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult Create(Order order)
-        {
-            try
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
+        //[HttpPost]
+        //public ActionResult Create(Order order)
+        //{
+        //    try
+        //    {
+        //        db.Orders.Add(order);
+        //        db.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         [HttpGet]
         public ActionResult Edit(int? id)
@@ -94,38 +94,38 @@ namespace Information_System_MVC.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult Delete(int id)
-        {
-            Order ticket = db.Orders.Find(id);
+        //[HttpGet]
+        //public ActionResult Delete(int id)
+        //{
+        //    Order ticket = db.Orders.Find(id);
 
-            if (ticket == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (ticket == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            return View(ticket);
-        }
+        //    return View(ticket);
+        //}
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                Order order = db.Orders.Find(id);
-                if (order == null)
-                {
-                    return HttpNotFound();
-                }
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    try
+        //    {
+        //        Order order = db.Orders.Find(id);
+        //        if (order == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
 
-                db.Orders.Remove(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        db.Orders.Remove(order);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

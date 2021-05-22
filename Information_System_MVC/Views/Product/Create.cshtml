@@ -1,0 +1,37 @@
+﻿@model Information_System_MVC.Models.Product
+@{
+    ViewBag.Title = "Товары";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Товары -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Название</p>
+            <input id="Name" name="Name" value="" />
+            @Html.ValidationMessageFor(model => model.Name)
+
+            <p>Цена</p>
+            <input id="Price" name="Price" value="" />
+            @Html.ValidationMessageFor(model => model.Price)
+
+            <p>Описание</p>
+            <textarea id="Description" name="Description"></textarea>
+            @*<input id="Description" name="Description" value="" />*@
+            @Html.ValidationMessageFor(model => model.Description)
+
+            <p>Вид</p>
+            <input id="Type" name="Type" value="" />
+            @Html.ValidationMessageFor(model => model.Type)
+
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" value="" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

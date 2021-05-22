@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Товары";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Товары -> Просмотр всех записей</h3>
+    <form action="/Product/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код записи</p></td>
+            <td><p>Название</p></td>
+            <td><p>Цена</p></td>
+            <td><p>Описание</p></td>
+            <td><p>Вид</p></td>
+            <td><p>Количество</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Products)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @item.Name" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @item.Price" readonly />
+                </td>
+                <td>
+                    <input id="Description" name="Description" value=" @item.Description" readonly />
+                </td>
+                <td>
+                    <input id="Type" name="Type" value=" @item.Type" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                </td>
+                <td>
+                    <a href="/Product/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+                <td>
+                    <a href="/Product/Details/@item.Id">
+                        Подробно
+                    </a>
+                </td>
+                <td>
+                    <a href="/Product/Delete/@item.Id">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

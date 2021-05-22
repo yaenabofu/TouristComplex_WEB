@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Товары";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Товары -> Просмотр всех записей</h3>
+    <form action="/Product/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код записи</p></td>
+            <td><p>Количество</p></td>
+            <td><p>Стоимость</p></td>
+            <td><p>Дата заказа</p></td>
+            <td><p>Оплачен?</p></td>
+            <td><p>Код туриста</p></td>
+            <td><p>Код товара</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Products)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @item.Price" readonly />
+                </td>
+                <td>
+                    <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
+                </td>
+                <td>
+                    <input id="IsDone" name="IsDone" value=" @item.IsDone" readonly />
+                </td>
+                <td>
+                    <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                </td>
+                <td>
+                    <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                </td>
+                <td>
+                    <a href="/Product/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

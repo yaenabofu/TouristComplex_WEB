@@ -4,50 +4,43 @@
 }
 
 <div>
-    <h3>Забронированные билеты</h3>
-    <h3> -> </h3>
-    <h3>Просмотр всех записей</h3>
+    <h3>Забронированные билеты -> Просмотр всех записей</h3>
     <table>
         <tr>
-            <td>Код записи</td>
-            <td>Код мероприятия</td>
-            <td>Количество билетов</td>
-            <td>Стоимость заказа</td>
-            <td>Логин заказчика</td>
-            <td>Заказ оплачен?</td>
+            <td><p>Код записи</p></td>
+            <td><p>Количество</p></td>
+            <td><p>Стоимость</p></td>
+            <td><p>Логин туриста</p></td>
+            <td><p>Оплачен?</p></td>
+            <td><p>Код мероприятия</p></td>
+            <td><p>Код туриста</p></td>
         </tr>
         @foreach (var item in ViewBag.BookedTickets)
         {
             <tr>
                 <td>
-                    <p>
-                        @item.Id
-                    </p>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
                 </td>
                 <td>
-                    <p>
-                        @item.EventId
-                    </p>
+                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
                 </td>
                 <td>
-                    <p>
-                        @item.Quantity
-                    </p>
+                    <input id="Cost" name="Cost" value=" @item.Cost" readonly />
                 </td>
                 <td>
-                    <p>
-                        @item.Cost
-                    </p>
+                    <input id="Login" name="Login" value=" @item.Login" readonly />
                 </td>
                 <td>
-                    <p>
-                        @item.Login
-                    </p>
+                    <input id="IsPaid" name="IsPaid" value=" @item.IsPaid" readonly />
                 </td>
                 <td>
-                    <p>
-                        @item.IsPaid
-                    </p>
+                    <input id="EventId" name="EventId" value=" @item.EventId" readonly />
+                </td>
+                <td>
+                    <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                </td>
+                <td>
+                    <a href="/BookedTickets/Edit/@item.Id">Изменить</a>
                 </td>
             </tr>
             <br />

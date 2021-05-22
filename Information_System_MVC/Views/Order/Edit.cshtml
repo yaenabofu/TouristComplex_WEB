@@ -1,0 +1,43 @@
+﻿@model Information_System_MVC.Models.Order
+@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Заказы -> Редактирование записи</h3>
+    @using (Html.BeginForm("Edit", "Order", FormMethod.Post))
+    {
+        <fieldset>
+            @Html.LabelFor(x => x.Id, "Код записи")
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+
+            @Html.LabelFor(x => x.Quantity, "Количество")
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            @Html.LabelFor(x => x.Cost, "Стоимость")
+            <input id="Cost" name="Cost" value="@Model.Cost" />
+            @Html.ValidationMessageFor(model => model.Cost)
+
+            @Html.LabelFor(x => x.TouristId, "Код туриста")
+            <input id="TouristId" name="TouristId" value="@Model.TouristId" />
+            @Html.ValidationMessageFor(model => model.TouristId)
+
+            @Html.LabelFor(x => x.DateOrder, "Дата заказа")
+            <input id="DateOrder" name="DateOrder" value="@Model.DateOrder" />
+            @Html.ValidationMessageFor(model => model.DateOrder)
+
+            @Html.LabelFor(x => x.IsDone, "Оплачен?")
+            <input id="IsPaid" name="IsPaid" value="@Model.IsDone" />
+            @Html.ValidationMessageFor(model => model.IsDone)
+
+            @Html.LabelFor(x => x.ProductId, "Код товара")
+            <input id="ProductId" name="ProductId" value="@Model.ProductId" />
+            @Html.ValidationMessageFor(model => model.ProductId)
+            <br /> <br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
+    }
+</div>

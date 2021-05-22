@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Мероприятия";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Мероприятия -> Просмотр всех записей</h3>
+    <form action="/Event/Create">
+        <input type="submit" value="Добавить запись" />
+    </form>
+
+    <table>
+        <tr>
+            <td><p>Код записи</p></td>
+            <td><p>Название</p></td>
+            <td><p>Цена</p></td>
+            <td><p>Описание</p></td>
+            <td><p>Дата проведения</p></td>
+            <td><p>Количество билетов</p></td>
+            <td><p>Код рабочего места</p></td>
+        </tr>
+        @foreach (var item in ViewBag.Equipments)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @item.Id" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @item.Name" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @item.Price" readonly />
+                </td>
+                <td>
+                    <input id="ProfessionsId" name="ProfessionId" value=" @item.ProfessionId" readonly />
+                </td>
+                <td>
+                    <input id="Description" name="Description" value=" @item.Description" readonly />
+                </td>
+                <td>
+                    <input id="Date" name="Date" value=" @item.Date" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                </td>
+                <td>
+                    <input id="WorkPlaceId" name="WorkPlaceId" value=" @item.WorkPlaceId" readonly />
+                </td>
+                <td>
+                    <a href="/Event/Edit/@item.Id">
+                        Изменить
+                    </a>
+                </td>
+                <td>
+                    <a href="/Event/Details/@item.Id">
+                        Подробно
+                    </a>
+                </td>
+                <td>
+                    <a href="/Event/Delete/@item.Id">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            <br />
+        }
+    </table>
+</div>
+

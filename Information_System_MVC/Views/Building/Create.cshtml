@@ -9,7 +9,6 @@
     @using (Html.BeginForm("Create", "Building", FormMethod.Post))
     {
         <fieldset>
-            <br /> <br />
             <label>Количество комнат</label>
             <input id="RoomCount" name="RoomCount" value="" />
             @Html.ValidationMessageFor(model => model.RoomCount)

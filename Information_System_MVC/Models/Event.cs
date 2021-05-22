@@ -24,11 +24,12 @@ namespace Information_System_MVC.Models
         [Display(Name = "Дата проведения")]
         public DateTime Date { get; set; }
         [Required]
-        [Display(Name = "Количество")]
+        [Display(Name = "Количество билетов")]
         public int Quantity { get; set; }
 
         //Связь с рабочим местом
         [Display(Name = "Код рабочего места")]
+        [Required]
         public int? WorkPlaceId { get; set; }
         public WorkPlace WorkPlace { get; set; }
         //Связь с забронированными билетами

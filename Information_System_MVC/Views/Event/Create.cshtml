@@ -1,0 +1,41 @@
+﻿@model Information_System_MVC.Models.Event
+@{
+    ViewBag.Title = "Мероприятия";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Мероприятия -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Event", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Название</p>
+            <input id="Name" name="Name" value="" />
+            @Html.ValidationMessageFor(model => model.Name)
+
+            <p>Цена</p>
+            <input id="Price" name="Price" value="" />
+            @Html.ValidationMessageFor(model => model.Price)
+
+            <p>Описание</p>
+            <textarea id="Description" name="Description"></textarea>
+            @*<input id="Description" name="Description" value="" />*@
+            @Html.ValidationMessageFor(model => model.Description)
+
+            <p>Дата проведения</p>
+            <input id="Date" name="Date" value="" />
+            @Html.ValidationMessageFor(model => model.Date)
+
+            <p>Количество билетов</p>
+            <input id="Quantity" name="Quantity" value="" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            <p>Код рабочего места</p>
+            <input id="WorkPlaceId" name="WorkPlaceId" value="" />
+            @Html.ValidationMessageFor(model => model.WorkPlaceId)
+
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

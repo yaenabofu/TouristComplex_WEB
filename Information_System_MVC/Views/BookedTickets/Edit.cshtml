@@ -1,0 +1,43 @@
+﻿@model Information_System_MVC.Models.BookedTicket
+@{
+    ViewBag.Title = "Забронированные билеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Забронированные билеты -> Редактирование записи</h3>
+    @using (Html.BeginForm("Edit", "BookedTickets", FormMethod.Post))
+    {
+        <fieldset>
+            @Html.LabelFor(x => x.Id, "Код записи")
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+
+            @Html.LabelFor(x => x.Quantity, "Количество")
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            @Html.LabelFor(x => x.Cost, "Стоимость")
+            <input id="Cost" name="Cost" value="@Model.Cost" />
+            @Html.ValidationMessageFor(model => model.Cost)
+
+            @Html.LabelFor(x => x.Login, "Логин туриста")
+            <input id="Login" name="Login" value="@Model.Login" />
+            @Html.ValidationMessageFor(model => model.Login)
+
+            @Html.LabelFor(x => x.IsPaid, "Оплачен?")
+            <input id="IsPaid" name="IsPaid" value="@Model.IsPaid" />
+            @Html.ValidationMessageFor(model => model.IsPaid)
+
+            @Html.LabelFor(x => x.EventId, "Код мероприятия")
+            <input id="EventId" name="EventId" value="@Model.EventId" />
+            @Html.ValidationMessageFor(model => model.EventId)
+
+            @Html.LabelFor(x => x.TouristId, "Код туриста")
+            <input id="TouristId" name="TouristId" value="@Model.TouristId" />
+            @Html.ValidationMessageFor(model => model.TouristId)
+            <br /> <br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
+    }
+</div>

@@ -21,16 +21,18 @@ namespace Information_System_MVC.Models
         [Display(Name = "Дата заказа")]
         public DateTime DateOrder { get; set; }
         [Required]
-        [Display(Name = "Выполнен?")]
+        [Display(Name = "Оплачен?")]
         public bool IsDone { get; set; }
 
         //Связь с туристом
         public Tourist Tourist { get; set; }
         [Display(Name = "Код туриста")]
+        [Required]
         public int? TouristId { get; set; }
         //Связь с товаром
         public Product Product { get; set; }
         [Display(Name = "Код товара")]
+        [Required]
         public int? ProductId { get; set; }
     }
 }

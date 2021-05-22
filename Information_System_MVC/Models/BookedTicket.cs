@@ -21,14 +21,16 @@ namespace Information_System_MVC.Models
         [Display(Name = "Логин туриста")]
         public string Login { get; set; }
         [Required]
-        [Display(Name = "Оплачено?")]
+        [Display(Name = "Оплачен?")]
         public bool IsPaid { get; set; }
 
         //Связи
         [Display(Name = "Код мероприятия")]
+        [Required]
         public int? EventId { get; set; }
         public Event Event { get; set; }
         [Display(Name = "Код туриста")]
+        [Required]
         public int? TouristId { get; set; }
         public Tourist Tourist { get; set; }
     }
