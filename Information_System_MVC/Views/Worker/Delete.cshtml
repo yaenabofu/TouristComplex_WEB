@@ -7,12 +7,9 @@
 <div>
     <h3>Работники -> Удаление записи</h3>
     <fieldset>
-        <p>Код работника</p>
+        <p>Логин</p>
         <input id="Id" name="Id" value="@Model.Id" />
         @Html.ValidationMessageFor(model => model.Name)
-        <p>Логин</p>
-        <input id="Login" name="Login" value="@Model.Login" readonly />
-        @Html.ValidationMessageFor(model => model.Login)
         <p>Пароль</p>
         <input id="Password" name="Password" value="@Model.Password" readonly />
         @Html.ValidationMessageFor(model => model.Password)
@@ -28,9 +25,9 @@
         <p>Дата рождения</p>
         <input id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" readonly />
         @Html.ValidationMessageFor(model => model.DateOfBirth)
-        <p>Телефонный номер</p>
-        <input id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" readonly />
-        @Html.ValidationMessageFor(model => model.PhoneNumber)
+        <p>Эл. почта</p>
+        <input id="Email" name="Email" value="@Model.Email" readonly />
+        @Html.ValidationMessageFor(model => model.Email)
         <p>Рабочие дни</p>
         <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" readonly />
         @Html.ValidationMessageFor(model => model.WorkDays)

@@ -18,9 +18,6 @@ namespace Information_System_MVC.Models
         [Display(Name = "Стоимость")]
         public double Cost { get; set; }
         [Required]
-        [Display(Name = "Логин туриста")]
-        public string Login { get; set; }
-        [Required]
         [Display(Name = "Оплачен?")]
         public bool IsPaid { get; set; }
 

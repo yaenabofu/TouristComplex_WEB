@@ -10,10 +10,9 @@
             <td><p>Код записи</p></td>
             <td><p>Количество</p></td>
             <td><p>Стоимость</p></td>
-            <td><p>Логин туриста</p></td>
             <td><p>Оплачен?</p></td>
             <td><p>Код мероприятия</p></td>
-            <td><p>Код туриста</p></td>
+            <td><p>Логин туриста</p></td>
         </tr>
         @foreach (var item in ViewBag.BookedTickets)
         {
@@ -26,9 +25,6 @@
                 </td>
                 <td>
                     <input id="Cost" name="Cost" value=" @item.Cost" readonly />
-                </td>
-                <td>
-                    <input id="Login" name="Login" value=" @item.Login" readonly />
                 </td>
                 <td>
                     <input id="IsPaid" name="IsPaid" value=" @item.IsPaid" readonly />

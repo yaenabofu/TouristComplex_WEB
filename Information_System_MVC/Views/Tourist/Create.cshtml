@@ -9,9 +9,6 @@
     @using (Html.BeginForm("Create", "Tourist", FormMethod.Post))
     {
         <fieldset>
-            <p>Логин</p>
-            <input id="Login" name="Login" value="" />
-            @Html.ValidationMessageFor(model => model.Login)
             <p>Пароль</p>
             <input id="Password" name="Password" value="" />
             @Html.ValidationMessageFor(model => model.Password)

@@ -11,7 +11,7 @@ namespace Information_System_MVC.Controllers
     public class BookedTicketsController : Controller
     {
         ISContext db = new ISContext();
-
+        [Authorize]
         public ActionResult Index()
         {
             IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
@@ -21,6 +21,7 @@ namespace Information_System_MVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -38,6 +39,7 @@ namespace Information_System_MVC.Controllers
 
             return HttpNotFound();
         }
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -56,6 +58,7 @@ namespace Information_System_MVC.Controllers
             return HttpNotFound();
         }
 
+        [Authorize]
         // POST: BookedTickets/Edit/5
         [HttpPost]
         public ActionResult Edit(BookedTicket ticket)

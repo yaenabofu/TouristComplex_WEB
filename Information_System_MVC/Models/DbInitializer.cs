@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Web;
 
 namespace Information_System_MVC.Models
 {
-    public class DbInitializer : DropCreateDatabaseAlways<ISContext>
+    public class DbInitializer : CreateDatabaseIfNotExists<ISContext>
     {
         protected override void Seed(ISContext db)
         {

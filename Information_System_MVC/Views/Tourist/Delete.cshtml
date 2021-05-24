@@ -7,12 +7,9 @@
 <div>
     <h3>Туристы -> Удаление записи</h3>
     <fieldset>
-        <p>Код туриста</p>
+        <p>Логин</p>
         <input id="Id" name="Id" value="@Model.Id" readonly />
         @Html.ValidationMessageFor(model => model.Id)
-        <p>Логин</p>
-        <input id="Login" name="Login" value="@Model.Login" readonly />
-        @Html.ValidationMessageFor(model => model.Login)
         <p>Пароль</p>
         <input id="Password" name="Password" value="@Model.Password" readonly />
         @Html.ValidationMessageFor(model => model.Password)

@@ -11,9 +11,6 @@ namespace Information_System_MVC.Models
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Логин")]
-        public string Login { get; set; }
         [Display(Name = "Пароль")]
         [Required]
         public string Password { get; set; }
@@ -30,8 +27,8 @@ namespace Information_System_MVC.Models
         [Display(Name = "Дата рождения")]
         public DateTime DateOfBirth { get; set; }
         [Required]
-        [Display(Name = "Телефон")]
-        public string PhoneNumber { get; set; }
+        [Display(Name = "Эл. почта")]
+        public string Email { get; set; }
         [Required]
         [Display(Name = "Рабочие дни")]
         public string WorkDays { get; set; }

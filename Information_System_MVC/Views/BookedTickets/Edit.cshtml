@@ -21,10 +21,6 @@
             <input id="Cost" name="Cost" value="@Model.Cost" />
             @Html.ValidationMessageFor(model => model.Cost)
 
-            @Html.LabelFor(x => x.Login, "Логин туриста")
-            <input id="Login" name="Login" value="@Model.Login" />
-            @Html.ValidationMessageFor(model => model.Login)
-
             @Html.LabelFor(x => x.IsPaid, "Оплачен?")
             <input id="IsPaid" name="IsPaid" value="@Model.IsPaid" />
             @Html.ValidationMessageFor(model => model.IsPaid)
@@ -33,7 +29,7 @@
             <input id="EventId" name="EventId" value="@Model.EventId" />
             @Html.ValidationMessageFor(model => model.EventId)
 
-            @Html.LabelFor(x => x.TouristId, "Код туриста")
+            @Html.LabelFor(x => x.TouristId, "Логин туриста")
             <input id="TouristId" name="TouristId" value="@Model.TouristId" />
             @Html.ValidationMessageFor(model => model.TouristId)
             <br /> <br />

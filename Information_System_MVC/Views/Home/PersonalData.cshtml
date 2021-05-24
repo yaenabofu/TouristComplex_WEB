@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Личный кабинет</h3>
+    <fieldset>
+        <h3>Вы вошли как @Model.Surname @Model.Name @Model.Thirdname</h3>
+        <p>Логин</p>
+        <input id="Id" name="Id" value="@Model.Id" />
+        <p>Пароль</p>
+        <input id="Password" name="Password" value="@Model.Password" readonly />
+        <p>Эл. почта</p>
+        <input id="Email" name="Email" value="@Model.Email" readonly />
+        <br /><br />
+
+        @using (Html.BeginForm("Exit", "Logout", FormMethod.Post))
+        {
+            <input type="submit" value="Выйти из аккаунта" />
+        }
+    </fieldset>
+
+</div>

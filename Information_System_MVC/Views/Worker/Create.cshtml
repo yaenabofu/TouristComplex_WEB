@@ -9,9 +9,6 @@
     @using (Html.BeginForm("Create", "Worker", FormMethod.Post))
     {
         <fieldset>
-            <p>Логин</p>
-            <input id="Login" name="Login" value="" />
-            @Html.ValidationMessageFor(model => model.Login)
             <p>Пароль</p>
             <input id="Password" name="Password" value="" />
             @Html.ValidationMessageFor(model => model.Password)
@@ -27,9 +24,9 @@
             <p>Дата рождения</p>
             <input id="DateOfBirth" name="DateOfBirth" value="" />
             @Html.ValidationMessageFor(model => model.DateOfBirth)
-            <p>Телефонный номер</p>
-            <input id="PhoneNumber" name="PhoneNumber" value="" />
-            @Html.ValidationMessageFor(model => model.PhoneNumber)
+            <p>Эл. почта</p>
+            <input id="Email" name="Email" value="" />
+            @Html.ValidationMessageFor(model => model.Email)
             <p>Рабочие дни</p>
             <input id="WorkDays" name="WorkDays" value="" />
             @Html.ValidationMessageFor(model => model.WorkDays)

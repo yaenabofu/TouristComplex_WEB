@@ -1,103 +1,46 @@
-﻿@{
+﻿@model Information_System_MVC.Models.User
+
+@{
     Layout = null;
 }
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial;
-        }
-
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-            /* Style the buttons inside the tab */
-            .tab button {
-                background-color: inherit;
-                float: left;
-                border: none;
-                outline: none;
-                cursor: pointer;
-                padding: 14px 16px;
-                transition: 0.3s;
-                font-size: 17px;
-            }
-
-                /* Change background color of buttons on hover */
-                .tab button:hover {
-                    background-color: #ddd;
-                }
-
-                /* Create an active/current tablink class */
-                .tab button.active {
-                    background-color: #ccc;
-                }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="/Content/Site.css" />
 </head>
 <body>
-    <h1>Вход в систему</h1>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Турист')">Турист</button>
-        <button class="tablinks" onclick="openCity(event, 'Работник')">Работник</button>
-    </div>
-
-    <div id="Турист" class="tabcontent" style="display:block">
-
-        <fieldset>
-            <p>Логин</p>
-            <input id="Name" name="Name" value="" />
-
-            <p>Пароль</p>
-            <input id="Price" name="Price" value="" />
-
-            <br /><br />
-            <input type="submit" value="Войти как турист" />
-        </fieldset>
-
-    </div>
-
-    <div id="Работник" class="tabcontent">
-        <fieldset>
-            <p>Логин</p>
-            <input id="Name" name="Name" value="" />
-
-            <p>Пароль</p>
-            <input id="Price" name="Price" value="" />
-
-            <br /><br />
-            <input type="submit" value="Войти как работник" />
-        </fieldset>
-    </div>
-    <script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-    </script>
-
+        <div class="form-horizontal">
+            <h2>Вход в аккаунт</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Логин</label>
+                <div class="col-md-10">
+                    <input id="Login" name="Login" value="" />
+                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Пароль</label>
+                <div class="col-md-10">
+                    <input id="Password" name="Password" value="" />
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Войти" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
 </body>
 </html>
