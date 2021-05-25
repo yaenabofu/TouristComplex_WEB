@@ -5,9 +5,15 @@
 
 <div>
     <h3>Здания на территории -> Просмотр всех записей</h3>
-    <form action="/Building/Create">
-        <input type="submit" value="Добавить запись" />
-    </form>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+        {
+            <form action="/Building/Create">
+                <input type="submit" value="Добавить запись" />
+            </form>
+        }
+    }
+
 
     <table>
         <tr>
@@ -23,15 +29,27 @@
                 <td>
                     <input id="RoomCount" name="RoomCount" value=" @item.RoomCount" readonly />
                 </td>
-                <td>
-                    <a href="/Building/Edit/@item.Id">Изменить</a>
-                </td>
+                @{
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                    {
+
+                        <td>
+                            <a href="/Building/Edit/@item.Id">Изменить</a>
+                        </td>
+                    }
+                }
                 <td>
                     <a href="/Building/Details/@item.Id">Подробно</a>
                 </td>
-                <td>
-                    <a href="/Building/Delete/@item.Id">Удалить</a>
-                </td>
+                @{
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                    {
+
+                        <td>
+                            <a href="/Building/Delete/@item.Id">Удалить</a>
+                        </td>
+                    }
+                }
             </tr>
             <br />
         }

@@ -5,9 +5,14 @@
 
 <div>
     <h3>Профессии -> Просмотр всех записей</h3>
-    <form action="/Profession/Create">
-        <input type="submit" value="Добавить запись" />
-    </form>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+        {
+            <form action="/Profession/Create">
+                <input type="submit" value="Добавить запись" />
+            </form>
+        }
+    }
 
     <table>
         <tr>
@@ -27,16 +32,21 @@
                 <td>
                     <input id="Power" name="Power" value=" @item.Power" readonly />
                 </td>
-                <td>
-                    <a href="/Profession/Edit/@item.Id">
-                        Изменить
-                    </a>
-                </td>
-                <td>
-                    <a href="/Profession/Delete/@item.Id">
-                        Удалить
-                    </a>
-                </td>
+                @{
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                    {
+                        <td>
+                            <a href="/Profession/Edit/@item.Id">
+                                Изменить
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/Profession/Delete/@item.Id">
+                                Удалить
+                            </a>
+                        </td>
+                    }
+                }
             </tr>
             <br />
         }
