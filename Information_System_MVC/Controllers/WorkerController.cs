@@ -11,120 +11,169 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Worker> workers = db.Workers;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            {
+                IEnumerable<Worker> workers = db.Workers;
 
-            ViewBag.Workers = workers;
+                ViewBag.Workers = workers;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Worker worker = db.Workers.Find(id);
+
+                if (worker != null)
+                {
+                    return View(worker);
+                }
+
                 return HttpNotFound();
             }
-
-            Worker worker = db.Workers.Find(id);
-
-            if (worker != null)
-            {
-                return View(worker);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Worker worker)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.Workers.Add(worker);
-                db.SaveChanges();
+                try
+                {
+                    db.Workers.Add(worker);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Worker worker = db.Workers.Find(id);
+
+                if (worker != null)
+                {
+                    return View(worker);
+                }
+
                 return HttpNotFound();
             }
-
-            Worker worker = db.Workers.Find(id);
-
-            if (worker != null)
+            else
             {
-                return View(worker);
+                return Redirect("/Home/Index");
             }
-
-            return HttpNotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Worker worker)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.Entry(worker).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(worker).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Worker worker = db.Workers.Find(id);
-
-            if (worker == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(worker);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
                 Worker worker = db.Workers.Find(id);
+
                 if (worker == null)
                 {
                     return HttpNotFound();
                 }
 
-                db.Workers.Remove(worker);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(worker);
             }
-            catch
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                return View();
+                try
+                {
+                    Worker worker = db.Workers.Find(id);
+                    if (worker == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Workers.Remove(worker);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

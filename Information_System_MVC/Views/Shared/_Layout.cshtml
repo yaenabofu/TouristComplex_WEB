@@ -125,57 +125,125 @@
                     <a href="">Поиск</a>
                 </div>
             }
-            if ((Object)System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.Worker)
+            if ((Object)System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
             {
-                <div class="navbar">
-                    <div class="dropdown">
-                        <button class="dropbtn">
-                            Территория комплекса
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="/Building/Index">Здания на территории</a>
-                            <a href="/Room/Index">Комнаты</a>
+                if (((Object)System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                {
+                    <div class="navbar">
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Территория комплекса
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Building/Index">Здания на территории</a>
+                                <a href="/Room/Index">Комнаты</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">
-                            Работники
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="/Worker/Index">Список всех работников</a>
-                            <a href="/WorkPlace/Index">Рабочие места</a>
-                            <a href="/Profession/Index">Профессии</a>
-                            <a href="/Equipment/Index">Оборудование</a>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Работники
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Worker/Index">Список всех работников</a>
+                                <a href="/WorkPlace/Index">Рабочие места</a>
+                                <a href="/Profession/Index">Профессии</a>
+                                <a href="/Equipment/Index">Оборудование</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">
-                            Туристы
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="/Tourist/Index">Список всех туристов</a>
-                            <a href="/Order/Index">Заказы</a>
-                            <a href="/BookedTickets/Index">Бронирование билетов</a>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Туристы
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Tourist/Index">Список всех туристов</a>
+                                <a href="/Order/Index">Заказы</a>
+                                <a href="/BookedTickets/Index">Бронирование билетов</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">
-                            Магазин
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="/Product/Index">Продукты</a>
-                            <a href="/Event/Index">Мероприятия</a>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Магазин
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Product/Index">Продукты</a>
+                                <a href="/Event/Index">Мероприятия</a>
+                            </div>
                         </div>
+                        <a href="#home">Поиск</a>
+                        <a href="">Тестирование</a>
+                        <a href="/Home/PersonalData/">Личный кабинет</a>
                     </div>
-                    <a href="#home">Поиск</a>
-                    <a href="">Тестирование</a>
-                    <a href="/Home/PersonalData/">Личный кабинет</a>
-                </div>
-
+                }
+                if (((Object)System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+                {
+                    <div class="navbar">
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Территория комплекса
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Building/Index">Здания на территории</a>
+                                <a href="/Room/Index">Комнаты</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Туристы
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Tourist/Index">Список всех туристов</a>
+                                <a href="/Order/Index">Заказы</a>
+                                <a href="/BookedTickets/Index">Бронирование билетов</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Магазин
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Product/Index">Продукты</a>
+                                <a href="/Event/Index">Мероприятия</a>
+                            </div>
+                        </div>
+                        <a href="#home">Поиск</a>
+                        <a href="/Home/PersonalData/">Личный кабинет</a>
+                    </div>
+                }
+                if (((Object)System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 0)
+                {
+                    <div class="navbar">
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Территория комплекса
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Building/Index">Здания на территории</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Работники
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="/Worker/Index">Список всех работников</a>
+                                <a href="/WorkPlace/Index">Рабочие места</a>
+                                <a href="/Profession/Index">Профессии</a>
+                                <a href="/Equipment/Index">Оборудование</a>
+                            </div>
+                        </div>
+                        <a href="#home">Поиск</a>
+                        <a href="/Home/PersonalData/">Личный кабинет</a>
+                    </div>
+                }
             }
         }
     </div>

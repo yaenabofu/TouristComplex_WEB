@@ -11,6 +11,8 @@ namespace Information_System_MVC.Controllers
     public class LogoutController : Controller
     {
         ISContext db = new ISContext();
+        
+        [Authorize]
         [HttpGet]
         public ActionResult Index(int id)
         {
@@ -18,6 +20,8 @@ namespace Information_System_MVC.Controllers
 
             return View(worker);
         }
+
+        [Authorize]
         public ActionResult Exit()
         {
             FormsAuthentication.SignOut();

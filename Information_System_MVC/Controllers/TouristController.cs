@@ -12,120 +12,176 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Tourist> tourist = db.Tourists;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            {
+                IEnumerable<Tourist> tourist = db.Tourists;
 
-            ViewBag.Tourists = tourist;
+                ViewBag.Tourists = tourist;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Tourist tourist = db.Tourists.Find(id);
+
+                if (tourist != null)
+                {
+                    return View(tourist);
+                }
+
                 return HttpNotFound();
             }
-
-            Tourist tourist = db.Tourists.Find(id);
-
-            if (tourist != null)
-            {
-                return View(tourist);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Tourist tourist)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                 || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Tourists.Add(tourist);
-                db.SaveChanges();
+                try
+                {
+                    db.Tourists.Add(tourist);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Tourist tourist = db.Tourists.Find(id);
+
+                if (tourist != null)
+                {
+                    return View(tourist);
+                }
+
                 return HttpNotFound();
             }
-
-            Tourist tourist = db.Tourists.Find(id);
-
-            if (tourist != null)
-            {
-                return View(tourist);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Tourist tourist)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Entry(tourist).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(tourist).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Tourist tourist = db.Tourists.Find(id);
-
-            if (tourist == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(tourist);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
                 Tourist tourist = db.Tourists.Find(id);
+
                 if (tourist == null)
                 {
                     return HttpNotFound();
                 }
 
-                db.Tourists.Remove(tourist);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(tourist);
             }
-            catch
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                return View();
+                try
+                {
+                    Tourist tourist = db.Tourists.Find(id);
+                    if (tourist == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Tourists.Remove(tourist);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

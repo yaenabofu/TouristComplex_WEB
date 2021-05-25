@@ -215,6 +215,7 @@
     </Compile>
     <Compile Include="Models\BookedTicket.cs" />
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\ConnectedWorker.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\Event.cs" />

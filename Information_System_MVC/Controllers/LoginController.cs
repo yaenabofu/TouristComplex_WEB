@@ -11,6 +11,7 @@ namespace Information_System_MVC.Controllers
     public class LoginController : Controller
     {
         ISContext db = new ISContext();
+
         public ActionResult Enter()
         {
             return View();
@@ -28,6 +29,24 @@ namespace Information_System_MVC.Controllers
             if (IsWorker(user))
             {
                 obj = db.Workers.Find(user.Login);
+                Profession prof = db.Professions.Find((obj as Worker).ProfessionId);
+
+                ConnectedWorker conWorker = new ConnectedWorker
+                {
+                    Id = (obj as Worker).Id,
+                    DateOfBirth = (obj as Worker).DateOfBirth,
+                    Email = (obj as Worker).Email,
+                    Name = (obj as Worker).Name,
+                    Password = (obj as Worker).Password,
+                    ProfessionId = (obj as Worker).ProfessionId,
+                    Surname = (obj as Worker).Surname,
+                    Thirdname = (obj as Worker).Thirdname,
+                    WorkDays = (obj as Worker).WorkDays,
+                    WorkPlaceId = (obj as Worker).WorkPlaceId,
+                    Power = prof.Power
+                };
+
+                obj = conWorker;
             }
 
             if (obj != null)
@@ -41,6 +60,7 @@ namespace Information_System_MVC.Controllers
 
             return View("Не удалось войти в систему");
         }
+
         private bool IsTourist(User user)
         {
             Tourist temp = db.Tourists.Find(user.Login);

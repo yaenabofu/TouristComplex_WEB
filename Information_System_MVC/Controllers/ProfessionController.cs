@@ -12,120 +12,170 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Profession> professions = db.Professions;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            {
+                IEnumerable<Profession> professions = db.Professions;
 
-            ViewBag.Professions = professions;
+                ViewBag.Professions = professions;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Profession profession = db.Professions.Find(id);
+
+                if (profession != null)
+                {
+                    return View(profession);
+                }
+
                 return HttpNotFound();
             }
-
-            Profession profession = db.Professions.Find(id);
-
-            if (profession != null)
-            {
-                return View(profession);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                return View();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Profession profession)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.Professions.Add(profession);
-                db.SaveChanges();
+                try
+                {
+                    db.Professions.Add(profession);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Profession profession = db.Professions.Find(id);
+
+                if (profession != null)
+                {
+                    return View(profession);
+                }
+
                 return HttpNotFound();
             }
-
-            Profession profession = db.Professions.Find(id);
-
-            if (profession != null)
-            {
-                return View(profession);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Profession profession)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.Entry(profession).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(profession).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Profession profession = db.Professions.Find(id);
-
-            if (profession == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                return HttpNotFound();
-            }
 
-            return View(profession);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
                 Profession profession = db.Professions.Find(id);
+
                 if (profession == null)
                 {
                     return HttpNotFound();
                 }
 
-                db.Professions.Remove(profession);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(profession);
             }
-            catch
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                return View();
+                try
+                {
+                    Profession profession = db.Professions.Find(id);
+                    if (profession == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Professions.Remove(profession);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

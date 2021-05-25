@@ -14,65 +14,93 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            {
 
-            ViewBag.BookedTickets = bookedTickets;
+                IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
 
-            return View();
+                ViewBag.BookedTickets = bookedTickets;
+
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                  || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                BookedTicket ticket = db.BookedTickets.Find(id);
+
+                if (ticket != null)
+                {
+                    return View(ticket);
+                }
+
                 return HttpNotFound();
             }
-
-            BookedTicket ticket = db.BookedTickets.Find(id);
-
-            if (ticket != null)
-            {
-                return View(ticket);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
         [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                  || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                BookedTicket ticket = db.BookedTickets.Find(id);
+
+                if (ticket != null)
+                {
+                    return View(ticket);
+                }
+
                 return HttpNotFound();
             }
-
-            BookedTicket ticket = db.BookedTickets.Find(id);
-
-            if (ticket != null)
-            {
-                return View(ticket);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
         [Authorize]
-        // POST: BookedTickets/Edit/5
         [HttpPost]
         public ActionResult Edit(BookedTicket ticket)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                 || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                 (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Entry(ticket).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(ticket).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

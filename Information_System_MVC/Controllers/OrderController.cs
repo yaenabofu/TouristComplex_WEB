@@ -12,31 +12,49 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Order> orders = db.Orders;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            {
+                IEnumerable<Order> orders = db.Orders;
 
-            ViewBag.Orders = orders;
+                ViewBag.Orders = orders;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Order order = db.Orders.Find(id);
+
+                if (order != null)
+                {
+                    return View(order);
+                }
+
                 return HttpNotFound();
             }
-
-            Order order = db.Orders.Find(id);
-
-            if (order != null)
-            {
-                return View(order);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
         //[HttpGet]
@@ -61,37 +79,55 @@ namespace Information_System_MVC.Controllers
         //    }
         //}
 
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Order order = db.Orders.Find(id);
+
+                if (order != null)
+                {
+                    return View(order);
+                }
+
                 return HttpNotFound();
             }
-
-            Order order = db.Orders.Find(id);
-
-            if (order != null)
-            {
-                return View(order);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Order order)
         {
-            try
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
         //[HttpGet]

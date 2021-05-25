@@ -11,116 +11,179 @@ namespace Information_System_MVC.Controllers
     public class EventController : Controller
     {
         ISContext db = new ISContext();
+
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Event> events = db.Events;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                 || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                 (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            {
+                IEnumerable<Event> events = db.Events;
 
-            ViewBag.Events = events;
+                ViewBag.Events = events;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
+
+
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                 || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
+                 (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Event event1 = db.Events.Find(id);
+
+                if (event1 != null)
+                {
+                    return View(event1);
+                }
+
                 return HttpNotFound();
             }
-
-            Event event1 = db.Events.Find(id);
-
-            if (event1 != null)
-            {
-                return View(event1);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                 (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+                return View();
+            else
+                return Redirect("/Home/Index");
         }
 
         [HttpPost]
         public ActionResult Create(Event event1)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Events.Add(event1);
-                db.SaveChanges();
+                try
+                {
+                    db.Events.Add(event1);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Event event1 = db.Events.Find(id);
+
+                if (event1 != null)
+                {
+                    return View(event1);
+                }
+
                 return HttpNotFound();
             }
-
-            Event event1 = db.Events.Find(id);
-
-            if (event1 != null)
-            {
-                return View(event1);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Event event1)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                db.Entry(event1).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                try
+                {
+                    db.Entry(event1).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Event event1 = db.Events.Find(id);
 
-            if (event1 == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                return HttpNotFound();
-            }
 
-            return View(event1);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteConfirmed(int id, FormCollection collection)
-        {
-            try
-            {
                 Event event1 = db.Events.Find(id);
+
                 if (event1 == null)
                 {
                     return HttpNotFound();
                 }
 
-                db.Events.Remove(event1);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(event1);
             }
-            catch
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteConfirmed(int id, FormCollection collection)
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
             {
-                return View();
+
+                try
+                {
+                    Event event1 = db.Events.Find(id);
+                    if (event1 == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.Events.Remove(event1);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

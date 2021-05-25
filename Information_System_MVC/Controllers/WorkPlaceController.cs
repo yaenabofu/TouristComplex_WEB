@@ -12,120 +12,171 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+
+        [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<WorkPlace> workPlaces = db.WorkPlaces;
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            {
+                IEnumerable<WorkPlace> workPlaces = db.WorkPlaces;
 
-            ViewBag.WorkPlaces = workPlaces;
+                ViewBag.WorkPlaces = workPlaces;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
+
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                WorkPlace workPlace = db.WorkPlaces.Find(id);
+
+                if (workPlace != null)
+                {
+                    return View(workPlace);
+                }
+
                 return HttpNotFound();
             }
-
-            WorkPlace workPlace = db.WorkPlaces.Find(id);
-
-            if (workPlace != null)
-            {
-                return View(workPlace);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
 
+
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                return View();
+            else
+                return Redirect("/Home/Index");
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult Create([Bind(Include = "Id,PlaceId,BuildingId")] WorkPlace workPlace)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.WorkPlaces.Add(workPlace);
-                db.SaveChanges();
+                try
+                {
+                    db.WorkPlaces.Add(workPlace);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
+                if (id == null)
+                {
+                    return HttpNotFound();
+                }
+
+                WorkPlace workPlace = db.WorkPlaces.Find(id);
+
+                if (workPlace != null)
+                {
+                    return View(workPlace);
+                }
+
                 return HttpNotFound();
             }
-
-            WorkPlace workPlace = db.WorkPlaces.Find(id);
-
-            if (workPlace != null)
-            {
-                return View(workPlace);
-            }
-
-            return HttpNotFound();
+            else
+                return Redirect("/Home/Index");
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(WorkPlace workPlace)
         {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                db.Entry(workPlace).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(workPlace).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            WorkPlace workPlace = db.WorkPlaces.Find(id);
-
-            if (workPlace == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(workPlace);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
                 WorkPlace workPlace = db.WorkPlaces.Find(id);
+
                 if (workPlace == null)
                 {
                     return HttpNotFound();
                 }
 
-                db.WorkPlaces.Remove(workPlace);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(workPlace);
             }
-            catch
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
             {
-                return View();
+                try
+                {
+                    WorkPlace workPlace = db.WorkPlaces.Find(id);
+                    if (workPlace == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    db.WorkPlaces.Remove(workPlace);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            else
+                return Redirect("/Home/Index");
         }
     }
 }

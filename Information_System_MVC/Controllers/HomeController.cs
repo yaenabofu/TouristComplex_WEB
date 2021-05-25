@@ -22,7 +22,7 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult PersonalData()
         {
-            Object obj = ((Object)System.Web.HttpContext.Current.Session["CurrentUser"]);
+            object obj = System.Web.HttpContext.Current.Session["CurrentUser"];
 
             return View(obj);
         }

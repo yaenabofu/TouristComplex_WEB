@@ -14,7 +14,6 @@
         <p>Эл. почта</p>
         <input id="Email" name="Email" value="@Model.Email" readonly />
         <br /><br />
-
         @using (Html.BeginForm("Exit", "Logout", FormMethod.Post))
         {
             <input type="submit" value="Выйти из аккаунта" />
