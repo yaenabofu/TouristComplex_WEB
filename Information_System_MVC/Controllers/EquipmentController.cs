@@ -12,50 +12,63 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                IEnumerable<Equipment> equipments = db.Equipments;
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+                {
+                    IEnumerable<Equipment> equipments = db.Equipments;
 
-                ViewBag.Equipments = equipments;
+                    ViewBag.Equipments = equipments;
 
-                return View();
+                    return View();
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
         }
-
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                   || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                   || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Equipment equipment = db.Equipments.Find(id);
+
+                    if (equipment != null)
+                    {
+                        return View(equipment);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Equipment equipment = db.Equipments.Find(id);
-
-                if (equipment != null)
-                {
-                    return View(equipment);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
         }
-
         [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-                return View();
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
             else
                 return Redirect("/Home/Index");
         }
@@ -64,19 +77,24 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Create(Equipment equipment)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    db.Equipments.Add(equipment);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.Equipments.Add(equipment);
+                        db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -86,21 +104,26 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Equipment equipment = db.Equipments.Find(id);
+
+                    if (equipment != null)
+                    {
+                        return View(equipment);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Equipment equipment = db.Equipments.Find(id);
-
-                if (equipment != null)
-                {
-                    return View(equipment);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -110,18 +133,23 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Equipment equipment)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    db.Entry(equipment).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(equipment).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -131,44 +159,53 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                Equipment equipment = db.Equipments.Find(id);
-
-                if (equipment == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(equipment);
-            }
-            else
-                return Redirect("/Home/Index");
-        }
-
-        [Authorize]
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-            {
-
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
                     Equipment equipment = db.Equipments.Find(id);
+
                     if (equipment == null)
                     {
                         return HttpNotFound();
                     }
 
-                    db.Equipments.Remove(equipment);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return View(equipment);
                 }
-                catch
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    return View();
+
+                    try
+                    {
+                        Equipment equipment = db.Equipments.Find(id);
+                        if (equipment == null)
+                        {
+                            return HttpNotFound();
+                        }
+
+                        db.Equipments.Remove(equipment);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");

@@ -5,9 +5,17 @@
 
 <div>
     <h3>Товары -> Просмотр всех записей</h3>
-    <form action="/Product/Create">
-        <input type="submit" value="Добавить запись" />
-    </form>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+            {
+                <form action="/Product/Create">
+                    <input type="submit" value="Добавить запись" />
+                </form>
+            }
+        }
+    }
 
     <table>
         <tr>
@@ -39,21 +47,37 @@
                 <td>
                     <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
                 </td>
-                <td>
-                    <a href="/Product/Edit/@item.Id">
-                        Изменить
-                    </a>
-                </td>
+                @{
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+                    {
+                        if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                        {
+                            <td>
+                                <a href="/Product/Edit/@item.Id">
+                                    Изменить
+                                </a>
+                            </td>
+                        }
+                    }
+                }
                 <td>
                     <a href="/Product/Details/@item.Id">
                         Подробно
                     </a>
                 </td>
-                <td>
-                    <a href="/Product/Delete/@item.Id">
-                        Удалить
-                    </a>
-                </td>
+                @{
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+                    {
+                        if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                        {
+                            <td>
+                                <a href="/Product/Delete/@item.Id">
+                                    Удалить
+                                </a>
+                            </td>
+                        }
+                    }
+                }
             </tr>
             <br />
         }

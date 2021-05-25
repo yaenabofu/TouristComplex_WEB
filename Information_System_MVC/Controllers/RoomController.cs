@@ -15,14 +15,19 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                IEnumerable<Room> rooms = db.Rooms;
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+                {
+                    IEnumerable<Room> rooms = db.Rooms;
 
-                ViewBag.Rooms = rooms;
+                    ViewBag.Rooms = rooms;
 
-                return View();
+                    return View();
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -32,22 +37,27 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Room room = db.Rooms.Find(id);
+
+                    if (room != null)
+                    {
+                        return View(room);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Room room = db.Rooms.Find(id);
-
-                if (room != null)
-                {
-                    return View(room);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -57,8 +67,13 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-                return View();
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
             else
                 return Redirect("/Home/Index");
         }
@@ -67,39 +82,54 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Create(Room room)
         {
-            try
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                db.Rooms.Add(room);
-                db.SaveChanges();
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    try
+                    {
+                        db.Rooms.Add(room);
+                        db.SaveChanges();
 
-                return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
+                else
+                    return Redirect("/Home/Index");
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Redirect("/Home/Index");
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Room room = db.Rooms.Find(id);
+
+                    if (room != null)
+                    {
+                        return View(room);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Room room = db.Rooms.Find(id);
-
-                if (room != null)
-                {
-                    return View(room);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -109,67 +139,80 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Room room)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    db.Entry(room).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(room).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
         }
-
         [Authorize]
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                Room room = db.Rooms.Find(id);
-
-                if (room == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(room);
-            }
-            else
-                return Redirect("/Home/Index");
-        }
-
-        [Authorize]
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
-            {
-                try
                 {
                     Room room = db.Rooms.Find(id);
+
                     if (room == null)
                     {
                         return HttpNotFound();
                     }
 
-                    db.Rooms.Remove(room);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return View(room);
                 }
-                catch
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
+              || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    return View();
+                    try
+                    {
+                        Room room = db.Rooms.Find(id);
+                        if (room == null)
+                        {
+                            return HttpNotFound();
+                        }
+
+                        db.Rooms.Remove(room);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");

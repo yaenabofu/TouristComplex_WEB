@@ -14,93 +14,95 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
-
-                ViewBag.BookedTickets = bookedTickets;
-
-                return View();
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+                {
+                    return Redirect("/Home/Index");
+                }
             }
-            else
-                return Redirect("/Home/Index");
+
+            IEnumerable<BookedTicket> bookedTickets = db.BookedTickets;
+
+            ViewBag.BookedTickets = bookedTickets;
+
+            return View();
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                  || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
+            }
 
-                BookedTicket ticket = db.BookedTickets.Find(id);
-
-                if (ticket != null)
-                {
-                    return View(ticket);
-                }
-
+            if (id == null)
+            {
                 return HttpNotFound();
             }
-            else
-                return Redirect("/Home/Index");
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+
+            return HttpNotFound();
         }
         [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                  || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
+            }
 
-                BookedTicket ticket = db.BookedTickets.Find(id);
-
-                if (ticket != null)
-                {
-                    return View(ticket);
-                }
-
+            if (id == null)
+            {
                 return HttpNotFound();
             }
-            else
-                return Redirect("/Home/Index");
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+
+            return HttpNotFound();
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult Edit(BookedTicket ticket)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
-                 || (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-                 (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    db.Entry(ticket).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
+                    return Redirect("/Home/Index");
                 }
             }
-            else
-                return Redirect("/Home/Index");
+            try
+            {
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

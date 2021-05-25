@@ -15,66 +15,23 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            IEnumerable<Building> buildings = db.Buildings;
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                IEnumerable<Building> buildings = db.Buildings;
 
-            ViewBag.Buildings = buildings;
+                ViewBag.Buildings = buildings;
 
-            return View();
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
+
         }
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-
-            Building building = db.Buildings.Find(id);
-
-            if (building != null)
-            {
-                return View(building);
-            }
-
-            return HttpNotFound();
-        }
-
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult Create()
-        {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-                return View();
-            else
-                return Redirect("/Home/Index");
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,RoomCount")] Building building)
-        {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Buildings.Add(building);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                return View();
-            }
-            else
-                return Redirect("/Home/Index");
-        }
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult Edit(int? id)
-        {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if (id == null)
                 {
@@ -90,26 +47,101 @@ namespace Information_System_MVC.Controllers
 
                 return HttpNotFound();
             }
-            return Redirect("/Home/Index");
+            else
+                return Redirect("/Home/Index");
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Create()
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "Id,RoomCount")] Building building)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Buildings.Add(building);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+
+                    return View();
+                }
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Building building = db.Buildings.Find(id);
+
+                    if (building != null)
+                    {
+                        return View(building);
+                    }
+
+                    return HttpNotFound();
+                }
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult Edit(Building building)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
 
-                try
-                {
-                    db.Entry(building).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(building).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -119,17 +151,22 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                Building building = db.Buildings.Find(id);
-
-                if (building == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    return HttpNotFound();
-                }
 
-                return View(building);
+                    Building building = db.Buildings.Find(id);
+
+                    if (building == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(building);
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -139,24 +176,29 @@ namespace Information_System_MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    Building building = db.Buildings.Find(id);
-                    if (building == null)
+                    try
                     {
-                        return HttpNotFound();
-                    }
+                        Building building = db.Buildings.Find(id);
+                        if (building == null)
+                        {
+                            return HttpNotFound();
+                        }
 
-                    db.Buildings.Remove(building);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        db.Buildings.Remove(building);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");

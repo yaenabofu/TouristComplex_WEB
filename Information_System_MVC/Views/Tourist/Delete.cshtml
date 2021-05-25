@@ -34,6 +34,9 @@
         <p>Дата отъезда</p>
         <input id="DateOfLeaving" name="DateOfLeaving" value="@Model.DateOfLeaving" readonly />
         @Html.ValidationMessageFor(model => model.DateOfLeaving)
+        <p>Страна</p>
+        <input id="Country" name="Country" value="@Model.Country" readonly />
+        @Html.ValidationMessageFor(model => model.Country)
         <p>Номер комнаты</p>
         <input id="RoomId" name="RoomId" value="@Model.RoomId" readonly />
         @Html.ValidationMessageFor(model => model.RoomId)

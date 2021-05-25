@@ -15,56 +15,58 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                IEnumerable<Product> products = db.Products;
-
-                ViewBag.Products = products;
-
-                return View();
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+                {
+                    return Redirect("/Home/Index");
+                }
             }
-            else
-                return Redirect("/Home/Index");
+            IEnumerable<Product> products = db.Products;
+
+            ViewBag.Products = products;
+
+            return View();
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
+            }
 
-                Product product = db.Products.Find(id);
-
-                if (product != null)
-                {
-                    return View(product);
-                }
-
+            if (id == null)
+            {
                 return HttpNotFound();
             }
-            else
-                return Redirect("/Home/Index");
+
+            Product product = db.Products.Find(id);
+
+            if (product != null)
+            {
+                return View(product);
+            }
+
+            return HttpNotFound();
         }
         [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
-
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
-                return View();
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
             else
                 return Redirect("/Home/Index");
         }
@@ -73,20 +75,25 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-              (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+              (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    db.Products.Add(product);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.Products.Add(product);
+                        db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -96,22 +103,27 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-              (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+              (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Product product = db.Products.Find(id);
+
+                    if (product != null)
+                    {
+                        return View(product);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Product product = db.Products.Find(id);
-
-                if (product != null)
-                {
-                    return View(product);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -121,19 +133,24 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Product product)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -143,17 +160,22 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                Product product = db.Products.Find(id);
-
-                if (product == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    return HttpNotFound();
-                }
+                    Product product = db.Products.Find(id);
 
-                return View(product);
+                    if (product == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(product);
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -163,25 +185,30 @@ namespace Information_System_MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+             (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    Product product = db.Products.Find(id);
-                    if (product == null)
+                    try
                     {
-                        return HttpNotFound();
-                    }
+                        Product product = db.Products.Find(id);
+                        if (product == null)
+                        {
+                            return HttpNotFound();
+                        }
 
-                    db.Products.Remove(product);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        db.Products.Remove(product);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");

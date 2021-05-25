@@ -15,46 +15,46 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                IEnumerable<Order> orders = db.Orders;
-
-                ViewBag.Orders = orders;
-
-                return View();
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+                {
+                    return Redirect("/Home/Index");
+                }
             }
-            else
-                return Redirect("/Home/Index");
+
+            IEnumerable<Order> orders = db.Orders;
+
+            ViewBag.Orders = orders;
+
+            return View();
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
+            }
 
-                Order order = db.Orders.Find(id);
-
-                if (order != null)
-                {
-                    return View(order);
-                }
-
+            if (id == null)
+            {
                 return HttpNotFound();
             }
-            else
-                return Redirect("/Home/Index");
+
+            Order order = db.Orders.Find(id);
+
+            if (order != null)
+            {
+                return View(order);
+            }
+
+            return HttpNotFound();
         }
 
         //[HttpGet]
@@ -84,50 +84,50 @@ namespace Information_System_MVC.Controllers
         public ActionResult Edit(int? id)
         {
 
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
+            }
 
-                Order order = db.Orders.Find(id);
-
-                if (order != null)
-                {
-                    return View(order);
-                }
-
+            if (id == null)
+            {
                 return HttpNotFound();
             }
-            else
-                return Redirect("/Home/Index");
+
+            Order order = db.Orders.Find(id);
+
+            if (order != null)
+            {
+                return View(order);
+            }
+
+            return HttpNotFound();
         }
         [Authorize]
         [HttpPost]
         public ActionResult Edit(Order order)
         {
 
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist) ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    db.Entry(order).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
+                    return Redirect("/Home/Index");
                 }
             }
-            else
-                return Redirect("/Home/Index");
+            try
+            {
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //[HttpGet]

@@ -15,40 +15,48 @@ namespace Information_System_MVC.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                IEnumerable<Profession> professions = db.Professions;
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+                {
+                    IEnumerable<Profession> professions = db.Professions;
 
-                ViewBag.Professions = professions;
+                    ViewBag.Professions = professions;
 
-                return View();
+                    return View();
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
         }
-
         [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
-
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
-               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
+               (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Profession profession = db.Professions.Find(id);
+
+                    if (profession != null)
+                    {
+                        return View(profession);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Profession profession = db.Professions.Find(id);
-
-                if (profession != null)
-                {
-                    return View(profession);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -58,8 +66,13 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
-                return View();
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
             else
                 return Redirect("/Home/Index");
         }
@@ -68,19 +81,24 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Create(Profession profession)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    db.Professions.Add(profession);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.Professions.Add(profession);
+                        db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -90,21 +108,26 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                if (id == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
+                    if (id == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Profession profession = db.Professions.Find(id);
+
+                    if (profession != null)
+                    {
+                        return View(profession);
+                    }
+
                     return HttpNotFound();
                 }
-
-                Profession profession = db.Professions.Find(id);
-
-                if (profession != null)
-                {
-                    return View(profession);
-                }
-
-                return HttpNotFound();
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -114,18 +137,23 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Profession profession)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    db.Entry(profession).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(profession).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -135,17 +163,22 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-
-                Profession profession = db.Professions.Find(id);
-
-                if (profession == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    return HttpNotFound();
-                }
 
-                return View(profession);
+                    Profession profession = db.Professions.Find(id);
+
+                    if (profession == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(profession);
+                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");
@@ -155,24 +188,29 @@ namespace Information_System_MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-                    Profession profession = db.Professions.Find(id);
-                    if (profession == null)
+                    try
                     {
-                        return HttpNotFound();
-                    }
+                        Profession profession = db.Professions.Find(id);
+                        if (profession == null)
+                        {
+                            return HttpNotFound();
+                        }
 
-                    db.Professions.Remove(profession);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        db.Professions.Remove(profession);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
                 }
-                catch
-                {
-                    return View();
-                }
+                else
+                    return Redirect("/Home/Index");
             }
             else
                 return Redirect("/Home/Index");

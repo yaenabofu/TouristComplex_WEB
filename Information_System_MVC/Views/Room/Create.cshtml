@@ -9,9 +9,6 @@
     @using (Html.BeginForm("Create", "Room", FormMethod.Post))
     {
         <fieldset>
-            <p>Код номера</p>
-            <input id="Id" name="Id" value="@Model.Id" readonly />
-            @Html.ValidationMessageFor(model => model.Id)
             <p>Цена</p>
             <input id="Price" name="Price" value="" />
             @Html.ValidationMessageFor(model => model.Price)

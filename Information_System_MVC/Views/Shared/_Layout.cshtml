@@ -108,8 +108,8 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-content">
-                            <a href="/">Ассортимент товаров</a>
-                            <a href="/">История покупок</a>
+                            <a href="/Product/Index">Каталог товаров</a>
+                            <a href="/Order/Index">История покупок</a>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -118,11 +118,12 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-content">
-                            <a href="/">Ассортимент мероприятий</a>
-                            <a href="/">Забронированные билеты</a>
+                            <a href="/Event/Index">Каталог мероприятий</a>
+                            <a href="/BookedTickets/Index">Забронированные билеты</a>
                         </div>
                     </div>
                     <a href="">Поиск</a>
+                    <a href="/Home/PersonalData/">Личный кабинет</a>
                 </div>
             }
             if ((Object)System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
@@ -137,7 +138,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <a href="/Building/Index">Здания на территории</a>
-                                <a href="/Room/Index">Комнаты</a>
+                                <a href="/Room/Index">Номера</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -188,7 +189,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <a href="/Building/Index">Здания на территории</a>
-                                <a href="/Room/Index">Комнаты</a>
+                                <a href="/Room/Index">Номера</a>
                             </div>
                         </div>
                         <div class="dropdown">

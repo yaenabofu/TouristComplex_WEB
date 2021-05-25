@@ -5,9 +5,18 @@
 
 <div>
     <h3>Мероприятия -> Просмотр всех записей</h3>
-    <form action="/Event/Create">
-        <input type="submit" value="Добавить запись" />
-    </form>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2
+                || (System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+            {
+                <form action="/Event/Create">
+                    <input type="submit" value="Добавить запись" />
+                </form>
+            }
+        }
+    }
 
     <table>
         <tr>
@@ -21,47 +30,65 @@
         </tr>
         @foreach (var item in ViewBag.Events)
         {
-            <tr>
-                <td>
-                    <input id="Id" name="Id" value=" @item.Id" readonly />
-                </td>
-                <td>
-                    <input id="Name" name="Name" value=" @item.Name" readonly />
-                </td>
-                <td>
-                    <input id="Price" name="Price" value=" @item.Price" readonly />
-                </td>
-                <td>
-                    <input id="ProfessionsId" name="ProfessionId" value=" @item.ProfessionId" readonly />
-                </td>
-                <td>
-                    <input id="Description" name="Description" value=" @item.Description" readonly />
-                </td>
-                <td>
-                    <input id="Date" name="Date" value=" @item.Date" readonly />
-                </td>
-                <td>
-                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
-                </td>
-                <td>
-                    <input id="WorkPlaceId" name="WorkPlaceId" value=" @item.WorkPlaceId" readonly />
-                </td>
-                <td>
-                    <a href="/Event/Edit/@item.Id">
-                        Изменить
-                    </a>
-                </td>
-                <td>
-                    <a href="/Event/Details/@item.Id">
-                        Подробно
-                    </a>
-                </td>
-                <td>
-                    <a href="/Event/Delete/@item.Id">
-                        Удалить
-                    </a>
-                </td>
-            </tr>
+    <tr>
+        <td>
+            <input id="Id" name="Id" value=" @item.Id" readonly />
+        </td>
+        <td>
+            <input id="Name" name="Name" value=" @item.Name" readonly />
+        </td>
+        <td>
+            <input id="Price" name="Price" value=" @item.Price" readonly />
+        </td>
+        <td>
+            <input id="ProfessionsId" name="ProfessionId" value=" @item.ProfessionId" readonly />
+        </td>
+        <td>
+            <input id="Description" name="Description" value=" @item.Description" readonly />
+        </td>
+        <td>
+            <input id="Date" name="Date" value=" @item.Date" readonly />
+        </td>
+        <td>
+            <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+        </td>
+        <td>
+            <input id="WorkPlaceId" name="WorkPlaceId" value=" @item.WorkPlaceId" readonly />
+        </td>
+        @{
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2
+                    || (System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+                {
+                    <td>
+                        <a href="/Event/Edit/@item.Id">
+                            Изменить
+                        </a>
+                    </td>
+                }
+            }
+        }
+        <td>
+            <a href="/Event/Details/@item.Id">
+                Подробно
+            </a>
+        </td>
+        @{
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2
+                    || (System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+                {
+                    <td>
+                        <a href="/Event/Delete/@item.Id">
+                            Удалить
+                        </a>
+                    </td>
+                }
+            }
+        }
+    </tr>
             <br />
         }
     </table>

@@ -22,7 +22,7 @@
             <input id="SingleRooms" name="SingleRooms" value="@Model.SingleRooms" />
             @Html.ValidationMessageFor(model => model.SingleRooms)
             <p>Свободен?</p>
-            <input id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable" />
+            <input id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable.ToString()" />
             @Html.ValidationMessageFor(model => model.IsAvailable)
             <p>Код здания</p>
             <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />
