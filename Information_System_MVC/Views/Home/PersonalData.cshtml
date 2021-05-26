@@ -6,7 +6,29 @@
 <div>
     <h3>Личный кабинет</h3>
     <fieldset>
-        <h3>Вы вошли как @Model.Surname @Model.Name @Model.Thirdname</h3>
+        @{
+            string value = "";
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                {
+                    value = "Полные права в системе";
+                }
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+                {
+                    value = "Ограниченные права в системе";
+                }
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 0)
+                {
+                    value = "Минимальные права в системе";
+                }
+            }
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.Tourist)
+            {
+                value = "Специализированные права в системе";
+            }
+        }
+        <h3>Вы вошли как @Model.Surname @Model.Name @Model.Thirdname (@value)</h3>
         <p>Логин</p>
         <input id="Id" name="Id" value="@Model.Id" />
         <p>Пароль</p>

@@ -115,12 +115,12 @@ namespace Information_System_MVC.Controllers
 
                     Product product = db.Products.Find(id);
 
-                    if (product != null)
+                    if (product == null)
                     {
-                        return View(product);
+                        return HttpNotFound();
                     }
 
-                    return HttpNotFound();
+                    return View(product);
                 }
                 else
                     return Redirect("/Home/Index");
@@ -209,6 +209,48 @@ namespace Information_System_MVC.Controllers
                 }
                 else
                     return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Order(int id, int count)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            {
+                try
+                {
+                    Product product = db.Products.Find(id);
+                    if (product == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    if (product.Quantity >= count)
+                        product.Quantity -= count;
+
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    Order order = new Order
+                    {
+                        Cost = count * product.Price,
+                        Quantity = count,
+                        TouristId = (System.Web.HttpContext.Current.Session["CurrentUser"] as Tourist).Id,
+                        DateOrder = DateTime.Now,
+                        IsDone = false,
+                        ProductId = id
+                    };
+
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
             else
                 return Redirect("/Home/Index");

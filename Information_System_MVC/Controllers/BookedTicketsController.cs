@@ -104,5 +104,57 @@ namespace Information_System_MVC.Controllers
                 return View();
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            {
+                BookedTicket ticket = db.BookedTickets.Find(id);
+
+                if (ticket == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(ticket);
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            {
+                try
+                {
+                    BookedTicket ticket = db.BookedTickets.Find(id);
+
+                    if (ticket == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    Event event1 = db.Events.Find(ticket.EventId);
+                    event1.Quantity += ticket.Quantity;
+                    db.Entry(event1).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    db.BookedTickets.Remove(ticket);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+            else
+                return Redirect("/Home/Index");
+        }
     }
 }

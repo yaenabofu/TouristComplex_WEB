@@ -13,24 +13,24 @@
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
-            <input id="Name" name="Name" value="" />
+            <p>Название</p>
+            <input id="Name" name="Name" value="@Model.Name" readonly />
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" value="" />
+            <input id="Price" name="Price" value="@Model.Price" readonly />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
-            <textarea id="Description" name="Description"></textarea>
-            @*<input id="Description" name="Description" value="" />*@
+            <textarea id="Description" name="Description" readonly>@Model.Description</textarea>
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Вид</p>
-            <input id="Type" name="Type" value="" />
+            <input id="Type" name="Type" value="@Model.Type " readonly />
             @Html.ValidationMessageFor(model => model.Type)
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
             @Html.ValidationMessageFor(model => model.Quantity)
             <br /> <br />
         </fieldset>

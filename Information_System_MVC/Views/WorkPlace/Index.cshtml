@@ -36,11 +36,6 @@
                     if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
                     {
                         <td>
-                            <a href="/WorkPlace/Edit/@item.Id">
-                                Изменить
-                            </a>
-                        </td>
-                        <td>
                             <a href="/WorkPlace/Delete/@item.Id">
                                 Удалить
                             </a>

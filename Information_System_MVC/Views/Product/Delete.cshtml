@@ -5,32 +5,32 @@
 }
 
 <div>
-    <h3>Товары -> Подробная информация</h3>
-    @using (Html.BeginForm("Details", "Product", FormMethod.Get))
+    <h3>Товары -> Удаление товара</h3>
+    @using (Html.BeginForm("Delete", "Product", FormMethod.Get))
     {
         <fieldset>
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
-            <input id="Name" name="Name" value="" />
+            <input id="Name" name="Name" value="@Model.Name" readonly />
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" value="" />
+            <input id="Price" name="Price" value="@Model.Price" readonly />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
-            <textarea id="Description" name="Description"></textarea>
+            <textarea id="Description" name="Description" readonly>@Model.Description</textarea>
             @*<input id="Description" name="Description" value="" />*@
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Вид</p>
-            <input id="Type" name="Type" value="" />
+            <input id="Type" name="Type" value="@Model.Type" readonly />
             @Html.ValidationMessageFor(model => model.Type)
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
             @Html.ValidationMessageFor(model => model.Quantity)
             <br /> <br />
         </fieldset>

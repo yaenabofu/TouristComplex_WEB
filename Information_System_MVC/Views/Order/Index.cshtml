@@ -17,34 +17,70 @@
         </tr>
         @foreach (var item in ViewBag.Orders)
         {
-            <tr>
-                <td>
-                    <input id="Id" name="Id" value=" @item.Id" readonly />
-                </td>
-                <td>
-                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
-                </td>
-                <td>
-                    <input id="Price" name="Price" value=" @item.Price" readonly />
-                </td>
-                <td>
-                    <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
-                </td>
-                <td>
-                    <input id="IsDone" name="IsDone" value=" @item.IsDone" readonly />
-                </td>
-                <td>
-                    <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
-                </td>
-                <td>
-                    <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
-                </td>
-                <td>
-                    <a href="/Product/Edit/@item.Id">
-                        Изменить
-                    </a>
-                </td>
-            </tr>
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.Tourist) &&
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.Tourist).Id == item.TouristId)
+            {
+                <tr>
+                    <td>
+                        <input id="Id" name="Id" value=" @item.Id" readonly />
+                    </td>
+                    <td>
+                        <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                    </td>
+                    <td>
+                        <input id="Cosr" name="Cost" value=" @item.Cost" readonly />
+                    </td>
+                    <td>
+                        <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
+                    </td>
+                    <td>
+                        <input id="IsDone" name="IsDone" value=" @item.IsDone.ToString()" readonly />
+                    </td>
+                    <td>
+                        <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                    </td>
+                    <td>
+                        <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                    </td>
+                    <td>
+                        <a href="/Order/Delete/@item.Id">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+            {
+                <tr>
+                    <td>
+                        <input id="Id" name="Id" value=" @item.Id" readonly />
+                    </td>
+                    <td>
+                        <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                    </td>
+                    <td>
+                        <input id="Cosr" name="Cost" value=" @item.Cost" readonly />
+                    </td>
+                    <td>
+                        <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
+                    </td>
+                    <td>
+                        <input id="IsDone" name="IsDone" value=" @item.IsDone.ToString()" readonly />
+                    </td>
+                    <td>
+                        <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                    </td>
+                    <td>
+                        <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                    </td>
+                    <td>
+                        <a href="/Order/Edit/@item.Id">
+                            Изменить
+                        </a>
+                    </td>
+                </tr>
+            }
             <br />
         }
     </table>

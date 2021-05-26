@@ -1,0 +1,39 @@
+﻿@model Information_System_MVC.Models.BookedTicket
+@{
+    ViewBag.Title = "Забронированные билеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Забронированные билеты -> Удаление записи</h3>
+    <fieldset>
+        <p>Код записи</p>
+        <input id="Id" name="Id" value="@Model.Id" readonly />
+        @Html.ValidationMessageFor(model => model.Id)
+
+        <p>Количество</p>
+        <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
+        @Html.ValidationMessageFor(model => model.Quantity)
+
+        <p>Стоимость</p>
+        <input id="Cost" name="Cost" value="@Model.Cost" readonly />
+        @Html.ValidationMessageFor(model => model.Cost)
+
+        <p>Оплачен ?</p>
+        <input id="IsPaid" name="IsPaid" value="@Model.IsPaid.ToString()" readonly />
+        @Html.ValidationMessageFor(model => model.IsPaid)
+
+        <p>Код мероприятия</p>
+        <input id="EventId" name="EventId" value="@Model.EventId" readonly />
+        @Html.ValidationMessageFor(model => model.EventId)
+
+        <p>Логин туриста</p>
+        <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
+        @Html.ValidationMessageFor(model => model.TouristId)
+        <br /> <br />
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </fieldset>
+</div>

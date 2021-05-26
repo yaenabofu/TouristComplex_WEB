@@ -10,31 +10,31 @@
     {
         <fieldset>
             <p>Код записи</p>
-            <input id="Id" name="Id" value="" readonly />
+            <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
             <p>Название</p>
-            <input id="Name" name="Name" value="" />
+            <input id="Name" name="Name" value="@Model.Name" />
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" value="" />
+            <input id="Price" name="Price" value="@Model.Price" />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
-<textarea id="Description" name="Description"></textarea>
+<textarea id="Description" name="Description">@Model.Description</textarea>
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Дата проведения</p>
-            <input id="Date" name="Date" value="" />
+            <input id="Date" name="Date" value="@Model.Date" />
             @Html.ValidationMessageFor(model => model.Date)
 
             <p>Количество билетов</p>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Код рабочего места</p>
-            <input id="WorkPlaceId" name="WorkPlaceId" value="" readonly />
+            <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /> <br />
             <input type="submit" value="Изменить" />

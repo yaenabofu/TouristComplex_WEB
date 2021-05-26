@@ -16,29 +16,61 @@
         </tr>
         @foreach (var item in ViewBag.BookedTickets)
         {
-            <tr>
-                <td>
-                    <input id="Id" name="Id" value=" @item.Id" readonly />
-                </td>
-                <td>
-                    <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
-                </td>
-                <td>
-                    <input id="Cost" name="Cost" value=" @item.Cost" readonly />
-                </td>
-                <td>
-                    <input id="IsPaid" name="IsPaid" value=" @item.IsPaid" readonly />
-                </td>
-                <td>
-                    <input id="EventId" name="EventId" value=" @item.EventId" readonly />
-                </td>
-                <td>
-                    <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
-                </td>
-                <td>
-                    <a href="/BookedTickets/Edit/@item.Id">Изменить</a>
-                </td>
-            </tr>
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.Tourist) &&
+                (System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.Tourist).Id == item.TouristId)
+            {
+                <tr>
+                    <td>
+                        <input id="Id" name="Id" value=" @item.Id" readonly />
+                    </td>
+                    <td>
+                        <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                    </td>
+                    <td>
+                        <input id="Cost" name="Cost" value=" @item.Cost" readonly />
+                    </td>
+                    <td>
+                        <input id="IsPaid" name="IsPaid" value=" @item.IsPaid.ToString()" readonly />
+                    </td>
+                    <td>
+                        <input id="EventId" name="EventId" value=" @item.EventId" readonly />
+                    </td>
+                    <td>
+                        <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                    </td>
+                    <td>
+                        <a href="/BookedTickets/Delete/@item.Id">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+            {
+                <tr>
+                    <td>
+                        <input id="Id" name="Id" value=" @item.Id" readonly />
+                    </td>
+                    <td>
+                        <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
+                    </td>
+                    <td>
+                        <input id="Cost" name="Cost" value=" @item.Cost" readonly />
+                    </td>
+                    <td>
+                        <input id="IsPaid" name="IsPaid" value=" @item.IsPaid" readonly />
+                    </td>
+                    <td>
+                        <input id="EventId" name="EventId" value=" @item.EventId" readonly />
+                    </td>
+                    <td>
+                        <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
+                    </td>
+                    <td>
+                        <a href="/BookedTickets/Edit/@item.Id">Изменить</a>
+                    </td>
+                </tr>
+            }
             <br />
         }
     </table>

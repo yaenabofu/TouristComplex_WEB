@@ -9,10 +9,10 @@
     @using (Html.BeginForm("Edit", "Building", FormMethod.Post))
     {
         <fieldset>
-            @Html.LabelFor(x => x.Id, "Код здания")
+            <p>Код здания</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
-            @Html.LabelFor(x => x.RoomCount, "Количество комнат")
+            <p>Количество комнат</p>
             <input id="RoomCount" name="RoomCount" value="@Model.RoomCount" />
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
