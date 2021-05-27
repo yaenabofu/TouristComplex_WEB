@@ -32,6 +32,21 @@ namespace Information_System_MVC.Controllers
 
         [Authorize]
         [HttpGet]
+        public ActionResult Create()
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
@@ -56,28 +71,6 @@ namespace Information_System_MVC.Controllers
 
             return HttpNotFound();
         }
-
-        //[HttpGet]
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult Create(Order order)
-        //{
-        //    try
-        //    {
-        //        db.Orders.Add(order);
-        //        db.SaveChanges();
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
         [Authorize]
         [HttpGet]
@@ -133,53 +126,59 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                Order ticket = db.Orders.Find(id);
-
-                if (ticket == null)
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0 ||
+                    (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    return HttpNotFound();
+                    return Redirect("/Home/Index");
                 }
-
-                return View(ticket);
             }
-            else
-                return Redirect("/Home/Index");
 
+            Order ticket = db.Orders.Find(id);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(ticket);
         }
 
         [Authorize]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
-                try
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0 ||
+                    (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    Order order = db.Orders.Find(id);
-                    if (order == null)
-                    {
-                        return HttpNotFound();
-                    }
-
-                    Product product = db.Products.Find(order.ProductId);
-                    product.Quantity += order.Quantity;
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-
-                    db.Orders.Remove(order);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/Home/Index");
                 }
-                catch
-                {
-                    return View();
-                }
-
             }
-            else
-                return Redirect("/Home/Index");
+
+            try
+            {
+                Order order = db.Orders.Find(id);
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Product product = db.Products.Find(order.ProductId);
+                product.Quantity += order.Quantity;
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+
+                db.Orders.Remove(order);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

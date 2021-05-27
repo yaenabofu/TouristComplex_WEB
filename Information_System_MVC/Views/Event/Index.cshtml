@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -87,7 +87,7 @@
 </head>
 <body>
     <div>
-        <h3>Мероприятия -> Просмотр всех записей</h3>
+        <h3>Мероприятия -> Просмотр записей</h3>
         @{
             if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
             {

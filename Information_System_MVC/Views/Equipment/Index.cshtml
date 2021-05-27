@@ -4,7 +4,7 @@
 }
 
 <div>
-    <h3>Оборудование -> Просмотр всех записей</h3>
+    <h3>Оборудование -> Просмотр записей</h3>
     @{
         if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
         {
@@ -46,11 +46,11 @@
                         </td>
                     }
                 }
-                <td>
+                @*<td>
                     <a href="/Equipment/Details/@item.Id">
                         Подробно
                     </a>
-                </td>
+                </td>*@
                 @{
                     if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
                     {

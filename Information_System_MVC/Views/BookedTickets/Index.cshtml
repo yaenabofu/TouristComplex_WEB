@@ -4,7 +4,18 @@
 }
 
 <div>
-    <h3>Забронированные билеты -> Просмотр всех записей</h3>
+    <h3>Забронированные билеты -> Просмотр записей</h3>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+            {
+                <form action="/BookedTickets/Create">
+                    <input type="submit" value="Добавить запись" />
+                </form>
+            }
+        }
+    }
     <table>
         <tr>
             <td><p>Код записи</p></td>
@@ -39,6 +50,9 @@
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
                     </td>
                     <td>
+                        <a href="/BookedTickets/Edit/@item.Id">Изменить</a>
+                    </td>
+                    <td>
                         <a href="/BookedTickets/Delete/@item.Id">
                             Удалить
                         </a>
@@ -68,6 +82,11 @@
                     </td>
                     <td>
                         <a href="/BookedTickets/Edit/@item.Id">Изменить</a>
+                    </td>
+                    <td>
+                        <a href="/BookedTickets/Delete/@item.Id">
+                            Удалить
+                        </a>
                     </td>
                 </tr>
             }

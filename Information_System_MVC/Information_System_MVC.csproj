@@ -268,7 +268,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Login\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Building\Index.cshtml" />
@@ -319,6 +319,8 @@
     <Content Include="Views\Home\PersonalData.cshtml" />
     <Content Include="Views\BookedTickets\Delete.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
+    <Content Include="Views\BookedTickets\Create.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,7 +4,7 @@
 }
 
 <div>
-    <h3>Рабочие места -> Просмотр всех записей</h3>
+    <h3>Рабочие места -> Просмотр записей</h3>
     @{
         if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
         {
@@ -38,6 +38,11 @@
                         <td>
                             <a href="/WorkPlace/Delete/@item.Id">
                                 Удалить
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/WorkPlace/Edit/@item.Id">
+                                Изменить
                             </a>
                         </td>
                     }

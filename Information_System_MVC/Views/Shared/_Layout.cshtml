@@ -41,7 +41,7 @@
             }
 
             .navbar a:hover, .dropdown:hover .dropbtn {
-                background-color: red;
+                background-color: lightseagreen;
             }
 
         .dropdown-content {
@@ -63,7 +63,7 @@
             }
 
                 .dropdown-content a:hover {
-                    background-color: #ddd;
+                    background-color: grey;
                 }
 
         .dropdown:hover .dropdown-content {
@@ -83,6 +83,12 @@
             border: 0px solid rgb(0, 0, 0, 0);
             background: #ffffff;
             padding: 0px 5px;
+        }
+    </style>
+    <style>
+        .inactiveLink {
+            pointer-events: none;
+            cursor: default;
         }
     </style>
 </head>
@@ -124,6 +130,7 @@
                     </div>
                     <a href="">Поиск</a>
                     <a href="/Home/PersonalData/">Личный кабинет</a>
+                    <a style="pointer-events: none; cursor: default;">Вы вошли как : <input value="    Турист" readonly /></a>
                 </div>
             }
             if ((Object)System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
@@ -161,7 +168,7 @@
                             <div class="dropdown-content">
                                 <a href="/Tourist/Index">Список всех туристов</a>
                                 <a href="/Order/Index">Заказы</a>
-                                <a href="/BookedTickets/Index">Бронирование билетов</a>
+                                <a href="/BookedTickets/Index">Забронированные билеты</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -177,6 +184,7 @@
                         <a href="#home">Поиск</a>
                         <a href="">Тестирование</a>
                         <a href="/Home/PersonalData/">Личный кабинет</a>
+                        <a style="pointer-events: none; cursor: default;">Вы вошли как : <input value="    Администратор" readonly /></a>
                     </div>
                 }
                 if (((Object)System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
@@ -200,7 +208,7 @@
                             <div class="dropdown-content">
                                 <a href="/Tourist/Index">Список всех туристов</a>
                                 <a href="/Order/Index">Заказы</a>
-                                <a href="/BookedTickets/Index">Бронирование билетов</a>
+                                <a href="/BookedTickets/Index">Забронированные билеты</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -215,6 +223,7 @@
                         </div>
                         <a href="#home">Поиск</a>
                         <a href="/Home/PersonalData/">Личный кабинет</a>
+                        <a style="pointer-events: none; cursor: default;">Вы вошли как : <input value="    Менеджер" readonly /></a>
                     </div>
                 }
                 if (((Object)System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 0)
@@ -242,6 +251,7 @@
                         </div>
                         <a href="#home">Поиск</a>
                         <a href="/Home/PersonalData/">Личный кабинет</a>
+                        <a style="pointer-events: none; cursor: default;">Вы вошли как : <input value="Работник комплекса" readonly /></a>
                     </div>
                 }
             }

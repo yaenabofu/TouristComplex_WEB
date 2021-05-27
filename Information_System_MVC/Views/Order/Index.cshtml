@@ -1,10 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Товары";
+    ViewBag.Title = "Заказы";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-    <h3>Товары -> Просмотр всех записей</h3>
+    <h3>Заказы -> Просмотр записей</h3>
+    @{
+        if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
+        {
+            if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+            {
+                <form action="/Order/Create">
+                    <input type="submit" value="Добавить запись" />
+                </form>
+            }
+        }
+    }
     <table>
         <tr>
             <td><p>Код записи</p></td>
@@ -47,9 +58,13 @@
                             Удалить
                         </a>
                     </td>
+                    <td>
+                        <a href="/Order/Edit/@item.Id">
+                            Изменить
+                        </a>
+                    </td>
                 </tr>
             }
-
             if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker))
             {
                 <tr>
@@ -73,6 +88,11 @@
                     </td>
                     <td>
                         <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                    </td>
+                    <td>
+                        <a href="/Order/Delete/@item.Id">
+                            Удалить
+                        </a>
                     </td>
                     <td>
                         <a href="/Order/Edit/@item.Id">

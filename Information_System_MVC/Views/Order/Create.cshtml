@@ -1,0 +1,34 @@
+﻿@model Information_System_MVC.Models.Order
+@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Заказы -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+    {
+        <fieldset>
+            <label>Количество</label>
+            <input id="Quantity" name="Quantity" value="" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+            <label>Стоимость</label>
+            <input id="Cost" name="Cost" value="" />
+            @Html.ValidationMessageFor(model => model.Cost)
+            <label>Дата заказа</label>
+            <input id="DateOrder" name="DateOrder" value="" />
+            @Html.ValidationMessageFor(model => model.DateOrder)
+            <label>Оплачен ?</label>
+            <input id="IsDone" name="IsDone" value="" />
+            @Html.ValidationMessageFor(model => model.IsDone)
+            <label>Код товара</label>
+            <input id="ProductId" name="ProductId" value="" />
+            @Html.ValidationMessageFor(model => model.ProductId)
+            <label>Код туриста</label>
+            <input id="TouristId" name="TouristId" value="" />
+            @Html.ValidationMessageFor(model => model.TouristId)
+            <br /> <br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>

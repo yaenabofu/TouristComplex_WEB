@@ -31,6 +31,21 @@ namespace Information_System_MVC.Controllers
 
         [Authorize]
         [HttpGet]
+        public ActionResult Create()
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                    return View();
+                else
+                    return Redirect("/Home/Index");
+            }
+            else
+                return Redirect("/Home/Index");
+        }
+
+        [Authorize]
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
@@ -109,7 +124,39 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0 ||
+                    (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+                {
+                    return Redirect("/Home/Index");
+                }
+            }
+
+            BookedTicket ticket = db.BookedTickets.Find(id);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(ticket);
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0 ||
+                    (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+                {
+                    return Redirect("/Home/Index");
+                }
+            }
+
+            try
             {
                 BookedTicket ticket = db.BookedTickets.Find(id);
 
@@ -118,43 +165,19 @@ namespace Information_System_MVC.Controllers
                     return HttpNotFound();
                 }
 
-                return View(ticket);
-            }
-            else
-                return Redirect("/Home/Index");
-        }
+                Event event1 = db.Events.Find(ticket.EventId);
+                event1.Quantity += ticket.Quantity;
+                db.Entry(event1).State = EntityState.Modified;
+                db.SaveChanges();
 
-        [Authorize]
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+                db.BookedTickets.Remove(ticket);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
             {
-                try
-                {
-                    BookedTicket ticket = db.BookedTickets.Find(id);
-
-                    if (ticket == null)
-                    {
-                        return HttpNotFound();
-                    }
-
-                    Event event1 = db.Events.Find(ticket.EventId);
-                    event1.Quantity += ticket.Quantity;
-                    db.Entry(event1).State = EntityState.Modified;
-                    db.SaveChanges();
-
-                    db.BookedTickets.Remove(ticket);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
+                return View();
             }
-            else
-                return Redirect("/Home/Index");
         }
     }
 }

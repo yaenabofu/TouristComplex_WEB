@@ -58,7 +58,12 @@ namespace Information_System_MVC.Controllers
                 return Redirect("/Home/Index/");
             }
 
-            return View("Не удалось войти в систему");
+            return Redirect("/Login/Error/");
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
 
         private bool IsTourist(User user)

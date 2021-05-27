@@ -1,0 +1,31 @@
+﻿@model Information_System_MVC.Models.BookedTicket
+@{
+    ViewBag.Title = "Забронированные билеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Забронированные билеты -> Добавление записи</h3>
+    @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+    {
+        <fieldset>
+            <label>Количество</label>
+            <input id="Quantity" name="Quantity" value="" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+            <label>Стоимость</label>
+            <input id="Cost" name="Cost" value="" />
+            @Html.ValidationMessageFor(model => model.Cost)
+            <label>Оплачен ?</label>
+            <input id="IsPaid" name="IsPaid" value="" />
+            @Html.ValidationMessageFor(model => model.IsPaid)
+            <label>Код мероприятия</label>
+            <input id="EventId" name="EventId" value="" />
+            @Html.ValidationMessageFor(model => model.EventId)
+            <label>Код туриста</label>
+            <input id="TouristId" name="TouristId" value="" />
+            @Html.ValidationMessageFor(model => model.TouristId)
+            <br /> <br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
+    }
+</div>
