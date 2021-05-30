@@ -1,0 +1,341 @@
+﻿@model Information_System_MVC.Models.Request
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <br />
+    <div>
+        <label>Искомая сущность </label>
+        <select name="tables" id="tables" onchange="TwoFuncs()"
+                                <option value="Profession" >Профессии</option>
+                <option value="Workers" >Работники</option>
+                <option value="Professions">Профессии</option>
+                <option value="Equipments">Оборудование</option>
+                <option value="WorkPlaces">Рабочие места</option>
+                <option value="Buildings">Здания</option>
+                <option value="Rooms">Номера</option>
+                <option value="Tourists">Туристы</option>
+                <option value="Events">Мероприятия</option>
+                <option value="Products">Товары</option>
+                <option value="BookedTickets">Забронированные билеты</option>
+                <option value="Orders">Заказы</option>
+            </select>
+
+        <label> Атрибут </label>
+        <select name="attr1" id="attr1" onchange="attr1Elems()">
+            <option value="none" selected="selected">Не заполнять</option>
+            <option value="Id">Код работника</option>
+            <option value="Name">Имя</option>
+            <option value="Surname">Фамилия</option>
+            <option value="Thirdname">Отчество</option>
+            <option value="DateOfBirth">Дата рождения</option>
+            <option value="Email">Эл почта</option>
+            <option value="WorkDays">Рабочие дни</option>
+            <option value="ProfessionId">Код профессии</option>
+            <option value="WorkPlaceId">Код рабочего места</option>
+        </select>
+        <label> Операнд</label>
+        <select name="oper1" id="oper1">
+            <option value="=">=</option>
+            <option value="!=">!=</option>
+            <option value=">">></option>
+            <option value="<"><</option>
+        </select>
+        <input id="value1" name="value1" value="" />
+        <p>
+            <h2>Доп условие</h2>
+            <input id="IsSecondTableNeeded" type="checkbox" onchange="NeedSecondTable()" unchecked>
+            <select name="AndOr" id="AndOr" disabled="disabled">
+                <option value="AND">И</option>
+                <option value="OR">ИЛИ</option>
+            </select>
+            <label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Атрибут
+            </label>
+            <select name="attr2" id="attr2" disabled="disabled" onchange="attr2Elems()">
+            </select>
+            <script>
+                function attr2Elems() {
+                    if (document.getElementById('attr2').value == "Не заполнять") {
+                        document.getElementById('oper2').disabled = true;
+                        document.getElementById('value2').disabled = true;
+                        document.getElementById('value2').value = "";
+                    }
+                    else {
+                        document.getElementById('oper2').disabled = false;
+                        document.getElementById('value2').disabled = false;
+                    }
+            </script>
+            <label id="labOper"> Операнд</label>
+            <select name="oper2" id="oper2" disabled="disabled">
+                <option value="=">=</option>
+                <option value="!=">!=</option>
+                <option value=">">></option>
+                <option value="<"><</option>
+            </select>
+            <input id="value2" name="value2" value="" disabled="disabled" />
+        </p>
+
+        <script>
+            function NeedSecondTable() {
+                if (document.getElementById('IsSecondTableNeeded').checked) {
+                    document.getElementById('AndOr').disabled = false;
+                    document.getElementById('value2').disabled = false;
+                    document.getElementById('oper2').disabled = false;
+
+                    var options = document.getElementById('attr1').cloneNode(true);
+
+                    for (var i = 0; i < options.length; i++) {
+                        document.getElementById('attr2').appendChild(options[i]);
+                    }
+                    document.getElementById('attr2').disabled = false;
+                    document.getElementById('tables').onchange();
+                }
+                else {
+                    document.getElementById('oper2').disabled = true;
+                    document.getElementById('AndOr').disabled = true;
+                    var drop = document.getElementById("attr2");
+
+                    var length = drop.options.length;
+                    for (i = length - 1; i >= 0; i--) {
+                        drop.options[i] = null;
+                    }
+                    document.getElementById('value2').value = "";
+                    document.getElementById('attr2').disabled = true;
+                    document.getElementById('value2').disabled = true;
+                }
+            }
+        </script>
+
+        <script>
+            function GetAttr1() {
+                if (document.getElementById('IsSecondTableNeeded').checked) {
+                    var first = document.getElementById('attr1');
+                    var options = first.innerHTML;
+
+                    var second = document.getElementById('attr2');
+                    var options = second.innerHTML + options;
+
+                    second.innerHTML = options;
+                }
+                else {
+
+                    var drop = document.getElementById("attr2");
+
+                    var length = drop.options.length;
+                    for (i = length - 1; i >= 0; i--) {
+                        drop.options[i] = null;
+                    }
+                }
+            }
+        </script>
+
+        <script>
+            function TwoFuncs() {
+                getTable();
+                GetAttr1();
+            }
+        </script>
+
+        <script>
+            function getTable() {
+                //Значение выбранной таблицы
+                var e = document.getElementById("tables");
+                var strUser = e.options[e.selectedIndex].text;
+
+                //По выбранной таблице подбирает соответствующие атрибуты
+
+                var drop = document.getElementById("attr1");
+
+                var length = drop.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    drop.options[i] = null;
+                }
+
+                var xrop = document.getElementById("attr2");
+
+                var length = xrop.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    xrop.options[i] = null;
+                }
+
+                if (strUser == "Работники") {
+                    var text = ["Код работника", "Имя", "Фамилия", "Отчество", "Дата рождения", "Эл почта", "Рабочие дни", "Код профессии"
+                        , "Код рабочего места", "Не заполнять"];
+                    var value = ["Id", "Name", "Surname", "Thirdname", "DateOfBirth", "Email", "WorkDays", "ProfessionId", "WorkPlaceId"
+                        , "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Профессии") {
+                    var text = ["Код профессии", "Название", "Права в системе", "Не заполнять"];
+                    var value = ["Id", "Name", "Power", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Оборудование") {
+                    var text = ["Код оборудования", "Название", "Количество", "Код профессии", "Не заполнять"];
+                    var value = ["Id", "Name", "Quantity", "ProfessionId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Рабочие места") {
+                    var text = ["Код рабочего места", "Код места в здании", "Код здания", "Не заполнять"];
+                    var value = ["Id", "PlaceId", "BuildingId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Здания") {
+                    var text = ["Код здания", "Количество комнат", "Не заполнять"];
+                    var value = ["Id", "RoomCount", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Номера") {
+                    var text = ["Код номера", "Цена", "Количество кроватей", "Количество комнат", "Свободен ?", "Код здания", "Не заполнять"];
+                    var value = ["Id", "Price", "Beds", "SingleRooms", "IsAvailable", "BuildingId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Туристы") {
+                    var text = ["Код туриста", "Пароль", "Эл почта", "Имя", "Фамилия", "Отчество", "Дата рождения", "Дата приезда"
+                        , "Дата отъезда", "Страна", "Номер комнаты", "Не заполнять"];
+                    var value = ["Id", "Password", "Email", "Name", "Surname", "Thirdname", "DateOfBirth", "DateOfComing", "DateOfLeaving"
+                        , "Country", "RoomId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Мероприятия") {
+                    var text = ["Код мероприятия", "Название", "Цена", "Описание", "Дата проведения", "Количество билетов",
+                        "Код места проведения", "Не заполнять"];
+                    var value = ["Id", "Name", "Price", "Description", "Date", "Quantity", "WorkPlaceId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Товары") {
+                    var text = ["Код товара", "Название", "Цена", "Описание", "Тип", "Количество",
+                        "Код места проведения", "Не заполнять"];
+                    var value = ["Id", "Name", "Price", "Description", "Type", "Quantity", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Забронированные билеты") {
+                    var text = ["Код записи", "Количество", "Стоимость", "Оплачен ?", "Код мероприятия", "Код заказчика",
+                        "Код места проведения", "Не заполнять"];
+                    var value = ["Id", "Quantity", "Cost", "IsPaid", "EventId", "TouristId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+                if (strUser == "Заказы") {
+                    var text = ["Код записи", "Количество", "Стоимость", "Дата оформления", "Оплачен ?", "Код заказчика",
+                        "Код товара", "Не заполнять"];
+                    var value = ["Id", "Quantity", "Cost", "DateOrder", "IsDone", "TouristId", "ProductId", "none"]
+
+                    for (var i = 0; i < text.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = value[i];
+                        opt.text = text[i];
+                        drop.appendChild(opt);
+                    }
+                }
+            }
+        </script>
+        <br><br>
+
+        <input type="submit" value="Найти" onclick="GetAllValues()" />
+
+        @using (Html.BeginForm("Find", "Search", FormMethod.Post))
+        {
+            <input id="RequestString" name="RequestString" hidden value="" />
+            <input id="Obj" name="Obj" hidden value="" />
+            <input id="btn" name="btn" type="submit" value="Найти" hidden />
+        }
+
+        <script>
+            function GetAllValues() {
+                var request = null;
+                if (document.getElementById('attr1').value == "none") {
+                    if (!document.getElementById('IsSecondTableNeeded').checked) {
+                        request = `SELECT * FROM ${document.getElementById('tables').value}`;
+                    }
+                    else {
+                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr2').value}
+                                                             ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
+                    }
+                }
+                else {
+                    if (document.getElementById('attr2').value == "none") {
+                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value}
+                                                             ${document.getElementById('oper1').value} ${document.getElementById('value1').value}`;
+                    }
+                    else {
+                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value} ${document.getElementById('oper1').value} ${document.getElementById('value1').value} ${document.getElementById('AndOr').value} ${document.getElementById('attr2').value} ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
+                    }
+                }
+
+                document.getElementById('RequestString').value = request;
+                document.getElementById('Obj').value = document.getElementById('tables').value;
+                document.getElementById('btn').click();
+            }
+        </script>
+    </div>
+</body>
+</html>

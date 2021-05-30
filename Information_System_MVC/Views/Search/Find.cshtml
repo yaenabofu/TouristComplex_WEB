@@ -1,0 +1,394 @@
+﻿@model Information_System_MVC.Models.Answer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <h3>Результаты поиска по запросу : @Model.RequestString</h3>
+
+    @using (Html.BeginForm("Export", "Search", Model))
+    {
+        <input type="submit" value="Создать отчет" />
+    }
+
+</p>
+<table>
+    @{
+        if (Model.Type is Information_System_MVC.Models.BookedTicket)
+        {
+            <tr>
+                <td><p>Код записи</p></td>
+                <td><p>Количество</p></td>
+                <td><p>Стоимость</p></td>
+                <td><p>Оплачен ?</p></td>
+                <td><p>Код мероприятия</p></td>
+                <td><p>Логин туриста</p></td>
+            </tr>
+
+        }
+        if (Model.Type is Information_System_MVC.Models.Building)
+        {
+            <tr>
+                <td><p>Код здания</p></td>
+                <td><p>Количество номеров</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Equipment)
+        {
+            <tr>
+                <td><p>Код оборудования</p></td>
+                <td><p>Название</p></td>
+                <td><p>Количество</p></td>
+                <td><p>Код профессии</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Event)
+        {
+            <tr>
+                <td><p>Код записи</p></td>
+                <td><p>Название</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Описание</p></td>
+                <td><p>Дата проведения</p></td>
+                <td><p>Количество билетов</p></td>
+                <td><p>Код рабочего места</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Order)
+        {
+            <tr>
+                <td><p>Код записи</p></td>
+                <td><p>Количество</p></td>
+                <td><p>Стоимость</p></td>
+                <td><p>Дата заказа</p></td>
+                <td><p>Оплачен?</p></td>
+                <td><p>Логин туриста</p></td>
+                <td><p>Код товара</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Product)
+        {
+            <tr>
+                <td><p>Код записи</p></td>
+                <td><p>Название</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Описание</p></td>
+                <td><p>Вид</p></td>
+                <td><p>Количество</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Profession)
+        {
+            <tr>
+                <td><p>Код профессии</p></td>
+                <td><p>Название</p></td>
+                <td><p>Права в системе</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Room)
+        {
+            <tr>
+                <td><p>Код номера</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Количество кроватей</p></td>
+                <td><p>Количество комнат</p></td>
+                <td><p>Свободен?</p></td>
+                <td><p>Код здания</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Tourist)
+        {
+            <tr>
+                <td><p>Логин</p></td>
+                <td><p>Пароль</p></td>
+                <td><p>Эл. почта</p></td>
+                <td><p>Имя</p></td>
+                <td><p>Фамилия</p></td>
+                <td><p>Отчество</p></td>
+                <td><p>Дата рождения</p></td>
+                <td><p>Дата приезда</p></td>
+                <td><p>Дата отъезда</p></td>
+                <td><p>Страна</p></td>
+                <td><p>Номер комнаты</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.Worker)
+        {
+            <tr>
+                <td><p>Логин</p></td>
+                <td><p>Пароль</p></td>
+                <td><p>Имя</p></td>
+                <td><p>Фамилия</p></td>
+                <td><p>Отчество</p></td>
+                <td><p>Дата рождения</p></td>
+                <td><p>Эл. почта</p></td>
+                <td><p>Рабочие дни</p></td>
+                <td><p>Код профессии</p></td>
+                <td><p>Код рабочего места</p></td>
+            </tr>
+        }
+        if (Model.Type is Information_System_MVC.Models.WorkPlace)
+        {
+            <tr>
+                <td><p>Код записи</p></td>
+                <td><p>Код места</p></td>
+                <td><p>Код здания</p></td>
+            </tr>
+        }
+    }
+
+    @foreach (var item in Model.SearchResultObjects)
+    {
+        if (item is Information_System_MVC.Models.BookedTicket)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value="@((item as Information_System_MVC.Models.BookedTicket).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @((item as Information_System_MVC.Models.BookedTicket).Quantity)" readonly />
+                </td>
+                <td>
+                    <input id="Cost" name="Cost" value="@((item as Information_System_MVC.Models.BookedTicket).Cost)" readonly />
+                </td>
+                <td>
+                    <input id="IsPaid" name="IsPaid" value=" @((item as Information_System_MVC.Models.BookedTicket).IsPaid.ToString())" readonly />
+                </td>
+                <td>
+                    <input id="EventId" name="EventId" value=" @((item as Information_System_MVC.Models.BookedTicket).EventId)" readonly />
+                </td>
+                <td>
+                    <input id="TouristId" name="TouristId" value=" @((item as Information_System_MVC.Models.BookedTicket).TouristId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Building)
+        {
+            <tr>
+                <td>
+                    <input id="RoomCount" name="RoomCount" value="@((item as Information_System_MVC.Models.Building).Id)" readonly />
+                </td>
+                <td>
+                    <input id="RoomCount" name="RoomCount" value=" @((item as Information_System_MVC.Models.Building).RoomCount)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Equipment)
+        {
+
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Equipment).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Equipment).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @((item as Information_System_MVC.Models.Equipment).Quantity)" readonly />
+                </td>
+                <td>
+                    <input id="ProfessionsId" name="ProfessionId" value=" @((item as Information_System_MVC.Models.Equipment).ProfessionId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Event)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Event).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Event).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @((item as Information_System_MVC.Models.Event).Price)" readonly />
+                </td>
+                <td>
+                    <input id="Description" name="Description" value=" @((item as Information_System_MVC.Models.Event).Description)" readonly />
+                </td>
+                <td>
+                    <input id="Date" name="Date" value=" @((item as Information_System_MVC.Models.Event).Date)" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @((item as Information_System_MVC.Models.Event).Quantity)" readonly />
+                </td>
+                <td>
+                    <input id="WorkPlaceId" name="WorkPlaceId" value=" @((item as Information_System_MVC.Models.Event).WorkPlaceId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Order)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Order).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @((item as Information_System_MVC.Models.Order).Quantity)" readonly />
+                </td>
+                <td>
+                    <input id="Cosr" name="Cost" value=" @((item as Information_System_MVC.Models.Order).Cost)" readonly />
+                </td>
+                <td>
+                    <input id="DateOrder" name="DateOrder" value=" @((item as Information_System_MVC.Models.Order).DateOrder)" readonly />
+                </td>
+                <td>
+                    <input id="IsDone" name="IsDone" value=" @((item as Information_System_MVC.Models.Order).IsDone.ToString())" readonly />
+                </td>
+                <td>
+                    <input id="TouristId" name="TouristId" value=" @((item as Information_System_MVC.Models.Order).TouristId)" readonly />
+                </td>
+                <td>
+                    <input id="ProductId" name="ProductId" value=" @((item as Information_System_MVC.Models.Order).ProductId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Product)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value="@((item as Information_System_MVC.Models.Product).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Product).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @((item as Information_System_MVC.Models.Product).Price)" readonly />
+                </td>
+                <td>
+                    <input id="Description" name="Description" value=" @((item as Information_System_MVC.Models.Product).Description)" readonly />
+                </td>
+                <td>
+                    <input id="Type" name="Type" value=" @((item as Information_System_MVC.Models.Product).Type)" readonly />
+                </td>
+                <td>
+                    <input id="Quantity" name="Quantity" value=" @((item as Information_System_MVC.Models.Product).Quantity)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Profession)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Profession).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Profession).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Power" name="Power" value=" @((item as Information_System_MVC.Models.Profession).Power)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Room)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Room).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Price" name="Price" value=" @((item as Information_System_MVC.Models.Room).Price)" readonly />
+                </td>
+                <td>
+                    <input id="Beds" name="Beds" value=" @((item as Information_System_MVC.Models.Room).Beds)" readonly />
+                </td>
+                <td>
+                    <input id="SingleRooms" name="SingleRooms" value=" @((item as Information_System_MVC.Models.Room).SingleRooms)" readonly />
+                </td>
+                <td>
+                    <input id="IsAvailable" name="IsAvailable" value=" @((item as Information_System_MVC.Models.Room).IsAvailable.ToString())" readonly />
+                </td>
+                <td>
+                    <input id="BuildingId" name="BuildingId" value=" @((item as Information_System_MVC.Models.Room).BuildingId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Tourist)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.Tourist).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Password" name="Password" value=" @((item as Information_System_MVC.Models.Tourist).Password)" readonly />
+                </td>
+                <td>
+                    <input id="Email" name="Email" value=" @((item as Information_System_MVC.Models.Tourist).Email)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Tourist).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Surname" name="Surname" value=" @((item as Information_System_MVC.Models.Tourist).Surname)" readonly />
+                </td>
+                <td>
+                    <input id="Thirdname" name="Thirdname" value=" @((item as Information_System_MVC.Models.Tourist).Thirdname)" readonly />
+                </td>
+                <td>
+                    <input id="DateOfBirth" name="DateOfBirth" value=" @((item as Information_System_MVC.Models.Tourist).DateOfBirth)" readonly />
+                </td>
+                <td>
+                    <input id="DateOfComing" name="DateOfComing" value=" @((item as Information_System_MVC.Models.Tourist).DateOfComing)" readonly />
+                </td>
+                <td>
+                    <input id="DateOfLeaving" name="DateOfLeaving" value=" @((item as Information_System_MVC.Models.Tourist).DateOfLeaving)" readonly />
+                </td>
+                <td>
+                    <input id="Country" name="Country" value=" @((item as Information_System_MVC.Models.Tourist).Country)" readonly />
+                </td>
+                <td>
+                    <input id="RoomId" name="RoomId" value=" @((item as Information_System_MVC.Models.Tourist).RoomId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.Worker)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value="@((item as Information_System_MVC.Models.Worker).Id)" readonly />
+                </td>
+                <td>
+                    <input id="Password" name="Password" value=" @((item as Information_System_MVC.Models.Worker).Password)" readonly />
+                </td>
+                <td>
+                    <input id="Name" name="Name" value=" @((item as Information_System_MVC.Models.Worker).Name)" readonly />
+                </td>
+                <td>
+                    <input id="Surname" name="Surname" value=" @((item as Information_System_MVC.Models.Worker).Surname)" readonly />
+                </td>
+                <td>
+                    <input id="Thirdname" name="Thirdname" value=" @((item as Information_System_MVC.Models.Worker).Thirdname)" readonly />
+                </td>
+                <td>
+                    <input id="DateOfBirth" name="DateOfBirth" value=" @((item as Information_System_MVC.Models.Worker).DateOfBirth)" readonly />
+                </td>
+                <td>
+                    <input id="Email" name="Email" value=" @((item as Information_System_MVC.Models.Worker).Email).Email" readonly />
+                </td>
+                <td>
+                    <input id="WorkDays" name="WorkDays" value=" @((item as Information_System_MVC.Models.Worker).WorkDays)" readonly />
+                </td>
+                <td>
+                    <input id="ProfessionId" name="ProfessionId" value=" @((item as Information_System_MVC.Models.Worker).ProfessionId)" readonly />
+                </td>
+                <td>
+                    <input id="WorkPlaceId" name="WorkPlaceId" value=" @((item as Information_System_MVC.Models.Worker).WorkPlaceId)" readonly />
+                </td>
+            </tr>
+        }
+        if (item is Information_System_MVC.Models.WorkPlace)
+        {
+            <tr>
+                <td>
+                    <input id="Id" name="Id" value=" @((item as Information_System_MVC.Models.WorkPlace).Id)" readonly />
+                </td>
+                <td>
+                    <input id="PlaceId" name="PlaceId" value=" @((item as Information_System_MVC.Models.WorkPlace).PlaceId)" readonly />
+                </td>
+                <td>
+                    <input id="BuildingId" name="BuildingId" value=" @((item as Information_System_MVC.Models.WorkPlace).BuildingId)" readonly />
+                </td>
+            </tr>
+        }
+    }
+</table>
