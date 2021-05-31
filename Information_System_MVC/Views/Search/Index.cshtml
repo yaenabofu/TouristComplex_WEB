@@ -14,7 +14,7 @@
     <div>
         <label>Искомая сущность </label>
         <select name="tables" id="tables" onchange="TwoFuncs()"
-                                <option value="Profession" >Профессии</option>
+                @if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker) { if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2) {<option value="Profession" >Профессии</option>
                 <option value="Workers" >Работники</option>
                 <option value="Professions">Профессии</option>
                 <option value="Equipments">Оборудование</option>
@@ -26,6 +26,32 @@
                 <option value="Products">Товары</option>
                 <option value="BookedTickets">Забронированные билеты</option>
                 <option value="Orders">Заказы</option>
+                    }
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 1)
+                    {
+                <option value="Buildings">Здания</option>
+                <option value="Rooms">Номера</option>
+                <option value="Tourists">Туристы</option>
+                <option value="Events">Мероприятия</option>
+                <option value="Products">Товары</option>
+                <option value="BookedTickets">Забронированные билеты</option>
+                <option value="Orders">Заказы</option>
+                    }
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 0)
+                    {
+                <option value="Professions">Профессии</option>
+                <option value="Equipments">Оборудование</option>
+                <option value="WorkPlaces">Рабочие места</option>
+                <option value="Buildings">Здания</option>
+                    }
+                }
+                else
+                {
+                <option value="Events">Мероприятия</option>
+                <option value="Products">Товары</option>
+                <option value="BookedTickets">Забронированные билеты</option>
+                <option value="Orders">Заказы</option>
+                }
             </select>
 
         <label> Атрибут </label>
@@ -318,13 +344,13 @@
                     }
                     else {
                         request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr2').value}
-                                                             ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
+                                                                                                                 ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
                     }
                 }
                 else {
                     if (document.getElementById('attr2').value == "none") {
                         request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value}
-                                                             ${document.getElementById('oper1').value} ${document.getElementById('value1').value}`;
+                                                                                                                 ${document.getElementById('oper1').value} ${document.getElementById('value1').value}`;
                     }
                     else {
                         request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value} ${document.getElementById('oper1').value} ${document.getElementById('value1').value} ${document.getElementById('AndOr').value} ${document.getElementById('attr2').value} ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
