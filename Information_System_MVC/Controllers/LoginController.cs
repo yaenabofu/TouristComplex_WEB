@@ -63,7 +63,10 @@ namespace Information_System_MVC.Controllers
 
         public ActionResult Error()
         {
-            return View();
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] == null)
+                return View();
+            else
+                return HttpNotFound();
         }
 
         private bool IsTourist(User user)

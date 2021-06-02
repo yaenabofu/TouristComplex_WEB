@@ -6,16 +6,70 @@
 <body>
     <container>
         <row>
-            <p> <h2>Новости</h2></p>
+            <p>
+                <h2>Новости</h2>
+                @{
+
+                    if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
+                    {
+                        if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                        {
+                            <textarea id="news" name="news"></textarea>
+                        }
+                        else
+                        {
+                            <textarea id="news" name="news" readonly></textarea>
+                        }
+                    }
+                    else
+                    {
+                        <textarea id="news" name="news" readonly></textarea>
+                    }
+
+                }
+            </p>
         </row>
         <row>
             <p><h2>Обзор системы</h2></p>
-            <iframe width="420" height="345"
-                    src="https://www.youtube.com/embed/lHCFLfI-BZQ">
-            </iframe>
+            @{
+
+                if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
+                {
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                    {
+                        <textarea id="sys" name="sys"></textarea>
+                    }
+                    else
+                    {
+                        <textarea id="sys" name="sys" readonly></textarea>
+                    }
+                }
+                else
+                {
+                    <textarea id="sys" name="sys" readonly></textarea>
+                }
+
+            }
         </row>
         <row>
             <p><h2>Поддержка</h2></p>
+            @{
+                if (System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.ConnectedWorker)
+                {
+                    if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
+                    {
+                        <textarea id="tech" name="tech"></textarea>
+                    }
+                    else
+                    {
+                        <textarea id="tech" name="tech" readonly></textarea>
+                    }
+                }
+                else
+                {
+                    <textarea id="tech" name="tech" readonly></textarea>
+                }
+            }
         </row>
     </container>
 </body>

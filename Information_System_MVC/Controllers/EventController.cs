@@ -19,7 +19,7 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
                 }
             }
 
@@ -39,7 +39,7 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
                 {
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
                 }
             }
             if (id == null)
@@ -66,10 +66,10 @@ namespace Information_System_MVC.Controllers
                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                     return View();
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
 
         [HttpPost]
@@ -93,10 +93,10 @@ namespace Information_System_MVC.Controllers
                     }
                 }
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
         [Authorize]
         public ActionResult Edit(int? id)
@@ -121,10 +121,10 @@ namespace Information_System_MVC.Controllers
                     return HttpNotFound();
                 }
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
         [Authorize]
         [HttpPost]
@@ -148,10 +148,10 @@ namespace Information_System_MVC.Controllers
                     }
                 }
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
 
         [Authorize]
@@ -174,10 +174,10 @@ namespace Information_System_MVC.Controllers
                     return View(event1);
                 }
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
         [Authorize]
         [HttpPost, ActionName("Delete")]
@@ -207,10 +207,10 @@ namespace Information_System_MVC.Controllers
                     }
                 }
                 else
-                    return Redirect("/Home/Index");
+                    return HttpNotFound();
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
         [Authorize]
         [HttpPost]
@@ -251,7 +251,7 @@ namespace Information_System_MVC.Controllers
                 }
             }
             else
-                return Redirect("/Home/Index");
+                return HttpNotFound();
         }
     }
 }
