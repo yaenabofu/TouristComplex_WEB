@@ -13,7 +13,7 @@
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
             <p>Количество комнат</p>
-            <input id="RoomCount" name="RoomCount" value="@Model.RoomCount" />
+            <input id="RoomCount" name="RoomCount" type="number" min="1" value="@Model.RoomCount" />
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
             <input type="submit" value="Изменить" />

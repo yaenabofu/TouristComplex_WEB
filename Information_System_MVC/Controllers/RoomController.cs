@@ -1,4 +1,5 @@
 ﻿using Information_System_MVC.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -70,7 +71,9 @@ namespace Information_System_MVC.Controllers
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
                     return View();
+                }
                 else
                     return HttpNotFound();
             }

@@ -6,22 +6,25 @@
 
 <div>
     <h3>Забронированные билеты -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+    @using (Html.BeginForm("Create", "BookedTickets", FormMethod.Post))
     {
         <fieldset>
-            <label>Количество</label>
-            <input id="Quantity" name="Quantity" value="" />
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Quantity)
-            <label>Стоимость</label>
-            <input id="Cost" name="Cost" value="" />
+            <p>Стоимость</p>
+            <input id="Cost" name="Cost" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Cost)
-            <label>Оплачен ?</label>
-            <input id="IsPaid" name="IsPaid" value="" />
+            <p>Оплачен ?</p>
+            <select name="IsPaid" id="IsPaid" value="">
+                <option value="true" selected>Да</option>
+                <option value="false">Нет</option>
+            </select>
             @Html.ValidationMessageFor(model => model.IsPaid)
-            <label>Код мероприятия</label>
+            <p>Код мероприятия</p>
             <input id="EventId" name="EventId" value="" />
             @Html.ValidationMessageFor(model => model.EventId)
-            <label>Код туриста</label>
+            <p>Код туриста</p>
             <input id="TouristId" name="TouristId" value="" />
             @Html.ValidationMessageFor(model => model.TouristId)
             <br /> <br />

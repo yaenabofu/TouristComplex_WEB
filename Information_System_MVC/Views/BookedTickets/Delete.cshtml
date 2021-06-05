@@ -20,7 +20,16 @@
         @Html.ValidationMessageFor(model => model.Cost)
 
         <p>Оплачен ?</p>
-        <input id="IsPaid" name="IsPaid" value="@Model.IsPaid.ToString()" readonly />
+        @{
+            if (Model.IsPaid == true)
+            {
+                <input id="IsPaid" name="IsPaid" value="Да" readonly />
+            }
+            else
+            {
+                <input id="IsPaid" name="IsPaid" value="Нет" readonly />
+            }
+        }
         @Html.ValidationMessageFor(model => model.IsPaid)
 
         <p>Код мероприятия</p>

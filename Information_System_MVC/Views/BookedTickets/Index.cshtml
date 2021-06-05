@@ -41,7 +41,16 @@
                         <input id="Cost" name="Cost" value=" @item.Cost" readonly />
                     </td>
                     <td>
-                        <input id="IsPaid" name="IsPaid" value=" @item.IsPaid.ToString()" readonly />
+                        @{
+                            if (item.IsPaid == true)
+                            {
+                                <input id="IsPaid" name="IsPaid" value="Да" readonly />
+                            }
+                            else
+                            {
+                                <input id="IsPaid" name="IsPaid" value="Нет" readonly />
+                            }
+                        }
                     </td>
                     <td>
                         <input id="EventId" name="EventId" value=" @item.EventId" readonly />
@@ -72,7 +81,16 @@
                         <input id="Cost" name="Cost" value=" @item.Cost" readonly />
                     </td>
                     <td>
-                        <input id="IsPaid" name="IsPaid" value=" @item.IsPaid" readonly />
+                        @{
+                            if (item.IsPaid == true)
+                            {
+                                <input id="IsPaid" name="IsPaid" value="Да" readonly />
+                            }
+                            else
+                            {
+                                <input id="IsPaid" name="IsPaid" value="Нет" readonly />
+                            }
+                        }
                     </td>
                     <td>
                         <input id="EventId" name="EventId" value=" @item.EventId" readonly />

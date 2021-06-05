@@ -45,7 +45,16 @@
                         <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
                     </td>
                     <td>
-                        <input id="IsDone" name="IsDone" value=" @item.IsDone.ToString()" readonly />
+                        @{
+                            if (item.IsDone == true)
+                            {
+                                <input id="IsDone" name="IsDone" value="Да" readonly />
+                            }
+                            else
+                            {
+                                <input id="IsDone" name="IsDone" value="Нет" readonly />
+                            }
+                        }
                     </td>
                     <td>
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
@@ -81,7 +90,16 @@
                         <input id="DateOrder" name="DateOrder" value=" @item.DateOrder" readonly />
                     </td>
                     <td>
-                        <input id="IsDone" name="IsDone" value=" @item.IsDone.ToString()" readonly />
+                        @{
+                            if (item.IsDone == true)
+                            {
+                                <input id="IsDone" name="IsDone" value="Да" readonly />
+                            }
+                            else
+                            {
+                                <input id="IsDone" name="IsDone" value="Нет" readonly />
+                            }
+                        }
                     </td>
                     <td>
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />

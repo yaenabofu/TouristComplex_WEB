@@ -30,7 +30,22 @@
                     <input id="Name" name="Name" value=" @item.Name" readonly />
                 </td>
                 <td>
-                    <input id="Power" name="Power" value=" @item.Power" readonly />
+                    @{
+                        var t = item.Power;
+                        if (item.Power == 0)
+                        {
+                            <input id="Power" name="Power" value="Минимальные" readonly />
+                        }
+                        if (item.Power == 1)
+                        {
+                            <input id="Power" name="Power" value="Ограниченные" readonly />
+                        }
+                        if (item.Power == 2)
+                        {
+                            <input id="Power" name="Power" value="Полные" readonly />
+                        }
+
+                    }
                 </td>
                 @{
                     if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)

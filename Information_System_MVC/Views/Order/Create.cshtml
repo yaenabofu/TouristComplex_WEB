@@ -16,10 +16,13 @@
             <input id="Cost" name="Cost" value="" />
             @Html.ValidationMessageFor(model => model.Cost)
             <label>Дата заказа</label>
-            <input id="DateOrder" name="DateOrder" value="" />
+            <input id="DateOrder" name="DateOrder" type="datetime-local" value="" />
             @Html.ValidationMessageFor(model => model.DateOrder)
             <label>Оплачен ?</label>
-            <input id="IsDone" name="IsDone" value="" />
+            <select name="IsDone" id="IsDone" value="">
+                <option value="true" selected>Да</option>
+                <option value="false">Нет</option>
+            </select>
             @Html.ValidationMessageFor(model => model.IsDone)
             <label>Код товара</label>
             <input id="ProductId" name="ProductId" value="" />

@@ -8,24 +8,32 @@
     <h3>Номера -> Добавление записи</h3>
     @using (Html.BeginForm("Create", "Room", FormMethod.Post))
     {
-        <fieldset>
+        <fieldset onshow="Fill()">
             <p>Цена</p>
-            <input id="Price" name="Price" value="" />
+            <input id="Price" name="Price" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Price)
             <p>Количество кроватей</p>
-            <input id="Beds" name="Beds" value="" />
+            <input id="Beds" name="Beds" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Beds)
             <p>Количество комнат</p>
-            <input id="SingleRooms" name="SingleRooms" value="" />
+            <input id="SingleRooms" type="number" min="1" name="SingleRooms" value="1" />
             @Html.ValidationMessageFor(model => model.SingleRooms)
             <p>Свободен?</p>
-            <input id="IsAvailable" name="IsAvailable" value="" />
+            <select id="IsAvailable" name="IsAvailable" value="True">
+                <option value="True">Да</option>
+                <option value="False">Нет</option>
+            </select>
             @Html.ValidationMessageFor(model => model.IsAvailable)
             <p>Код здания</p>
-            <input id="BuildingId" name="BuildingId" value="" />
+            <select id="BuildingId" name="BuildingId" value="">
+            </select>
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />
             <input type="submit" value="Добавить" />
         </fieldset>
     }
 </div>
+<script>
+    function Fill() {
+    }
+</script>

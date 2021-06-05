@@ -25,16 +25,16 @@
             <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" />
             @Html.ValidationMessageFor(model => model.Thirdname)
             <p>Дата рождения</p>
-            <input id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" />
+            <input id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" />
             @Html.ValidationMessageFor(model => model.DateOfBirth)
             <p>Эл. почта</p>
             <input id="Email" name="Email" value="@Model.Email" />
             @Html.ValidationMessageFor(model => model.Email)
             <p>Дата приезда</p>
-            <input id="DateOfComing" name="DateOfComing" value="@Model.DateOfComing" readonly />
+            <input id="DateOfComing" name="DateOfComing" type="datetime-local" value="@Model.DateOfComing.ToString("yyyy-MM-ddThh:mm")" readonly />
             @Html.ValidationMessageFor(model => model.DateOfComing)
             <p>Дата отъезда</p>
-            <input id="DateOfLeaving" name="DateOfLeaving" value="@Model.DateOfLeaving" />
+            <input id="DateOfLeaving" name="DateOfLeaving" type="datetime-local" value="@Model.DateOfLeaving.ToString("yyyy-MM-ddThh:mm")" />
             @Html.ValidationMessageFor(model => model.DateOfLeaving)
             <p>Страна</p>
             <input id="Country" name="Country" value="@Model.Country" />

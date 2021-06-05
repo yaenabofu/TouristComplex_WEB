@@ -8,33 +8,33 @@
     <h3>Товары -> Редактирование записи</h3>
     @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
     {
-<fieldset>
-    <p>Код записи</p>
-    <input id="Id" name="Id" value="@Model.Id" readonly />
-    @Html.ValidationMessageFor(model => model.Id)
-    
-    <p>Название</p>
-    <input id="Name" name="Name" value="@Model.Name" />
-    @Html.ValidationMessageFor(model => model.Name)
+        <fieldset>
+            <p>Код записи</p>
+            <input id="Id" name="Id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
 
-    <p>Цена</p>
-    <input id="Price" name="Price" value="@Model.Price" />
-    @Html.ValidationMessageFor(model => model.Price)
+            <p>Название</p>
+            <input id="Name" name="Name" value="@Model.Name" />
+            @Html.ValidationMessageFor(model => model.Name)
 
-    <p>Описание</p>
-    <textarea id="Description" name="Description">@Model.Description</textarea>
-    @*<input id="Description" name="Description" value="" />*@
-    @Html.ValidationMessageFor(model => model.Description)
+            <p>Цена</p>
+            <input id="Price" name="Price" type="number" min="1" value="@Model.Price" />
+            @Html.ValidationMessageFor(model => model.Price)
 
-    <p>Вид</p>
-    <input id="Type" name="Type" value="@Model.Type" />
-    @Html.ValidationMessageFor(model => model.Type)
+            <p>Описание</p>
+            <textarea id="Description" name="Description">@Model.Description</textarea>
+            @*<input id="Description" name="Description" value="" />*@
+            @Html.ValidationMessageFor(model => model.Description)
 
-    <p>Количество</p>
-    <input id="Quantity" name="Quantity" value="@Model.Quantity" />
-    @Html.ValidationMessageFor(model => model.Quantity)
-    <br /> <br />
-    <input type="submit" value="Изменить" />
-</fieldset>
+            <p>Вид</p>
+            <input id="Type" name="Type" value="@Model.Type" />
+            @Html.ValidationMessageFor(model => model.Type)
+
+            <p>Количество</p>
+            <input id="Quantity" name="Quantity" type="number" min="0" value="@Model.Quantity" />
+            @Html.ValidationMessageFor(model => model.Quantity)
+            <br /> <br />
+            <input type="submit" value="Изменить" />
+        </fieldset>
     }
 </div>

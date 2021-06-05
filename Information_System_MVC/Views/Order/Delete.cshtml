@@ -8,36 +8,45 @@
     <h3>Заказы -> Удаление записи</h3>
     @using (Html.BeginForm("Delete", "Order", FormMethod.Post))
     {
-        <fieldset>
-            <p>Код записи</p>
-            <input id="Id" name="Id" value="@Model.Id" readonly />
-            @Html.ValidationMessageFor(model => model.Id)
+<fieldset>
+    <p>Код записи</p>
+    <input id="Id" name="Id" value="@Model.Id" readonly />
+    @Html.ValidationMessageFor(model => model.Id)
 
-            <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
-            @Html.ValidationMessageFor(model => model.Quantity)
+    <p>Количество</p>
+    <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
+    @Html.ValidationMessageFor(model => model.Quantity)
 
-            <p>Стоимость</p>
-            <input id="Cost" name="Cost" value="@Model.Cost" readonly />
-            @Html.ValidationMessageFor(model => model.Cost)
+    <p>Стоимость</p>
+    <input id="Cost" name="Cost" value="@Model.Cost" readonly />
+    @Html.ValidationMessageFor(model => model.Cost)
 
-            <p>Логин туриста</p>
-            <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
-            @Html.ValidationMessageFor(model => model.TouristId)
+    <p>Логин туриста</p>
+    <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
+    @Html.ValidationMessageFor(model => model.TouristId)
 
-            <p>Дата заказа</p>
-            <input id="DateOrder" name="DateOrder" value="@Model.DateOrder" readonly />
-            @Html.ValidationMessageFor(model => model.DateOrder)
+    <p>Дата заказа</p>
+    <input id="DateOrder" name="DateOrder" value="@Model.DateOrder" readonly />
+    @Html.ValidationMessageFor(model => model.DateOrder)
 
-            <p>Оплачен ?</p>
-            <input id="IsPaid" name="IsPaid" value="@Model.IsDone.ToString()" readonly/>
-            @Html.ValidationMessageFor(model => model.IsDone)
+    <p>Оплачен ?</p>
+    @{
+        if (Model.IsDone == true)
+        {
+            <input id="IsPaid" name="IsPaid" value="Да" readonly />
+        }
+        else
+        {
+            <input id="IsPaid" name="IsPaid" value="Нет" readonly />
+        }
+    }
+    @Html.ValidationMessageFor(model => model.IsDone)
 
-            <p>Код товара</p>
-            <input id="ProductId" name="ProductId" value="@Model.ProductId" readonly />
-            @Html.ValidationMessageFor(model => model.ProductId)
-            <br /> <br />
-            <input type="submit" value="Удалить" />
-        </fieldset>
+    <p>Код товара</p>
+    <input id="ProductId" name="ProductId" value="@Model.ProductId" readonly />
+    @Html.ValidationMessageFor(model => model.ProductId)
+    <br /> <br />
+    <input type="submit" value="Удалить" />
+</fieldset>
     }
 </div>

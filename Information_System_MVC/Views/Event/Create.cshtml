@@ -14,7 +14,7 @@
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" value="" />
+            <input id="Price" name="Price" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
@@ -23,11 +23,11 @@
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Дата проведения</p>
-            <input id="Date" name="Date" value="" />
+            <input id="Date" name="Date" type="datetime-local" value="" />
             @Html.ValidationMessageFor(model => model.Date)
 
             <p>Количество билетов</p>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" name="Quantity" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Код рабочего места</p>

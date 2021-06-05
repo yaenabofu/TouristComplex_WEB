@@ -14,7 +14,11 @@
         <input id="Name" name="Name" value="@Model.Name" readonly />
         @Html.ValidationMessageFor(model => model.Name)
         <p>Права в системе</p>
-        <input id="Power" name="Power" value="@Model.Power" readonly />
+        <select id="Power" name="Power" value="0" disabled>
+            <option value="0">Минимальные</option>
+            <option value="1">Ограниченные</option>
+            <option value="2">Полные</option>
+        </select>
         @Html.ValidationMessageFor(model => model.Power)
         <br /> <br />
         @using (Html.BeginForm())

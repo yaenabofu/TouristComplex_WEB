@@ -14,7 +14,7 @@
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" name="Quantity" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Код профессии</p>

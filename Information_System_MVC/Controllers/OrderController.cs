@@ -46,6 +46,26 @@ namespace Information_System_MVC.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public ActionResult Create(Order order)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                    return HttpNotFound();
+            }
+            else
+                return HttpNotFound();
+        }
+
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {

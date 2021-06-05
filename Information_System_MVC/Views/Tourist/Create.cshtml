@@ -8,39 +8,39 @@
     <h3>Туристы -> Добавление записи</h3>
     @using (Html.BeginForm("Create", "Tourist", FormMethod.Post))
     {
-<fieldset>
-    <p>Пароль</p>
-    <input id="Password" name="Password" value="" />
-    @Html.ValidationMessageFor(model => model.Password)
-    <p>Имя</p>
-    <input id="Name" name="Name" value="" />
-    @Html.ValidationMessageFor(model => model.Name)
-    <p>Фамилия</p>
-    <input id="Surname" name="Surname" value="" />
-    @Html.ValidationMessageFor(model => model.Surname)
-    <p>Отчество</p>
-    <input id="Thirdname" name="Thirdname" value="" />
-    @Html.ValidationMessageFor(model => model.Thirdname)
-    <p>Дата рождения</p>
-    <input id="DateOfBirth" name="DateOfBirth" value="" />
-    @Html.ValidationMessageFor(model => model.DateOfBirth)
-    <p>Эл. почта</p>
-    <input id="Email" name="Email" value="" />
-    @Html.ValidationMessageFor(model => model.Email)
-    <p>Дата приезда</p>
-    <input id="DateOfComing" name="DateOfComing" value="" />
-    @Html.ValidationMessageFor(model => model.DateOfComing)
-    <p>Дата отъезда</p>
-    <input id="DateOfLeaving" name="DateOfLeaving" value="" />
-    @Html.ValidationMessageFor(model => model.DateOfLeaving)
-    <p>Страна</p>
-    <input id="Country" name="Country" value="" />
-    @Html.ValidationMessageFor(model => model.Country)
-    <p>Номер комнаты</p>
-    <input id="RoomId" name="RoomId" value="" />
-    @Html.ValidationMessageFor(model => model.RoomId)
-    <br /><br />
-    <input type="submit" value="Добавить" />
-</fieldset>
+        <fieldset>
+            <p>Пароль</p>
+            <input id="Password" name="Password" value="" />
+            @Html.ValidationMessageFor(model => model.Password)
+            <p>Имя</p>
+            <input id="Name" name="Name" value="" />
+            @Html.ValidationMessageFor(model => model.Name)
+            <p>Фамилия</p>
+            <input id="Surname" name="Surname" value="" />
+            @Html.ValidationMessageFor(model => model.Surname)
+            <p>Отчество</p>
+            <input id="Thirdname" name="Thirdname" value="" />
+            @Html.ValidationMessageFor(model => model.Thirdname)
+            <p>Дата рождения</p>
+            <input id="DateOfBirth" name="DateOfBirth" type="date" value="" />
+            @Html.ValidationMessageFor(model => model.DateOfBirth)
+            <p>Эл. почта</p>
+            <input id="Email" name="Email" value="" />
+            @Html.ValidationMessageFor(model => model.Email)
+            <p>Дата приезда</p>
+            <input id="DateOfComing" name="DateOfComing" type="datetime-local" value="" />
+            @Html.ValidationMessageFor(model => model.DateOfComing)
+            <p>Дата отъезда</p>
+            <input id="DateOfLeaving" name="DateOfLeaving" type="datetime-local" value="" />
+            @Html.ValidationMessageFor(model => model.DateOfLeaving)
+            <p>Страна</p>
+            <input id="Country" name="Country" value="" />
+            @Html.ValidationMessageFor(model => model.Country)
+            <p>Номер комнаты</p>
+            <input id="RoomId" name="RoomId" value="" />
+            @Html.ValidationMessageFor(model => model.RoomId)
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        </fieldset>
     }
 </div>

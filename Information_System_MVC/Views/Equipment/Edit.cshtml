@@ -10,22 +10,22 @@
     {
         <fieldset>
             <p>Код оборудования</p>
-         
+
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
-           
+
             <p>Название</p>
-        
+
             <input id="Name" name="Name" value="@Model.Name" />
             @Html.ValidationMessageFor(model => model.Name)
 
-           
+
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
+            <input id="Quantity" name="Quantity" type="number" min="1" value="@Model.Quantity" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
-           
+
             <p>Код профессии</p>
             <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
             @Html.ValidationMessageFor(model => model.ProfessionId)

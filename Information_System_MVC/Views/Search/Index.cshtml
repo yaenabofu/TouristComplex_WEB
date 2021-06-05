@@ -343,14 +343,12 @@
                         request = `SELECT * FROM ${document.getElementById('tables').value}`;
                     }
                     else {
-                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr2').value}
-                                                                                                                 ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
+                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr2').value} ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;
                     }
                 }
                 else {
-                    if (document.getElementById('attr2').value == "none") {
-                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value}
-                                                                                                                 ${document.getElementById('oper1').value} ${document.getElementById('value1').value}`;
+                    if (document.getElementById('attr2').value == "" || document.getElementById('attr2').value == "none") {
+                        request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value} ${document.getElementById('oper1').value} ${document.getElementById('value1').value}`;
                     }
                     else {
                         request = `SELECT * FROM ${document.getElementById('tables').value} WHERE ${document.getElementById('attr1').value} ${document.getElementById('oper1').value} ${document.getElementById('value1').value} ${document.getElementById('AndOr').value} ${document.getElementById('attr2').value} ${document.getElementById('oper2').value} ${document.getElementById('value2').value}`;

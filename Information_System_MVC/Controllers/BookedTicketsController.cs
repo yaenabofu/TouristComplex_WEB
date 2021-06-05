@@ -43,6 +43,26 @@ namespace Information_System_MVC.Controllers
             else
                 return HttpNotFound();
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(BookedTicket ticket)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
+            {
+                if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+
+                    db.BookedTickets.Add(ticket);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                    return HttpNotFound();
+            }
+            else
+                return HttpNotFound();
+        }
 
         [Authorize]
         [HttpGet]

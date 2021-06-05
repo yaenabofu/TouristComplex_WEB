@@ -12,6 +12,7 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)

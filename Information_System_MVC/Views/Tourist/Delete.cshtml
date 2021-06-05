@@ -23,7 +23,7 @@
         <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" readonly />
         @Html.ValidationMessageFor(model => model.Thirdname)
         <p>Дата рождения</p>
-        <input id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth" readonly />
+        <input id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" readonly />
         @Html.ValidationMessageFor(model => model.DateOfBirth)
         <p>Эл. почта</p>
         <input id="Email" name="Email" value="@Model.Email" readonly />

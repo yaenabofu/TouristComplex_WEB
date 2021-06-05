@@ -14,16 +14,30 @@
             @Html.ValidationMessageFor(model => model.Id)
 
             @Html.LabelFor(x => x.Quantity, "Количество")
-            <input id="Quantity" name="Quantity" value="@Model.Quantity" />
+            <input id="Quantity" name="Quantity" type="number" min="0" value="@Model.Quantity" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             @Html.LabelFor(x => x.Cost, "Стоимость")
-            <input id="Cost" name="Cost" value="@Model.Cost" />
+            <input id="Cost" name="Cost" type="number" min="1" value="@Model.Cost" />
             @Html.ValidationMessageFor(model => model.Cost)
 
             @Html.LabelFor(x => x.IsPaid, "Оплачен?")
-            <input id="IsPaid" name="IsPaid" value="@Model.IsPaid" />
-            @Html.ValidationMessageFor(model => model.IsPaid)
+            @{
+                if (Model.IsPaid == true)
+                {
+                    <select name="IsPaid" id="IsPaid" value="">
+                        <option value="true" selected>Да</option>
+                        <option value="false">Нет</option>
+                    </select>
+                }
+                else
+                {
+                    <select name="IsPaid" id="IsPaid" value="">
+                        <option value="true">Да</option>
+                        <option value="false" selected>Нет</option>
+                    </select>
+                }
+            }            @Html.ValidationMessageFor(model => model.IsPaid)
 
             @Html.LabelFor(x => x.EventId, "Код мероприятия")
             <input id="EventId" name="EventId" value="@Model.EventId" />

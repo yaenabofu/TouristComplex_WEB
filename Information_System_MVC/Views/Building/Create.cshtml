@@ -10,7 +10,7 @@
     {
         <fieldset>
             <label>Количество комнат</label>
-            <input id="RoomCount" name="RoomCount" value="" />
+            <input id="RoomCount" name="RoomCount" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
             <input type="submit" value="Добавить" />
