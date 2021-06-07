@@ -60,7 +60,15 @@
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
                     </td>
                     <td>
-                        <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                        @{
+                            foreach (var item2 in ViewBag.PassingValue)
+                            {
+                                if (item2.Id == item.ProductId)
+                                {
+                                    <input readonly id="ProductId" name="ProductId" value="@item2.Name" />
+                                }
+                            }
+                        }
                     </td>
                     <td>
                         <a href="/Order/Delete/@item.Id">
@@ -105,7 +113,15 @@
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
                     </td>
                     <td>
-                        <input id="ProductId" name="ProductId" value=" @item.ProductId" readonly />
+                        @{
+                            foreach (var item2 in ViewBag.PassingValue)
+                            {
+                                if (item2.Id == item.ProductId)
+                                {
+                                    <input readonly id="ProductId" name="ProductId" value="@item2.Name" />
+                                }
+                            }
+                        }
                     </td>
                     <td>
                         <a href="/Order/Delete/@item.Id">

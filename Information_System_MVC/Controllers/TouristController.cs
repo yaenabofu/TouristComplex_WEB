@@ -72,6 +72,9 @@ namespace Information_System_MVC.Controllers
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
+                    List<Room> rooms = db.Rooms.ToList();
+                    ViewBag.PassingValue = rooms;
+
                     return View();
                 }
                 else
@@ -122,6 +125,9 @@ namespace Information_System_MVC.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    List<Room> rooms = db.Rooms.ToList();
+                    ViewBag.PassingValue = rooms;
 
                     Tourist tourist = db.Tourists.Find(id);
 

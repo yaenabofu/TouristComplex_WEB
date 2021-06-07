@@ -22,6 +22,16 @@ namespace Information_System_MVC.Controllers
 
                     ViewBag.Workers = workers;
 
+                    List<Profession> professions = db.Professions.ToList();
+
+                    List<int> workPlaces = db.WorkPlaces.Select(x => x.Id).ToList();
+                    workPlaces.Sort();
+                    List<dynamic> list = new List<dynamic>();
+                    list.Add(professions);
+                    list.Add(workPlaces);
+
+                    ViewBag.PassingValue = list;
+
                     return View();
                 }
                 else
@@ -66,6 +76,16 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
+                    List<Profession> professions = db.Professions.ToList();
+
+                    List<int> workPlaces = db.WorkPlaces.Select(x => x.Id).ToList();
+                    workPlaces.Sort();
+                    List<dynamic> list = new List<dynamic>();
+                    list.Add(professions);
+                    list.Add(workPlaces);
+
+                    ViewBag.PassingValue = list;
+
                     return View();
                 }
                 else
@@ -119,6 +139,16 @@ namespace Information_System_MVC.Controllers
 
                     if (worker != null)
                     {
+                        List<Profession> professions = db.Professions.ToList();
+
+                        List<int> workPlaces = db.WorkPlaces.Select(x => x.Id).ToList();
+                        workPlaces.Sort();
+                        List<dynamic> list = new List<dynamic>();
+                        list.Add(professions);
+                        list.Add(workPlaces);
+
+                        ViewBag.PassingValue = list;
+
                         return View(worker);
                     }
 
@@ -175,6 +205,16 @@ namespace Information_System_MVC.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    List<Profession> professions = db.Professions.ToList();
+
+                    List<int> workPlaces = db.WorkPlaces.Select(x => x.Id).ToList();
+                    workPlaces.Sort();
+                    List<dynamic> list = new List<dynamic>();
+                    list.Add(professions);
+                    list.Add(workPlaces);
+
+                    ViewBag.PassingValue = list;
 
                     return View(worker);
                 }

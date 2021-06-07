@@ -27,6 +27,9 @@ namespace Information_System_MVC.Controllers
 
             ViewBag.Orders = orders;
 
+            List<Product> products = db.Products.ToList();
+            ViewBag.PassingValue = products;
+
             return View();
         }
 
@@ -37,7 +40,17 @@ namespace Information_System_MVC.Controllers
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    List<Product> products = db.Products.ToList();
+                    List<int> logins = db.Tourists.Select(c => c.Id).ToList();
+                    List<dynamic> list = new List<dynamic>();
+                    list.Add(products);
+                    list.Add(logins);
+
+                    ViewBag.PassingValue = list;
+
                     return View();
+                }
                 else
                     return HttpNotFound();
             }
@@ -82,6 +95,9 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
             }
 
+            List<Product> products = db.Products.ToList();
+           
+            ViewBag.PassingValue = products;
             Order order = db.Orders.Find(id);
 
             if (order != null)
@@ -96,7 +112,6 @@ namespace Information_System_MVC.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 0)
@@ -109,6 +124,14 @@ namespace Information_System_MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<Product> products = db.Products.ToList();
+            List<int> logins = db.Tourists.Select(c => c.Id).ToList();
+            List<dynamic> list = new List<dynamic>();
+            list.Add(products);
+            list.Add(logins);
+
+            ViewBag.PassingValue = list;
 
             Order order = db.Orders.Find(id);
 
@@ -155,6 +178,8 @@ namespace Information_System_MVC.Controllers
                 }
             }
 
+            List<Product> products = db.Products.ToList();
+            ViewBag.PassingValue = products;
             Order ticket = db.Orders.Find(id);
 
             if (ticket == null)

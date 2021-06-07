@@ -26,6 +26,12 @@
             @Html.ValidationMessageFor(model => model.IsAvailable)
             <p>Код здания</p>
             <select id="BuildingId" name="BuildingId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
             </select>
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />

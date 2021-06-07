@@ -33,7 +33,15 @@
         @Html.ValidationMessageFor(model => model.IsPaid)
 
         <p>Код мероприятия</p>
-        <input id="EventId" name="EventId" value="@Model.EventId" readonly />
+        @{
+            foreach (var item2 in ViewBag.PassingValue)
+            {
+                if (item2.Id == Model.EventId)
+                {
+                    <input id="EventId" name="EventId" value="@item2.Name [@item2.Id]" readonly />
+                }
+            }
+        } 
         @Html.ValidationMessageFor(model => model.EventId)
 
         <p>Логин туриста</p>

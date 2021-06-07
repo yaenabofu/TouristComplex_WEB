@@ -31,8 +31,16 @@
         <p>Рабочие дни</p>
         <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" readonly />
         @Html.ValidationMessageFor(model => model.WorkDays)
-        <p>Код профессии</p>
-        <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+        <p>Профессия [Права]</p>
+        @{
+            foreach (var item in ViewBag.PassingValue[0])
+            {
+                if (item.Id == Model.ProfessionId)
+                {
+                    <input id="ProfessionId" name="ProfessionId" value="@item.Name [@item.Power]" readonly />
+                }
+            }
+        }
         @Html.ValidationMessageFor(model => model.ProfessionId)
         <p>Код рабочего места</p>
         <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />

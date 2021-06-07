@@ -30,11 +30,25 @@
             <p>Рабочие дни</p>
             <input id="WorkDays" name="WorkDays" value="" />
             @Html.ValidationMessageFor(model => model.WorkDays)
-            <p>Код профессии</p>
-            <input id="ProfessionId" name="ProfessionId" value="" />
+            <p>Профессия</p>
+            <select id="ProfessionId" name="ProfessionId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[0])
+                    {
+                        <option value="@item.Id">@item.Name [@item.Power]</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.ProfessionId)
             <p>Код рабочего места</p>
-            <input id="WorkPlaceId" name="WorkPlaceId" value="" />
+            <select id="WorkPlaceId" name="WorkPlaceId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[1])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /><br />
             <input type="submit" value="Добавить" />

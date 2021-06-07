@@ -22,7 +22,7 @@
             <td><p>Количество</p></td>
             <td><p>Стоимость</p></td>
             <td><p>Оплачен?</p></td>
-            <td><p>Код мероприятия</p></td>
+            <td><p>Мероприятие</p></td>
             <td><p>Логин туриста</p></td>
         </tr>
         @foreach (var item in ViewBag.BookedTickets)
@@ -53,7 +53,15 @@
                         }
                     </td>
                     <td>
-                        <input id="EventId" name="EventId" value=" @item.EventId" readonly />
+                        @{
+                            foreach (var item2 in ViewBag.PassingValue)
+                            {
+                                if (item2.Id == item.EventId)
+                                {
+                                    <input id="EventId" name="EventId" value="@item2.Name [@item2.Id]" readonly />
+                                }
+                            }
+                        }
                     </td>
                     <td>
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />
@@ -93,7 +101,15 @@
                         }
                     </td>
                     <td>
-                        <input id="EventId" name="EventId" value=" @item.EventId" readonly />
+                        @{
+                            foreach (var item2 in ViewBag.PassingValue)
+                            {
+                                if (item2.Id == item.EventId)
+                                {
+                                    <input id="EventId" name="EventId" value="@item2.Name [@item2.Id]" readonly />
+                                }
+                            }
+                        }
                     </td>
                     <td>
                         <input id="TouristId" name="TouristId" value=" @item.TouristId" readonly />

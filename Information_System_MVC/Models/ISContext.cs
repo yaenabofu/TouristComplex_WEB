@@ -17,7 +17,8 @@ namespace Information_System_MVC.Models
         public DbSet<Tourist> Tourists { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<Order> Orders { get; set; } 
+        public DbSet<Order> Orders { get; set; }
         public DbSet<BookedTicket> BookedTickets { get; set; }
+        public dynamic PassingValue { get; set; }
     }
 }

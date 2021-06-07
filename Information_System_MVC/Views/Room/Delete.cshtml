@@ -20,7 +20,16 @@
         <input id="SingleRooms" name="SingleRooms" value="@Model.SingleRooms" readonly />
         @Html.ValidationMessageFor(model => model.SingleRooms)
         <p>Свободен?</p>
-        <input id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable" readonly />
+        @{
+            if (Model.IsAvailable == true)
+            {
+                <input id="IsAvailable" name="IsAvailable" value="Да" readonly />
+            }
+            else
+            {
+                <input id="IsAvailable" name="IsAvailable" value="Нет" readonly />
+            }
+        }
         @Html.ValidationMessageFor(model => model.IsAvailable)
         <p>Код здания</p>
         <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />

@@ -1,6 +1,7 @@
 ﻿using Information_System_MVC.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Information_System_MVC.Controllers
@@ -20,6 +21,9 @@ namespace Information_System_MVC.Controllers
                     IEnumerable<Equipment> equipments = db.Equipments;
 
                     ViewBag.Equipments = equipments;
+
+                    List<Profession> professions = db.Professions.ToList();
+                    ViewBag.PassingValue = professions;
 
                     return View();
                 }
@@ -65,7 +69,12 @@ namespace Information_System_MVC.Controllers
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    List<Profession> professions = db.Professions.ToList();
+                    ViewBag.PassingValue = professions;
+
                     return View();
+                }
                 else
                     return HttpNotFound();
             }
@@ -117,6 +126,9 @@ namespace Information_System_MVC.Controllers
 
                     if (equipment != null)
                     {
+                        List<Profession> professions = db.Professions.ToList();
+                        ViewBag.PassingValue = professions;
+
                         return View(equipment);
                     }
 
@@ -169,6 +181,9 @@ namespace Information_System_MVC.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    List<Profession> professions = db.Professions.ToList();
+                    ViewBag.PassingValue = professions;
 
                     return View(equipment);
                 }

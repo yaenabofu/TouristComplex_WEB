@@ -25,9 +25,22 @@
             <input id="Quantity" name="Quantity" type="number" min="1" value="@Model.Quantity" />
             @Html.ValidationMessageFor(model => model.Quantity)
 
-
-            <p>Код профессии</p>
-            <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+            <p>Профессия [Права]</p>
+            <select id="ProfessionId" name="ProfessionId" value="0">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        if (item.Id == Model.ProfessionId)
+                        {
+                            <option selected value="@item.Id">@item.Name [@item.Power]</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name [@item.Power]</option>
+                        }
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.ProfessionId)
             <br /> <br />
             <input type="submit" value="Изменить" />

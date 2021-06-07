@@ -19,7 +19,7 @@
             <td><p>Код оборудования</p></td>
             <td><p>Название</p></td>
             <td><p>Количество</p></td>
-            <td><p>Код профессии</p></td>
+            <td><p>Профессия [Права]</p></td>
         </tr>
         @foreach (var item in ViewBag.Equipments)
         {
@@ -34,7 +34,15 @@
                     <input id="Quantity" name="Quantity" value=" @item.Quantity" readonly />
                 </td>
                 <td>
-                    <input id="ProfessionsId" name="ProfessionId" value=" @item.ProfessionId" readonly />
+                    @{
+                        foreach (var item2 in ViewBag.PassingValue)
+                        {
+                            if (item2.Id == item.ProfessionId)
+                            {
+                                <input id="ProfessionsId" name="ProfessionId" value="@item2.Name [@item2.Power]" readonly />
+                            }
+                        }
+                    }
                 </td>
                 @{
                     if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
@@ -46,11 +54,6 @@
                         </td>
                     }
                 }
-                @*<td>
-                    <a href="/Equipment/Details/@item.Id">
-                        Подробно
-                    </a>
-                </td>*@
                 @{
                     if ((System.Web.HttpContext.Current.Session["CurrentUser"] as Information_System_MVC.Models.ConnectedWorker).Power == 2)
                     {

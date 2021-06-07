@@ -10,13 +10,13 @@
     {
         <fieldset>
             <label>Количество</label>
-            <input id="Quantity" name="Quantity" value="" />
+            <input id="Quantity" type="number" min="1" name="Quantity" value="1" />
             @Html.ValidationMessageFor(model => model.Quantity)
             <label>Стоимость</label>
-            <input id="Cost" name="Cost" value="" />
+            <input id="Cost" type="number" min="1" name="Cost" value="1" />
             @Html.ValidationMessageFor(model => model.Cost)
             <label>Дата заказа</label>
-            <input id="DateOrder" name="DateOrder" type="datetime-local" value="" />
+            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
             @Html.ValidationMessageFor(model => model.DateOrder)
             <label>Оплачен ?</label>
             <select name="IsDone" id="IsDone" value="">
@@ -25,10 +25,24 @@
             </select>
             @Html.ValidationMessageFor(model => model.IsDone)
             <label>Код товара</label>
-            <input id="ProductId" name="ProductId" value="" />
+            <select id="ProductId" name="ProductId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[0])
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.ProductId)
             <label>Код туриста</label>
-            <input id="TouristId" name="TouristId" value="" />
+            <select id="TouristId" name="TouristId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[1])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.TouristId)
             <br /> <br />
             <input type="submit" value="Добавить" />

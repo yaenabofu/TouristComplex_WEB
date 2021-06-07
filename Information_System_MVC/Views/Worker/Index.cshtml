@@ -19,7 +19,7 @@
             <td><p>Дата рождения</p></td>
             <td><p>Эл. почта</p></td>
             <td><p>Рабочие дни</p></td>
-            <td><p>Код профессии</p></td>
+            <td><p>Профессия [Права]</p></td>
             <td><p>Код рабочего места</p></td>
         </tr>
         @foreach (var item in ViewBag.Workers)
@@ -50,7 +50,15 @@
                     <input id="WorkDays" name="WorkDays" value=" @item.WorkDays" readonly />
                 </td>
                 <td>
-                    <input id="ProfessionId" name="ProfessionId" value=" @item.ProfessionId" readonly />
+                    @{
+                        foreach (var item2 in ViewBag.PassingValue[0])
+                        {
+                            if (item2.Id == item.ProfessionId)
+                            {
+                                <input id="ProfessionId" name="ProfessionId" value="@item2.Name [@item2.Power]" readonly />
+                            }
+                        }
+                    }
                 </td>
                 <td>
                     <input id="WorkPlaceId" name="WorkPlaceId" value=" @item.WorkPlaceId" readonly />

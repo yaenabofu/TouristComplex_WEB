@@ -23,12 +23,36 @@
             @Html.ValidationMessageFor(model => model.SingleRooms)
             <p>Свободен?</p>
             <select id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable.ToString()">
-                <option value="True">Да</option>
-                <option value="False">Нет</option>
+                @{
+                    if (Model.IsAvailable == true)
+                    {
+                        <option selected value="True">Да</option>
+                        <option value="False">Нет</option>
+                    }
+                    else
+                    {
+                        <option value="True">Да</option>
+                        <option selected value="False">Нет</option>
+                    }
+                }
             </select>
             @Html.ValidationMessageFor(model => model.IsAvailable)
             <p>Код здания</p>
-            <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />
+            <select id="BuildingId" name="BuildingId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        if (item == Model.BuildingId)
+                        {
+                            <option selected value="@item">@item</option>
+                        }
+                        else
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />
             <input type="submit" value="Изменить" />

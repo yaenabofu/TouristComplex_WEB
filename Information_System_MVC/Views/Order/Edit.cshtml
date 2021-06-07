@@ -14,19 +14,18 @@
             @Html.ValidationMessageFor(model => model.Id)
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
+            <input id="Quantity" type="number" min="0" name="Quantity" value="@Model.Quantity" readonly />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Стоимость</p>
-            <input id="Cost" name="Cost" value="@Model.Cost" readonly />
+            <input id="Cost" name="Cost" type="number" min="1" value="@Model.Cost" readonly />
             @Html.ValidationMessageFor(model => model.Cost)
 
             <p>Логин туриста</p>
             <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
             @Html.ValidationMessageFor(model => model.TouristId)
-
             <p>Дата заказа</p>
-            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")" />
+            <input id="DateOrder" readonly name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")" />
             @Html.ValidationMessageFor(model => model.DateOrder)
 
             <p>
@@ -49,9 +48,16 @@
                 }
             </p>
             @Html.ValidationMessageFor(model => model.IsDone)
-
             <p>Код товара</p>
-            <input id="ProductId" name="ProductId" value="@Model.ProductId" readonly />
+            @{
+                foreach (var item in ViewBag.PassingValue[0])
+                {
+                    if (item.Id == Model.ProductId)
+                    {
+                        <input readonly id="ProductId" name="ProductId" value="@item.Name" />
+                    }
+                }
+            }
             @Html.ValidationMessageFor(model => model.ProductId)
             <br /> <br />
             <input type="submit" value="Изменить" />

@@ -40,7 +40,29 @@
             <input id="Country" name="Country" value="@Model.Country" />
             @Html.ValidationMessageFor(model => model.Country)
             <p>Номер комнаты</p>
-            <input id="RoomId" name="RoomId" value="@Model.RoomId" />
+            <select id="RoomId" name="RoomId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        if (item.IsAvailable)
+                        {
+                            <option style="background-color: green" value="@item.Id">[№ @item.Id] Цена @item.Price,  Комнат @item.SingleRooms, Кроватей @item.Beds, Код здания @item.BuildingId</option>
+                        }
+                        else
+                        {
+                            if (item.Id == Model.RoomId)
+                            {
+                                <option selected style="background-color: brown" value="@item.Id">[№ @item.Id] Цена @item.Price,  Комнат @item.SingleRooms, Кроватей @item.Beds, Код здания @item.BuildingId</option>
+                            }
+                            else
+                            {
+                                <option style="background-color: brown" value="@item.Id">[№ @item.Id] Цена @item.Price,  Комнат @item.SingleRooms, Кроватей @item.Beds, Код здания @item.BuildingId</option>
+                            }
+                        }
+
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.RoomId)
             <br /><br />
             <input type="submit" value="Изменить" />

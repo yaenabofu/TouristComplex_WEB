@@ -72,6 +72,10 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
+                    List<int> buildings = db.Buildings.Select(x => x.Id).ToList();
+
+                    ViewBag.PassingValue = buildings;
+
                     return View();
                 }
                 else
@@ -126,6 +130,10 @@ namespace Information_System_MVC.Controllers
 
                     if (room != null)
                     {
+                        List<int> buildings = db.Buildings.Select(x => x.Id).ToList();
+
+                        ViewBag.PassingValue = buildings;
+
                         return View(room);
                     }
 

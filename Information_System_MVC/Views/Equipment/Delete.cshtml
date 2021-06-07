@@ -8,24 +8,32 @@
     <h3>Оборудование -> Удаление записи</h3>
     <fieldset>
         <p>Код оборудования</p>
-       
+
         <input id="Id" name="Id" value="@Model.Id" readonly />
         @Html.ValidationMessageFor(model => model.Id)
 
-      
+
         <p>Название</p>
-        
+
         <input id="Name" name="Name" value="@Model.Name" readonly />
         @Html.ValidationMessageFor(model => model.Name)
 
-        
+
         <p>Количество</p>
         <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
         @Html.ValidationMessageFor(model => model.Quantity)
 
-       
+
         <p>Код профессии</p>
-        <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+        @{
+            foreach (var item in ViewBag.PassingValue)
+            {
+                if (item.Id == Model.ProfessionId)
+                {
+                    <input id="ProfessionId" name="ProfessionId" value="@item.Name [@item.Power]" readonly />
+                }
+            }
+        }
         @Html.ValidationMessageFor(model => model.ProfessionId)
         <br /> <br />
         @using (Html.BeginForm())

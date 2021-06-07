@@ -26,6 +26,9 @@ namespace Information_System_MVC.Controllers
 
             ViewBag.BookedTickets = bookedTickets;
 
+            List<Event> events = db.Events.ToList();
+            ViewBag.PassingValue = events;
+
             return View();
         }
 
@@ -36,7 +39,16 @@ namespace Information_System_MVC.Controllers
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    List<int> touristsLogins = db.Tourists.Select(c => c.Id).ToList();
+                    List<Event> events = db.Events.ToList();
+                    List<dynamic> list = new List<dynamic>();
+                    list.Add(touristsLogins);
+                    list.Add(events);
+                    ViewBag.PassingValue = list;
+
                     return View();
+                }
                 else
                     return HttpNotFound();
             }
@@ -51,7 +63,6 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
                 {
-
                     db.BookedTickets.Add(ticket);
                     db.SaveChanges();
 
@@ -81,6 +92,8 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
             }
 
+            List<Event> events = db.Events.ToList();
+            ViewBag.PassingValue = events;
             BookedTicket ticket = db.BookedTickets.Find(id);
 
             if (ticket != null)
@@ -107,6 +120,8 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
             }
 
+            List<Event> events = db.Events.ToList();
+            ViewBag.PassingValue = events;
             BookedTicket ticket = db.BookedTickets.Find(id);
 
             if (ticket != null)
@@ -154,6 +169,8 @@ namespace Information_System_MVC.Controllers
             }
 
             BookedTicket ticket = db.BookedTickets.Find(id);
+            List<Event> events = db.Events.ToList();
+            ViewBag.PassingValue = events;
 
             if (ticket == null)
             {

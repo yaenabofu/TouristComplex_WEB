@@ -22,12 +22,27 @@
             </select>
             @Html.ValidationMessageFor(model => model.IsPaid)
             <p>Код мероприятия</p>
-            <input id="EventId" name="EventId" value="" />
+            <select name="EventId" id="EventId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[1])
+                    {
+                        <option value="@item.Id" selected>@item.Name [@item.Id]</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.EventId)
             <p>Код туриста</p>
-            <input id="TouristId" name="TouristId" value="" />
+            <select name="TouristId" id="TouristId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[0])
+                    {
+                        <option value="@item" selected>@item</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.TouristId)
-            <br /> <br />
+            <br />
+            <br />
             <input type="submit" value="Добавить" />
         </fieldset>
     }

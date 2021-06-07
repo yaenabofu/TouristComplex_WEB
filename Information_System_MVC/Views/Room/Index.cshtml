@@ -38,7 +38,16 @@
                     <input id="SingleRooms" name="SingleRooms" value=" @item.SingleRooms" readonly />
                 </td>
                 <td>
-                    <input id="IsAvailable" name="IsAvailable" value=" @item.IsAvailable.ToString()" readonly />
+                    @{
+                        if (item.IsAvailable == true)
+                        {
+                            <input id="IsAvailable" name="IsAvailable" value="Да" readonly />
+                        }
+                        else
+                        {
+                            <input id="IsAvailable" name="IsAvailable" value="Нет" readonly />
+                        }
+                    }
                 </td>
                 <td>
                     <input id="BuildingId" name="BuildingId" value=" @item.BuildingId" readonly />

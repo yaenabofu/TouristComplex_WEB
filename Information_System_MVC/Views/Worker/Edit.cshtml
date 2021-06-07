@@ -33,12 +33,39 @@
             <p>Рабочие дни</p>
             <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" />
             @Html.ValidationMessageFor(model => model.WorkDays)
-            <p>Код профессии</p>
-            <input id="ProfessionId" name="ProfessionId" value="@Model.ProfessionId" readonly />
+            <p>Профессия [Права]</p>
+            <select id="ProfessionId" name="ProfessionId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[0])
+                    {
+                        if (item.Id == Model.ProfessionId)
+                        {
+                            <option selected value="@item.Id">@item.Name [@item.Power]</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name [@item.Power]</option>
+                        }
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.ProfessionId)
             <p>Код рабочего места</p>
-            <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />
-            @Html.ValidationMessageFor(model => model.WorkPlaceId)
+            <select id="WorkPlaceId" name="WorkPlaceId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue[1])
+                    {
+                        if (item == Model.WorkPlaceId)
+                        {
+                            <option selected value="@item">@item</option>
+                        }
+                        else
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                }
+            </select>            @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /><br />
             <input type="submit" value="Изменить" />
         </fieldset>
