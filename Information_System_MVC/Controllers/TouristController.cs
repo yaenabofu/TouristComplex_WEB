@@ -93,17 +93,15 @@ namespace Information_System_MVC.Controllers
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
                  || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    try
-                    {
-                        db.Tourists.Add(tourist);
-                        db.SaveChanges();
+                    db.Tourists.Add(tourist);
+                    db.SaveChanges();
 
-                        return RedirectToAction("Index");
-                    }
-                    catch
-                    {
-                        return View();
-                    }
+                    Room room = db.Rooms.Find(tourist.RoomId);
+                    room.IsAvailable = false;
+                    db.Entry(room).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
                 }
                 else
                     return HttpNotFound();
@@ -147,23 +145,34 @@ namespace Information_System_MVC.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Edit(Tourist tourist)
+        public ActionResult Edit(Tourist newTourist)
         {
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2
               || (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
                 {
-                    try
+
+                    List<Tourist> getTourist = db.Tourists.AsNoTracking().Where(x => x.Id == newTourist.Id).Select(c => c).ToList();
+                    Tourist old = getTourist.FirstOrDefault();
+
+                    if (old.Id != newTourist.RoomId)
                     {
-                        db.Entry(tourist).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        List<Tourist> livingInCurrentRoom = db.Tourists.AsNoTracking().Where(c => c.RoomId == old.RoomId).Select(c => c).ToList();
+
+                        if (livingInCurrentRoom.Count - 1 == 0)
+                        {
+                            Room room = db.Rooms.Find(old.RoomId);
+                            room.IsAvailable = true;
+                            db.Entry(room).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
                     }
-                    catch
-                    {
-                        return View();
-                    }
+
+                    db.Entry(newTourist).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
                 }
                 else
                     return HttpNotFound();
@@ -209,6 +218,17 @@ namespace Information_System_MVC.Controllers
                     try
                     {
                         Tourist tourist = db.Tourists.Find(id);
+
+                        List<Tourist> livingInCurrentRoom = db.Tourists.AsNoTracking().Where(c => c.RoomId == tourist.RoomId).Select(c => c).ToList();
+
+                        if (livingInCurrentRoom.Count - 1 == 0)
+                        {
+                            Room room = db.Rooms.Find(tourist.RoomId);
+                            room.IsAvailable = true;
+                            db.Entry(room).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+
                         if (tourist == null)
                         {
                             return HttpNotFound();
@@ -216,6 +236,7 @@ namespace Information_System_MVC.Controllers
 
                         db.Tourists.Remove(tourist);
                         db.SaveChanges();
+
                         return RedirectToAction("Index");
                     }
                     catch
