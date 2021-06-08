@@ -10,11 +10,11 @@
     {
         <fieldset>
             <p>Название</p>
-            <input id="Name" name="Name" value="" />
+            <input id="Name" name="Name" value="" required/>
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" type="number" min="1" value="1" />
+            <input id="Quantity" name="Quantity" type="number" min="1" value="1" required/>
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Профессия [Права]</p>

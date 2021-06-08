@@ -10,20 +10,20 @@
     {
         <fieldset>
             <p>Название</p>
-            <input id="Name" name="Name" value="" />
+            <input id="Name" name="Name" value="" required/>
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" type="number" min="1" value="1" />
+            <input id="Price" name="Price" type="number" min="1" value="1" required/>
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
-            <textarea id="Description" name="Description"></textarea>
+            <textarea id="Description" name="Description" required></textarea>
             @*<input id="Description" name="Description" value="" />*@
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Дата проведения</p>
-            <input id="Date" name="Date" type="datetime-local" value="" />
+            <input id="Date" name="Date" type="datetime-local" value="" required />
             @Html.ValidationMessageFor(model => model.Date)
 
             <p>Количество билетов</p>
@@ -31,7 +31,14 @@
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Код рабочего места</p>
-            <input id="WorkPlaceId" name="WorkPlaceId" value="" />
+            <select id="WorkPlaceId" name="WorkPlaceId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
 
             <br /><br />

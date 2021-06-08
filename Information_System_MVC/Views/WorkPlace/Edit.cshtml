@@ -10,7 +10,7 @@
     {
         <fieldset>
             <p>Код места в здании</p>
-            <input id="PlaceId" name="PlaceId" value="@Model.PlaceId" />
+            <input id="PlaceId" name="PlaceId" value="@Model.PlaceId" required/>
             @Html.ValidationMessageFor(model => model.PlaceId)
             <p>Код здания</p>
             <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />

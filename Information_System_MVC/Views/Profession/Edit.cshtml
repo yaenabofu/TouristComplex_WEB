@@ -13,7 +13,7 @@
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
             <p>Название</p>
-            <input id="Name" name="Name" value="@Model.Name" />
+            <input id="Name" name="Name" value="@Model.Name" required />
             @Html.ValidationMessageFor(model => model.Name)
             <p>Права в системе</p>
             <select id="Power" name="Power" value="0">

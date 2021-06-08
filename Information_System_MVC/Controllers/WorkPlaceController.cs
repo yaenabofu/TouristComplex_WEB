@@ -72,7 +72,12 @@ namespace Information_System_MVC.Controllers
             if (System.Web.HttpContext.Current.Session["CurrentUser"] is ConnectedWorker)
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2)
+                {
+                    List<int> buildings = db.Buildings.Select(c => c.Id).ToList();
+                    ViewBag.PassingValue = buildings;
+
                     return View();
+                }
                 else
                     return HttpNotFound();
             }

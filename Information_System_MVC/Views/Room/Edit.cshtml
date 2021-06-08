@@ -13,13 +13,13 @@
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Price)
             <p>Цена</p>
-            <input id="Price" name="Price" type="number" min="1" value="@Model.Price" />
+            <input id="Price" name="Price" type="number" min="1" value="@Model.Price" required/>
             @Html.ValidationMessageFor(model => model.Price)
             <p>Количество кроватей</p>
-            <input id="Beds" name="Beds" type="number" min="1" value="@Model.Beds" />
+            <input id="Beds" name="Beds" type="number" min="1" value="@Model.Beds" required/>
             @Html.ValidationMessageFor(model => model.Beds)
             <p>Количество комнат</p>
-            <input id="SingleRooms" name="SingleRooms" type="number" min="1" value="@Model.SingleRooms" />
+            <input id="SingleRooms" name="SingleRooms" type="number" min="1" value="@Model.SingleRooms" required/>
             @Html.ValidationMessageFor(model => model.SingleRooms)
             <p>Свободен?</p>
             <select id="IsAvailable" name="IsAvailable" value="@Model.IsAvailable.ToString()">

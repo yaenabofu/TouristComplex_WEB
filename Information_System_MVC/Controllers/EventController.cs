@@ -64,7 +64,13 @@ namespace Information_System_MVC.Controllers
             {
                 if ((System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 2 ||
                  (System.Web.HttpContext.Current.Session["CurrentUser"] as ConnectedWorker).Power == 1)
+                {
+                    List<int> workPlaces = db.WorkPlaces.Select(c => c.Id).ToList();
+
+                    ViewBag.PassingValue = workPlaces;
+
                     return View();
+                }
                 else
                     return HttpNotFound();
             }
@@ -110,6 +116,10 @@ namespace Information_System_MVC.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    List<int> workPlaces = db.WorkPlaces.Select(c => c.Id).ToList();
+
+                    ViewBag.PassingValue = workPlaces;
 
                     Event event1 = db.Events.Find(id);
 

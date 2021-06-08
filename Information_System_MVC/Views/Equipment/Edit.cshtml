@@ -17,12 +17,12 @@
 
             <p>Название</p>
 
-            <input id="Name" name="Name" value="@Model.Name" />
+            <input id="Name" name="Name" value="@Model.Name" required />
             @Html.ValidationMessageFor(model => model.Name)
 
 
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" type="number" min="1" value="@Model.Quantity" />
+            <input id="Quantity" name="Quantity" type="number" min="1" value="@Model.Quantity" required/>
             @Html.ValidationMessageFor(model => model.Quantity)
 
             <p>Профессия [Права]</p>

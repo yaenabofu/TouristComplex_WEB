@@ -25,7 +25,7 @@
             <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
             @Html.ValidationMessageFor(model => model.TouristId)
             <p>Дата заказа</p>
-            <input id="DateOrder" readonly name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")" />
+            <input id="DateOrder" readonly name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")"/>
             @Html.ValidationMessageFor(model => model.DateOrder)
 
             <p>

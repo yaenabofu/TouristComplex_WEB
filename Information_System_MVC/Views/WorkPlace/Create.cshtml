@@ -10,10 +10,17 @@
     {
         <fieldset>
             <p>Код места в здании</p>
-            <input id="PlaceId" name="PlaceId" value="" />
+            <input id="PlaceId" name="PlaceId" value="" required />
             @Html.ValidationMessageFor(model => model.PlaceId)
             <p>Код здания</p>
-            <input id="BuildingId" name="BuildingId" value="" />
+            <select id="BuildingId" name="BuildingId" value="">
+                @{
+                    foreach (var item in ViewBag.PassingValue)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />
             <input type="submit" value="Добавить" />

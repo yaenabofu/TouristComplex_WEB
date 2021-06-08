@@ -16,22 +16,22 @@
             <input id="Password" name="Password" value="@Model.Password" readonly />
             @Html.ValidationMessageFor(model => model.Password)
             <p>Имя</p>
-            <input id="Name" name="Name" value="@Model.Name" />
+            <input id="Name" name="Name" value="@Model.Name" required/>
             @Html.ValidationMessageFor(model => model.Name)
             <p>Фамилия</p>
-            <input id="Surname" name="Surname" value="@Model.Surname" />
+            <input id="Surname" name="Surname" value="@Model.Surname" required/>
             @Html.ValidationMessageFor(model => model.Surname)
             <p>Отчество</p>
-            <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" />
+            <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" required/>
             @Html.ValidationMessageFor(model => model.Thirdname)
             <p>Дата рождения</p>
-            <input id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth" />
+            <input id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth" required/>
             @Html.ValidationMessageFor(model => model.DateOfBirth)
             <p>Эл. почта</p>
-            <input id="Email" name="Email" value="@Model.Email" />
+            <input id="Email" name="Email" value="@Model.Email" required/>
             @Html.ValidationMessageFor(model => model.Email)
             <p>Рабочие дни</p>
-            <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" />
+            <input id="WorkDays" name="WorkDays" value="@Model.WorkDays" required/>
             @Html.ValidationMessageFor(model => model.WorkDays)
             <p>Профессия [Права]</p>
             <select id="ProfessionId" name="ProfessionId" value="">

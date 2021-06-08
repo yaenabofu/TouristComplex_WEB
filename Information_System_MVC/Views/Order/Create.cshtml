@@ -10,13 +10,13 @@
     {
         <fieldset>
             <label>Количество</label>
-            <input id="Quantity" type="number" min="1" name="Quantity" value="1" />
+            <input id="Quantity" type="number" min="1" name="Quantity" value="1" required/>
             @Html.ValidationMessageFor(model => model.Quantity)
             <label>Стоимость</label>
-            <input id="Cost" type="number" min="1" name="Cost" value="1" />
+            <input id="Cost" type="number" min="1" name="Cost" value="1" required/>
             @Html.ValidationMessageFor(model => model.Cost)
             <label>Дата заказа</label>
-            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" required/>
             @Html.ValidationMessageFor(model => model.DateOrder)
             <label>Оплачен ?</label>
             <select name="IsDone" id="IsDone" value="">
