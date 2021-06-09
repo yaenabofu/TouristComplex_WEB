@@ -24,7 +24,7 @@
             <td><p>Дата заказа</p></td>
             <td><p>Оплачен?</p></td>
             <td><p>Логин туриста</p></td>
-            <td><p>Код товара</p></td>
+            <td><p>Название товара [Код]</p></td>
         </tr>
         @foreach (var item in ViewBag.Orders)
         {
@@ -65,7 +65,7 @@
                             {
                                 if (item2.Id == item.ProductId)
                                 {
-                                    <input readonly id="ProductId" name="ProductId" value="@item2.Name" />
+                                    <input readonly id="ProductId" name="ProductId" value="@item2.Name [@item2.Id]" />
                                 }
                             }
                         }

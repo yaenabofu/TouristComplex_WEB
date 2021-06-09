@@ -1,0 +1,60 @@
+﻿@model Information_System_MVC.Models.Event
+@{
+    ViewBag.Title = "Мероприятия";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Мероприятия -> Оформление бронирования</h3>
+    <fieldset>
+        @using (Html.BeginForm("Order", "Event", FormMethod.Post))
+        {
+            <p>Код записи</p>
+            <input id="id" name="id" value="@Model.Id" readonly />
+            @Html.ValidationMessageFor(model => model.Id)
+
+            <p>Название</p>
+            <input id="Name" name="Name" value="@Model.Name" readonly />
+            @Html.ValidationMessageFor(model => model.Name)
+
+            <p>Цена</p>
+            <input id="Price" name="Price" value="@Model.Price" readonly />
+            @Html.ValidationMessageFor(model => model.Price)
+
+            <p>Описание</p>
+            <textarea id="Description" name="Description" readonly>@Model.Description</textarea>
+            @Html.ValidationMessageFor(model => model.Description)
+
+            <p>Дата проведения</p>
+            <input id="Date" name="Date" value="@Model.Date" readonly />
+            @Html.ValidationMessageFor(model => model.Date)
+
+            <p>Количество билетов</p>
+            <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
+            @Html.ValidationMessageFor(model => model.Quantity)
+
+            <p>Код рабочего места</p>
+            <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />
+            @Html.ValidationMessageFor(model => model.WorkPlaceId)
+            <br /> <br />
+            <p>Выберите количество</p>
+            <input type="number" id="count" name="count" min="1" value="1" max="@Model.Quantity" required />
+            <br /> <br />
+            <input id="submBtn" name="submBtn" value="" type="submit" hidden />
+        }
+        <input id="check" name="check" value="Заказать" type="submit" onclick="Check()" />
+    </fieldset>
+</div>
+<script>
+    function Check() {
+        if (document.getElementById('count').value > document.getElementById('count').max) {
+            alert("Введенное значение превышает то, что в наличии");
+        }
+        if (document.getElementById('count').value < document.getElementById('count').min) {
+            alert("Введенное значение должно быть больше нуля");
+        }
+        if (!(document.getElementById('count').value < document.getElementById('count').min) && !(document.getElementById('count').value > document.getElementById('count').max)) {
+            document.getElementById('submBtn').click();
+        }
+    }
+</script>

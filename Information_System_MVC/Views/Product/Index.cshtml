@@ -85,24 +85,9 @@
                         if ((System.Web.HttpContext.Current.Session["CurrentUser"] is Information_System_MVC.Models.Tourist))
                         {
                             <td>
-                                <form>
-                                    @using (Html.BeginForm("Order", "Event", FormMethod.Post))
-                                    {
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <p>Количество</p>
-                                                    <input type="number" min="1" name="count" value="1">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="submit" value="Заказать" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    }
-                                </form>
+                                <a href="/Product/Order/@item.Id">
+                                    Заказать
+                                </a>
                             </td>
                         }
                     }

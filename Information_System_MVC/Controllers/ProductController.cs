@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace Information_System_MVC.Controllers
 {
@@ -214,6 +215,23 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
         }
         [Authorize]
+        [HttpGet]
+        public ActionResult Order(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            {
+                Product product = db.Products.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(product);
+            }
+            else
+                return HttpNotFound();
+        }
+        [Authorize]
         [HttpPost]
         public ActionResult Order(int id, int count)
         {
@@ -227,25 +245,31 @@ namespace Information_System_MVC.Controllers
                         return HttpNotFound();
                     }
                     if (product.Quantity >= count)
+                    {
                         product.Quantity -= count;
 
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
+                        db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
 
-                    Order order = new Order
+                        Order order = new Order
+                        {
+                            Cost = count * product.Price,
+                            Quantity = count,
+                            TouristId = (System.Web.HttpContext.Current.Session["CurrentUser"] as Tourist).Id,
+                            DateOrder = DateTime.Now,
+                            IsDone = false,
+                            ProductId = id
+                        };
+
+                        db.Orders.Add(order);
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index");
+                    }
+                    else
                     {
-                        Cost = count * product.Price,
-                        Quantity = count,
-                        TouristId = (System.Web.HttpContext.Current.Session["CurrentUser"] as Tourist).Id,
-                        DateOrder = DateTime.Now,
-                        IsDone = false,
-                        ProductId = id
-                    };
-
-                    db.Orders.Add(order);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
                 }
                 catch
                 {

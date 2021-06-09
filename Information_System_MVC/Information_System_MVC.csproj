@@ -344,6 +344,8 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Find.cshtml" />
+    <Content Include="Views\Event\Order.cshtml" />
+    <Content Include="Views\Product\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

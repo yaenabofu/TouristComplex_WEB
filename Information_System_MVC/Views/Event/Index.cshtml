@@ -65,14 +65,10 @@
                                 Подробно
                             </a>
                         </td>
-
                         <td>
-                            @using (Html.BeginForm("Order", "Event", FormMethod.Post))
-                            {
-                                <p>
-                                    <label>Количество</label><input type="number" min="1" name="count" value="1"><input type="submit" value="Заказать" />
-                                </p>
-                            }
+                            <a href="/Event/Order/@item.Id">
+                                Заказать
+                            </a>
                         </td>
                     </tr>
                 }

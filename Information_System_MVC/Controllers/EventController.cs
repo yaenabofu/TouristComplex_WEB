@@ -223,6 +223,23 @@ namespace Information_System_MVC.Controllers
                 return HttpNotFound();
         }
         [Authorize]
+        [HttpGet]
+        public ActionResult Order(int id)
+        {
+            if (System.Web.HttpContext.Current.Session["CurrentUser"] is Tourist)
+            {
+                Event ev = db.Events.Find(id);
+                if (ev == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(ev);
+            }
+            else
+                return HttpNotFound();
+        }
+        [Authorize]
         [HttpPost]
         public ActionResult Order(int id, int count)
         {
