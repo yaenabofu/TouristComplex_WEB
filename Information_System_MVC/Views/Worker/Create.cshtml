@@ -27,8 +27,41 @@
             <p>Эл. почта</p>
             <input id="Email" name="Email" value="" required />
             @Html.ValidationMessageFor(model => model.Email)
-            <p>Рабочие дни</p>
-            <input id="WorkDays" name="WorkDays" value="" required />
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <p>Выбранные рабочие дни</p>
+                            <input id="WorkDays" name="WorkDays" value="ПН" required readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Секция выбора рабочих дней</label>
+                        </td>
+                    <tr>
+                        <td>
+                            <select id="Pool" name="Pool" value="" required multiple>
+                                <option selected value="ПН">ПН</option>
+                                <option value="ВТ">ВТ</option>
+                                <option value="СР">СР</option>
+                                <option value="ЧТ">ЧТ</option>
+                                <option value="ПТ">ПТ</option>
+                                <option value="СБ">СБ</option>
+                                <option value="ВС">ВС</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="Выбрать дни" onclick="GetDays()" />
+                        </td>
+                    </tr>
+                </table>
+
+
+                @Html.ValidationMessageFor(model => model.WorkDays)
+            </div>
             @Html.ValidationMessageFor(model => model.WorkDays)
             <p>Профессия</p>
             <select id="ProfessionId" name="ProfessionId" value="" required>
@@ -53,5 +86,30 @@
             <br /><br />
             <input type="submit" value="Добавить" />
         </fieldset>
+        <script>
+            function GetDays() {
+                var sel = document.getElementById('Pool');
+
+                var choosedDays = new Array();
+                for (var i = 0; i < sel.options.length; i++) {
+                    if (sel.options[i].selected) {
+                        choosedDays.push(sel.options[i].value);
+                    }
+                }
+
+                var outPut = "";
+
+                for (var i = 0; i < choosedDays.length; i++) {
+                    if (choosedDays.length - 1 == i) {
+                        outPut += choosedDays[i];
+                    }
+                    else {
+                        outPut += choosedDays[i] + ","
+                    }
+                }
+
+                document.getElementById('WorkDays').value = outPut;
+            }
+        </script>
     }
 </div>

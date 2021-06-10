@@ -47,14 +47,6 @@
 </div>
 <script>
     function Check() {
-        if (document.getElementById('count').value > document.getElementById('count').max) {
-            alert("Введенное значение превышает то, что в наличии");
-        }
-        if (document.getElementById('count').value < document.getElementById('count').min) {
-            alert("Введенное значение должно быть больше нуля");
-        }
-        if (!(document.getElementById('count').value < document.getElementById('count').min) && !(document.getElementById('count').value > document.getElementById('count').max)) {
-            document.getElementById('submBtn').click();
-        }
+        document.getElementById('submBtn').click();
     }
 </script>
