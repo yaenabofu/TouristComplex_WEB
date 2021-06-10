@@ -28,7 +28,7 @@ namespace Information_System_MVC.Controllers
             dynamic list = null;
             string json = answer.JsonFile;
 
-            if (answer.Type[0] == "Information_System_MVC.Models.BookedTickets")
+            if (answer.Type[0] == "Information_System_MVC.Models.BookedTicket")
             {
                 list = JsonConvert.DeserializeObject<List<BookedTicket>>(json);
             }
@@ -107,7 +107,7 @@ namespace Information_System_MVC.Controllers
                     worksheet.Cell(currentRowCount, 4).Value = "Описание";
                     worksheet.Cell(currentRowCount, 5).Value = "Дата проведения";
                     worksheet.Cell(currentRowCount, 6).Value = "Количество билетов";
-                    worksheet.Cell(currentRowCount, 6).Value = "Код рабочего места";
+                    worksheet.Cell(currentRowCount, 7).Value = "Код рабочего места";
                 }
                 if (list is List<Order>)
                 {
@@ -118,7 +118,7 @@ namespace Information_System_MVC.Controllers
                     worksheet.Cell(currentRowCount, 4).Value = "Дата заказа";
                     worksheet.Cell(currentRowCount, 5).Value = "Оплачен ?";
                     worksheet.Cell(currentRowCount, 6).Value = "Логин туриста";
-                    worksheet.Cell(currentRowCount, 6).Value = "Код товара";
+                    worksheet.Cell(currentRowCount, 7).Value = "Код товара";
                 }
                 if (list is List<Product>)
                 {
@@ -281,15 +281,220 @@ namespace Information_System_MVC.Controllers
                     }
                 }
 
-                for (int i = 1; i <= currentRowCount; i++)
+                if (list is List<BookedTicket>)
                 {
-                    for (int j = 1; j <= worksheet.ColumnsUsed().Count(); j++)
+                    double total = 0, min = 0, max = 0;
+                    int paid = 0;
+                    for (int i = 1; i <= currentRowCount; i++)
                     {
-                        if (i == 1)
+                        for (int j = 1; j <= worksheet.ColumnsUsed().Count(); j++)
                         {
-                            worksheet.Cell(i, j).Style.Font.Bold = true;
+                            if (i == 1)
+                            {
+                                worksheet.Cell(i, j).Style.Font.Bold = true;
+                            }
+
+                            if (j == 3 && i != 1)
+                            {
+                                total += double.Parse(worksheet.Cell(i, j).Value.ToString());
+
+                                if (min > double.Parse(worksheet.Cell(i, j).Value.ToString()))
+                                {
+                                    min = double.Parse(worksheet.Cell(i, j).Value.ToString());
+                                }
+                                if (max < double.Parse(worksheet.Cell(i, j).Value.ToString()))
+                                {
+                                    max = double.Parse(worksheet.Cell(i, j).Value.ToString());
+                                }
+                            }
+
+                            if (j == 4 && i != 1)
+                            {
+                                if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                {
+                                    paid++;
+                                }
+                            }
+
+                            worksheet.Cell(i, j).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
                         }
-                        worksheet.Cell(i, j).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                        if (i == currentRowCount)
+                        {
+                            worksheet.Cell(currentRowCount + 2, 3).Value = "Общая сумма";
+                            worksheet.Cell(currentRowCount + 2, 3).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 2, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 3, 3).Value = total;
+                            worksheet.Cell(currentRowCount + 3, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                            worksheet.Cell(currentRowCount + 4, 3).Value = "Среднее";
+                            worksheet.Cell(currentRowCount + 4, 3).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 5, 3).Value = total / (currentRowCount - 1);
+                            worksheet.Cell(currentRowCount + 5, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                            worksheet.Cell(currentRowCount + 6, 3).Value = "Минимальное";
+                            worksheet.Cell(currentRowCount + 6, 3).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 6, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 7, 3).Value = min;
+                            worksheet.Cell(currentRowCount + 7, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                            worksheet.Cell(currentRowCount + 8, 3).Value = "Максимальное";
+                            worksheet.Cell(currentRowCount + 8, 3).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 8, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 9, 3).Value = max;
+                            worksheet.Cell(currentRowCount + 9, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                            worksheet.Cell(currentRowCount + 2, 4).Value = "Кол-во оплаченных";
+                            worksheet.Cell(currentRowCount + 2, 4).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 2, 4).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 3, 4).Value = paid;
+                            worksheet.Cell(currentRowCount + 3, 4).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                            worksheet.Cell(currentRowCount + 4, 4).Value = "Кол-во неоплаченных";
+                            worksheet.Cell(currentRowCount + 4, 4).Style.Font.Bold = true;
+                            worksheet.Cell(currentRowCount + 4, 4).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            worksheet.Cell(currentRowCount + 5, 4).Value = Math.Abs(currentRowCount - 1 - paid);
+                            worksheet.Cell(currentRowCount + 5, 4).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (list is List<Order>)
+                    {
+                        double total = 0, min = 0, max = 0;
+                        int paid = 0;
+                        for (int i = 1; i <= currentRowCount; i++)
+                        {
+                            for (int j = 1; j <= worksheet.ColumnsUsed().Count(); j++)
+                            {
+                                if (i == 1)
+                                {
+                                    worksheet.Cell(i, j).Style.Font.Bold = true;
+                                }
+
+                                if (j == 3 && i != 1)
+                                {
+                                    total += double.Parse(worksheet.Cell(i, j).Value.ToString());
+
+                                    if (min > double.Parse(worksheet.Cell(i, j).Value.ToString()))
+                                    {
+                                        min = double.Parse(worksheet.Cell(i, j).Value.ToString());
+                                    }
+                                    if (max < double.Parse(worksheet.Cell(i, j).Value.ToString()))
+                                    {
+                                        max = double.Parse(worksheet.Cell(i, j).Value.ToString());
+                                    }
+                                }
+
+                                if (j == 5 && i != 1)
+                                {
+                                    if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                    {
+                                        paid++;
+                                    }
+                                }
+
+                                worksheet.Cell(i, j).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            }
+
+                            if (i == currentRowCount)
+                            {
+                                worksheet.Cell(currentRowCount + 2, 3).Value = "Общая сумма";
+                                worksheet.Cell(currentRowCount + 2, 3).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 2, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 3, 3).Value = total;
+                                worksheet.Cell(currentRowCount + 3, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                                worksheet.Cell(currentRowCount + 4, 3).Value = "Среднее";
+                                worksheet.Cell(currentRowCount + 4, 3).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 5, 3).Value = total / (currentRowCount - 1);
+                                worksheet.Cell(currentRowCount + 5, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                                worksheet.Cell(currentRowCount + 6, 3).Value = "Минимальное";
+                                worksheet.Cell(currentRowCount + 6, 3).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 6, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 7, 3).Value = min;
+                                worksheet.Cell(currentRowCount + 7, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                                worksheet.Cell(currentRowCount + 8, 3).Value = "Максимальное";
+                                worksheet.Cell(currentRowCount + 8, 3).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 8, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 9, 3).Value = max;
+                                worksheet.Cell(currentRowCount + 9, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                                worksheet.Cell(currentRowCount + 2, 5).Value = "Кол-во оплаченных";
+                                worksheet.Cell(currentRowCount + 2, 5).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 2, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 3, 5).Value = paid;
+                                worksheet.Cell(currentRowCount + 3, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                                worksheet.Cell(currentRowCount + 4, 5).Value = "Кол-во неоплаченных";
+                                worksheet.Cell(currentRowCount + 4, 5).Style.Font.Bold = true;
+                                worksheet.Cell(currentRowCount + 4, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                worksheet.Cell(currentRowCount + 5, 5).Value = Math.Abs(currentRowCount - 1 - paid);
+                                worksheet.Cell(currentRowCount + 5, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (list is List<Room>)
+                        {
+                            int paid = 0;
+                            for (int i = 1; i <= currentRowCount; i++)
+                            {
+                                for (int j = 1; j <= worksheet.ColumnsUsed().Count(); j++)
+                                {
+                                    if (i == 1)
+                                    {
+                                        worksheet.Cell(i, j).Style.Font.Bold = true;
+                                    }
+
+                                    if (j == 5 && i != 1)
+                                    {
+                                        if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                        {
+                                            paid++;
+                                        }
+                                    }
+
+                                    worksheet.Cell(i, j).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                }
+
+                                if (i == currentRowCount)
+                                {
+                                    worksheet.Cell(currentRowCount + 2, 5).Value = "Кол-во свободных";
+                                    worksheet.Cell(currentRowCount + 2, 5).Style.Font.Bold = true;
+                                    worksheet.Cell(currentRowCount + 2, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                    worksheet.Cell(currentRowCount + 3, 5).Value = paid;
+                                    worksheet.Cell(currentRowCount + 3, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                    
+                                    worksheet.Cell(currentRowCount + 4, 5).Value = "Кол-во занятых";
+                                    worksheet.Cell(currentRowCount + 4, 5).Style.Font.Bold = true;
+                                    worksheet.Cell(currentRowCount + 4, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                    worksheet.Cell(currentRowCount + 5, 5).Value = Math.Abs(currentRowCount - 1 - paid);
+                                    worksheet.Cell(currentRowCount + 5, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= currentRowCount; i++)
+                            {
+                                for (int j = 1; j <= worksheet.ColumnsUsed().Count(); j++)
+                                {
+                                    if (i == 1)
+                                    {
+                                        worksheet.Cell(i, j).Style.Font.Bold = true;
+                                    }
+                                    worksheet.Cell(i, j).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                                }
+                            }
+                        }
                     }
                 }
 
