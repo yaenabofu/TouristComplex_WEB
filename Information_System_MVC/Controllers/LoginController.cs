@@ -1,6 +1,7 @@
 ﻿using Information_System_MVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,21 @@ namespace Information_System_MVC.Controllers
     {
         ISContext db = new ISContext();
 
+        public ActionResult Captcha()
+        {
+            string code = new Random(DateTime.Now.Millisecond).Next(1111, 9999).ToString();
+            Session["code"] = code;
+            CaptchaImage captcha = new CaptchaImage(code, 110, 50);
+
+            this.Response.Clear();
+            this.Response.ContentType = "image/jpeg";
+
+            captcha.Image.Save(this.Response.OutputStream, ImageFormat.Jpeg);
+
+            captcha.Dispose();
+            return null;
+        }
+
         public ActionResult Enter()
         {
             return View();
@@ -19,43 +35,50 @@ namespace Information_System_MVC.Controllers
         [HttpPost]
         public ActionResult Enter(User user)
         {
-            Object obj = null;
-
-            if (IsTourist(user))
+            if (user.Captcha != (string)Session["code"])
             {
-                obj = db.Tourists.Find(user.Login);
+                ModelState.AddModelError("Captcha", "Текст с картинки введен неверно");
             }
-
-            if (IsWorker(user))
+            if (ModelState.IsValid)
             {
-                obj = db.Workers.Find(user.Login);
-                Profession prof = db.Professions.Find((obj as Worker).ProfessionId);
+                Object obj = null;
 
-                ConnectedWorker conWorker = new ConnectedWorker
+                if (IsTourist(user))
                 {
-                    Id = (obj as Worker).Id,
-                    DateOfBirth = (obj as Worker).DateOfBirth,
-                    Email = (obj as Worker).Email,
-                    Name = (obj as Worker).Name,
-                    Password = (obj as Worker).Password,
-                    ProfessionId = (obj as Worker).ProfessionId,
-                    Surname = (obj as Worker).Surname,
-                    Thirdname = (obj as Worker).Thirdname,
-                    WorkDays = (obj as Worker).WorkDays,
-                    WorkPlaceId = (obj as Worker).WorkPlaceId,
-                    Power = prof.Power
-                };
+                    obj = db.Tourists.Find(user.Login);
+                }
 
-                obj = conWorker;
-            }
+                if (IsWorker(user))
+                {
+                    obj = db.Workers.Find(user.Login);
+                    Profession prof = db.Professions.Find((obj as Worker).ProfessionId);
 
-            if (obj != null)
-            {
-                System.Web.HttpContext.Current.Session["CurrentUser"] = obj;
+                    ConnectedWorker conWorker = new ConnectedWorker
+                    {
+                        Id = (obj as Worker).Id,
+                        DateOfBirth = (obj as Worker).DateOfBirth,
+                        Email = (obj as Worker).Email,
+                        Name = (obj as Worker).Name,
+                        Password = (obj as Worker).Password,
+                        ProfessionId = (obj as Worker).ProfessionId,
+                        Surname = (obj as Worker).Surname,
+                        Thirdname = (obj as Worker).Thirdname,
+                        WorkDays = (obj as Worker).WorkDays,
+                        WorkPlaceId = (obj as Worker).WorkPlaceId,
+                        Power = prof.Power
+                    };
 
-                FormsAuthentication.SetAuthCookie(user.Password, true);
+                    obj = conWorker;
+                }
 
-                return Redirect("/Home/Index/");
+                if (obj != null)
+                {
+                    System.Web.HttpContext.Current.Session["CurrentUser"] = obj;
+
+                    FormsAuthentication.SetAuthCookie(user.Password, true);
+
+                    return Redirect("/Home/Index/");
+                }
             }
 
             return Redirect("/Login/Error/");
@@ -63,10 +86,7 @@ namespace Information_System_MVC.Controllers
 
         public ActionResult Error()
         {
-            if (System.Web.HttpContext.Current.Session["CurrentUser"] == null)
-                return View();
-            else
-                return HttpNotFound();
+            return View();
         }
 
         private bool IsTourist(User user)

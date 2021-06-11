@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label>Логин</label>
                 <div class="col-md-10">
-                    <input id="Login" name="Login" value="" />
+                    <input id="Login" name="Login" value="" required />
                     @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -30,14 +30,30 @@
             <div class="form-group">
                 <label>Пароль</label>
                 <div class="col-md-10">
-                    <input id="Password" name="Password" value="" />
+                    <input id="Password" name="Password" value="" required type="password" />
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="form-group">
+                <p>
+                <p>
+                    <strong style="">
+                        Введите текст с картинки
+                    </strong>
+                </p>
+                <img src='@Url.Action("Captcha", "Login")' alt='captcha' />
+                <div class="editor-field">
+                    <p>
+                        <input type="text" value="" id="Captcha" name="Captcha" required />
+                        @Html.ValidationMessageFor(model => model.Captcha)
+                    </p>
+                </div>
+                </p>
             </div>
             <br />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Войти" class="btn btn-default" />
+                    <input type="submit" value="Войти" class="btn btn-default" id="btnSubmit" />
                 </div>
             </div>
         </div>

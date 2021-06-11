@@ -270,6 +270,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\BookedTicket.cs" />
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\CaptchaImage.cs" />
     <Compile Include="Models\ConnectedWorker.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Equipment.cs" />

@@ -13,5 +13,6 @@ namespace Information_System_MVC.Models
     {
         public int Login { get; set; }
         public string Password { get; set; }
+        public string Captcha { get; set; }
     }
 }
