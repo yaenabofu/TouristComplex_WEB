@@ -6,17 +6,22 @@
 
 <div>
     <h3>Рабочие места -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "WorkPlace", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "WorkPlace", FormMethod.Post))
+        {
             <p>Код места в здании</p>
-            <input id="PlaceId" name="PlaceId" value="@Model.PlaceId" required/>
+            <input id="PlaceId" name="PlaceId" value="@Model.PlaceId" required />
             @Html.ValidationMessageFor(model => model.PlaceId)
             <p>Код здания</p>
             <input id="BuildingId" name="BuildingId" value="@Model.BuildingId" readonly />
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/WorkPlace/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

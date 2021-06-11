@@ -6,14 +6,19 @@
 
 <div>
     <h3>Здания на территории -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Building", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Building", FormMethod.Post))
+        {
             <label>Количество комнат</label>
             <input id="RoomCount" name="RoomCount" type="number" min="1" value="1" />
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Building/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

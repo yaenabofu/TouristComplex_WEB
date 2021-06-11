@@ -6,15 +6,15 @@
 
 <div>
     <h3>Мероприятия -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Event", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Event", FormMethod.Post))
+        {
             <p>Название</p>
-            <input id="Name" name="Name" value="" required/>
+            <input id="Name" name="Name" value="" required />
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" type="number" min="1" value="1" required/>
+            <input id="Price" name="Price" type="number" min="1" value="1" required />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
@@ -43,6 +43,11 @@
 
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Event/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

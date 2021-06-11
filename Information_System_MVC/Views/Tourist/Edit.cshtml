@@ -6,9 +6,9 @@
 
 <div>
     <h3>Туристы -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Tourist", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Tourist", FormMethod.Post))
+        {
             <p>Логин</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -16,10 +16,10 @@
             <input id="Password" name="Password" value="@Model.Password" readonly />
             @Html.ValidationMessageFor(model => model.Password)
             <p>Имя</p>
-            <input id="Name" name="Name" value="@Model.Name" required/>
+            <input id="Name" name="Name" value="@Model.Name" required />
             @Html.ValidationMessageFor(model => model.Name)
             <p>Фамилия</p>
-            <input id="Surname" name="Surname" value="@Model.Surname" required/>
+            <input id="Surname" name="Surname" value="@Model.Surname" required />
             @Html.ValidationMessageFor(model => model.Surname)
             <p>Отчество</p>
             <input id="Thirdname" name="Thirdname" value="@Model.Thirdname" required />
@@ -28,16 +28,16 @@
             <input id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" required />
             @Html.ValidationMessageFor(model => model.DateOfBirth)
             <p>Эл. почта</p>
-            <input id="Email" name="Email" value="@Model.Email" required/>
+            <input id="Email" name="Email" value="@Model.Email" required />
             @Html.ValidationMessageFor(model => model.Email)
             <p>Дата приезда</p>
             <input id="DateOfComing" name="DateOfComing" type="datetime-local" value="@Model.DateOfComing.ToString("yyyy-MM-ddThh:mm")" readonly />
             @Html.ValidationMessageFor(model => model.DateOfComing)
             <p>Дата отъезда</p>
-            <input id="DateOfLeaving" name="DateOfLeaving" type="datetime-local" value="@Model.DateOfLeaving.ToString("yyyy-MM-ddThh:mm")" required/>
+            <input id="DateOfLeaving" name="DateOfLeaving" type="datetime-local" value="@Model.DateOfLeaving.ToString("yyyy-MM-ddThh:mm")" required />
             @Html.ValidationMessageFor(model => model.DateOfLeaving)
             <p>Страна</p>
-            <input id="Country" name="Country" value="@Model.Country" required/>
+            <input id="Country" name="Country" value="@Model.Country" required />
             @Html.ValidationMessageFor(model => model.Country)
             <p>Номер комнаты</p>
             <select id="RoomId" name="RoomId" value="">
@@ -66,6 +66,11 @@
             @Html.ValidationMessageFor(model => model.RoomId)
             <br /><br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Tourist/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

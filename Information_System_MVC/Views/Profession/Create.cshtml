@@ -6,9 +6,9 @@
 
 <div>
     <h3>Профессии -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Profession", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Profession", FormMethod.Post))
+        {
             <p>Название</p>
             <input id="Name" name="Name" value="" />
             @Html.ValidationMessageFor(model => model.Name)
@@ -23,6 +23,11 @@
             @Html.ValidationMessageFor(model => model.Power)
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Profession/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

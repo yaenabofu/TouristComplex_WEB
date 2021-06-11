@@ -6,9 +6,9 @@
 
 <div>
     <h3>Заказы -> Удаление записи</h3>
-    @using (Html.BeginForm("Delete", "Order", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Delete", "Order", FormMethod.Post))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -30,7 +30,6 @@
             @Html.ValidationMessageFor(model => model.DateOrder)
 
             <p>Оплачен ?</p>
-            @{
                 if (Model.IsDone == true)
                 {
                     <input id="IsPaid" name="IsPaid" value="Да" readonly />
@@ -39,11 +38,9 @@
                 {
                     <input id="IsPaid" name="IsPaid" value="Нет" readonly />
                 }
-            }
             @Html.ValidationMessageFor(model => model.IsDone)
 
             <p>Код товара</p>
-            @{
                 foreach (var item in ViewBag.PassingValue)
                 {
                     if (item.Id == Model.ProductId)
@@ -51,10 +48,14 @@
                         <input readonly id="ProductId" name="ProductId" value="@item.Name" />
                     }
                 }
-            } 
             @Html.ValidationMessageFor(model => model.ProductId)
             <br /> <br />
             <input type="submit" value="Удалить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Order/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

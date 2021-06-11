@@ -6,9 +6,9 @@
 
 <div>
     <h3>Профессии -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Profession", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Profession", FormMethod.Post))
+        {
             <p>Код профессии</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -24,6 +24,11 @@
             @Html.ValidationMessageFor(model => model.Power)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Profession/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

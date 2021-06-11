@@ -6,9 +6,9 @@
 
 <div>
     <h3>Мероприятия -> Подробная информация</h3>
-    @using (Html.BeginForm("Details", "Event", FormMethod.Get))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Details", "Event", FormMethod.Get))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -37,6 +37,11 @@
             <input id="WorkPlaceId" name="WorkPlaceId" value="@Model.WorkPlaceId" readonly />
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /> <br />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Event/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

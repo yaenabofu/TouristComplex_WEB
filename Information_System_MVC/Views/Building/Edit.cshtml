@@ -6,9 +6,9 @@
 
 <div>
     <h3>Здания на территории -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Building", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Building", FormMethod.Post))
+        {
             <p>Код здания</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -17,6 +17,11 @@
             @Html.ValidationMessageFor(model => model.RoomCount)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Building/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

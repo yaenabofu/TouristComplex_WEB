@@ -6,14 +6,14 @@
 
 <div>
     <h3>Забронированные билеты -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "BookedTickets", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "BookedTickets", FormMethod.Post))
+        {
             <p>Количество</p>
-            <input id="Quantity" name="Quantity" type="number" min="1" value="1" required/>
+            <input id="Quantity" name="Quantity" type="number" min="1" value="1" required />
             @Html.ValidationMessageFor(model => model.Quantity)
             <p>Стоимость</p>
-            <input id="Cost" name="Cost" type="number" min="1" value="1" required/>
+            <input id="Cost" name="Cost" type="number" min="1" value="1" required />
             @Html.ValidationMessageFor(model => model.Cost)
             <p>Оплачен ?</p>
             <select name="IsPaid" id="IsPaid" value="">
@@ -43,6 +43,11 @@
             @Html.ValidationMessageFor(model => model.TouristId)
             <br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/BookedTickets/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

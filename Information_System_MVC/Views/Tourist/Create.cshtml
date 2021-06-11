@@ -6,9 +6,9 @@
 
 <div>
     <h3>Туристы -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Tourist", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Tourist", FormMethod.Post))
+        {
             <p>Пароль</p>
             <input id="Password" name="Password" value="" required />
             @Html.ValidationMessageFor(model => model.Password)
@@ -55,6 +55,11 @@
             @Html.ValidationMessageFor(model => model.RoomId)
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Tourist/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

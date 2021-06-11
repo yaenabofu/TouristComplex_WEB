@@ -6,19 +6,19 @@
 
 <div>
     <h3>Мероприятия-> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Event", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Event", FormMethod.Post))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
             <p>Название</p>
-            <input id="Name" name="Name" value="@Model.Name" required/>
+            <input id="Name" name="Name" value="@Model.Name" required />
             @Html.ValidationMessageFor(model => model.Name)
 
             <p>Цена</p>
-            <input id="Price" name="Price" type="number" min="1" value="@Model.Price"required />
+            <input id="Price" name="Price" type="number" min="1" value="@Model.Price" required />
             @Html.ValidationMessageFor(model => model.Price)
 
             <p>Описание</p>
@@ -26,7 +26,7 @@
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Дата проведения</p>
-            <input id="Date" name="Date" type="datetime-local" value="@Model.Date" required/>
+            <input id="Date" name="Date" type="datetime-local" value="@Model.Date" required />
             @Html.ValidationMessageFor(model => model.Date)
 
             <p>Количество билетов</p>
@@ -52,6 +52,11 @@
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Event/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

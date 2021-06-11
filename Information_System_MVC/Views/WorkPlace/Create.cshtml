@@ -6,9 +6,9 @@
 
 <div>
     <h3>Рабочие места -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "WorkPlace", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "WorkPlace", FormMethod.Post))
+        {
             <p>Код места в здании</p>
             <input id="PlaceId" name="PlaceId" value="" required />
             @Html.ValidationMessageFor(model => model.PlaceId)
@@ -24,6 +24,11 @@
             @Html.ValidationMessageFor(model => model.BuildingId)
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/WorkPlace/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

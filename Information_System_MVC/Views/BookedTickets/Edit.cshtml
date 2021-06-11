@@ -6,55 +6,60 @@
 
 <div>
     <h3>Забронированные билеты -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "BookedTickets", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "BookedTickets", FormMethod.Post))
+        {
             @Html.LabelFor(x => x.Id, "Код записи")
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
 
             @Html.LabelFor(x => x.Quantity, "Количество")
-            <input id="Quantity" name="Quantity" type="number" min="0" value="@Model.Quantity" readonly/>
+            <input id="Quantity" name="Quantity" type="number" min="0" value="@Model.Quantity" readonly />
             @Html.ValidationMessageFor(model => model.Quantity)
 
             @Html.LabelFor(x => x.Cost, "Стоимость")
-            <input id="Cost" name="Cost" type="number" min="1" value="@Model.Cost" readonly/>
+            <input id="Cost" name="Cost" type="number" min="1" value="@Model.Cost" readonly />
             @Html.ValidationMessageFor(model => model.Cost)
 
             @Html.LabelFor(x => x.IsPaid, "Оплачен?")
-            @{
-                if (Model.IsPaid == true)
-                {
-                    <select name="IsPaid" id="IsPaid" value="">
-                        <option value="true" selected>Да</option>
-                        <option value="false">Нет</option>
-                    </select>
-                }
-                else
-                {
-                    <select name="IsPaid" id="IsPaid" value="">
-                        <option value="true">Да</option>
-                        <option value="false" selected>Нет</option>
-                    </select>
-                }
-            }            @Html.ValidationMessageFor(model => model.IsPaid)
+
+            if (Model.IsPaid == true)
+            {
+                <select name="IsPaid" id="IsPaid" value="">
+                    <option value="true" selected>Да</option>
+                    <option value="false">Нет</option>
+                </select>
+            }
+            else
+            {
+                <select name="IsPaid" id="IsPaid" value="">
+                    <option value="true">Да</option>
+                    <option value="false" selected>Нет</option>
+                </select>
+            }
+
+            @Html.ValidationMessageFor(model => model.IsPaid)
 
             @Html.LabelFor(x => x.EventId, "Мероприятие")
-            @{
-                foreach (var item2 in ViewBag.PassingValue)
+            foreach (var item2 in ViewBag.PassingValue)
+            {
+                if (item2.Id == Model.EventId)
                 {
-                    if (item2.Id == Model.EventId)
-                    {
-                        <input id="EventId" name="EventId" value="@item2.Name [@item2.Id]" readonly />
-                    }
+                    <input id="EventId" name="EventId" value="@item2.Name [@item2.Id]" readonly />
                 }
-            }            @Html.ValidationMessageFor(model => model.EventId)
+            }
+            @Html.ValidationMessageFor(model => model.EventId)
 
             @Html.LabelFor(x => x.TouristId, "Логин туриста")
-            <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly/>
+            <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
             @Html.ValidationMessageFor(model => model.TouristId)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/BookedTickets/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

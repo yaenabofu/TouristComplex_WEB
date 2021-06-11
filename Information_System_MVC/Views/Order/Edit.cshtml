@@ -6,9 +6,9 @@
 
 <div>
     <h3>Заказы -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Order", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Order", FormMethod.Post))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -25,7 +25,7 @@
             <input id="TouristId" name="TouristId" value="@Model.TouristId" readonly />
             @Html.ValidationMessageFor(model => model.TouristId)
             <p>Дата заказа</p>
-            <input id="DateOrder" readonly name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")"/>
+            <input id="DateOrder" readonly name="DateOrder" type="datetime-local" value="@Model.DateOrder.ToString("yyyy-MM-ddThh:mm")" />
             @Html.ValidationMessageFor(model => model.DateOrder)
 
             <p>
@@ -49,18 +49,21 @@
             </p>
             @Html.ValidationMessageFor(model => model.IsDone)
             <p>Код товара</p>
-            @{
-                foreach (var item in ViewBag.PassingValue[0])
+            foreach (var item in ViewBag.PassingValue[0])
+            {
+                if (item.Id == Model.ProductId)
                 {
-                    if (item.Id == Model.ProductId)
-                    {
-                        <input readonly id="ProductId" name="ProductId" value="@item.Name" />
-                    }
+                    <input readonly id="ProductId" name="ProductId" value="@item.Name" />
                 }
             }
             @Html.ValidationMessageFor(model => model.ProductId)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Order/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

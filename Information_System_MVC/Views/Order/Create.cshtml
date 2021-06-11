@@ -6,17 +6,17 @@
 
 <div>
     <h3>Заказы -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Order", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+        {
             <label>Количество</label>
-            <input id="Quantity" type="number" min="1" name="Quantity" value="1" required/>
+            <input id="Quantity" type="number" min="1" name="Quantity" value="1" required />
             @Html.ValidationMessageFor(model => model.Quantity)
             <label>Стоимость</label>
-            <input id="Cost" type="number" min="1" name="Cost" value="1" required/>
+            <input id="Cost" type="number" min="1" name="Cost" value="1" required />
             @Html.ValidationMessageFor(model => model.Cost)
             <label>Дата заказа</label>
-            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" required/>
+            <input id="DateOrder" name="DateOrder" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" required />
             @Html.ValidationMessageFor(model => model.DateOrder)
             <label>Оплачен ?</label>
             <select name="IsDone" id="IsDone" value="">
@@ -46,6 +46,11 @@
             @Html.ValidationMessageFor(model => model.TouristId)
             <br /> <br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Order/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

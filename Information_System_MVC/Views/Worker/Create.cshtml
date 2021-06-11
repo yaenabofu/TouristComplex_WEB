@@ -6,9 +6,9 @@
 
 <div>
     <h3>Работники -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Worker", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Worker", FormMethod.Post))
+        {
             <p>Пароль</p>
             <input id="Password" name="Password" value="" required />
             @Html.ValidationMessageFor(model => model.Password)
@@ -85,31 +85,36 @@
             @Html.ValidationMessageFor(model => model.WorkPlaceId)
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-        <script>
-            function GetDays() {
-                var sel = document.getElementById('Pool');
+        }
+        <p>
+            <form action="/Worker/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
+    <script>
+        function GetDays() {
+            var sel = document.getElementById('Pool');
 
-                var choosedDays = new Array();
-                for (var i = 0; i < sel.options.length; i++) {
-                    if (sel.options[i].selected) {
-                        choosedDays.push(sel.options[i].value);
-                    }
+            var choosedDays = new Array();
+            for (var i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].selected) {
+                    choosedDays.push(sel.options[i].value);
                 }
-
-                var outPut = "";
-
-                for (var i = 0; i < choosedDays.length; i++) {
-                    if (choosedDays.length - 1 == i) {
-                        outPut += choosedDays[i];
-                    }
-                    else {
-                        outPut += choosedDays[i] + ","
-                    }
-                }
-
-                document.getElementById('WorkDays').value = outPut;
             }
-        </script>
-    }
+
+            var outPut = "";
+
+            for (var i = 0; i < choosedDays.length; i++) {
+                if (choosedDays.length - 1 == i) {
+                    outPut += choosedDays[i];
+                }
+                else {
+                    outPut += choosedDays[i] + ","
+                }
+            }
+
+            document.getElementById('WorkDays').value = outPut;
+        }
+    </script>
 </div>

@@ -6,9 +6,9 @@
 
 <div>
     <h3>Товары -> Удаление товара</h3>
-    @using (Html.BeginForm("Delete", "Product", FormMethod.Get))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Delete", "Product", FormMethod.Post))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -33,6 +33,15 @@
             <input id="Quantity" name="Quantity" value="@Model.Quantity" readonly />
             @Html.ValidationMessageFor(model => model.Quantity)
             <br /> <br />
-        </fieldset>
-    }
+            using (Html.BeginForm())
+            {
+                <input type="submit" value="Удалить" />
+            }
+        }
+        <p>
+            <form action="/Product/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

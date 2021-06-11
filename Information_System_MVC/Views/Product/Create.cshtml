@@ -6,9 +6,9 @@
 
 <div>
     <h3>Товары -> Добавление записи</h3>
-    @using (Html.BeginForm("Create", "Product", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+        {
             <p>Название</p>
             <input id="Name" name="Name" value="" />
             @Html.ValidationMessageFor(model => model.Name)
@@ -19,7 +19,6 @@
 
             <p>Описание</p>
             <textarea id="Description" name="Description"></textarea>
-            @*<input id="Description" name="Description" value="" />*@
             @Html.ValidationMessageFor(model => model.Description)
 
             <p>Вид</p>
@@ -32,6 +31,11 @@
 
             <br /><br />
             <input type="submit" value="Добавить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Product/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>

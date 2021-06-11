@@ -6,9 +6,9 @@
 
 <div>
     <h3>Товары -> Редактирование записи</h3>
-    @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
-    {
-        <fieldset>
+    <fieldset>
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+        {
             <p>Код записи</p>
             <input id="Id" name="Id" value="@Model.Id" readonly />
             @Html.ValidationMessageFor(model => model.Id)
@@ -35,6 +35,11 @@
             @Html.ValidationMessageFor(model => model.Quantity)
             <br /> <br />
             <input type="submit" value="Изменить" />
-        </fieldset>
-    }
+        }
+        <p>
+            <form action="/Product/Index">
+                <input type="submit" value="Назад" />
+            </form>
+        </p>
+    </fieldset>
 </div>
