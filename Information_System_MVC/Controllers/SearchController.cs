@@ -180,12 +180,22 @@ namespace Information_System_MVC.Controllers
                 foreach (var item in list)
                 {
                     currentRowCount++;
+                    string boolAnswer = null;
                     if (list is List<BookedTicket>)
                     {
                         worksheet.Cell(currentRowCount, 1).Value = (item as BookedTicket).Id;
                         worksheet.Cell(currentRowCount, 2).Value = (item as BookedTicket).Quantity;
                         worksheet.Cell(currentRowCount, 3).Value = (item as BookedTicket).Cost;
-                        worksheet.Cell(currentRowCount, 4).Value = (item as BookedTicket).IsPaid.ToString();
+                        if ((item as BookedTicket).IsPaid.ToString() == "True")
+                        {
+                            boolAnswer = "Да";
+                        }
+                        else
+                            if ((item as BookedTicket).IsPaid.ToString() == "False")
+                        {
+                            boolAnswer = "Нет";
+                        }
+                        worksheet.Cell(currentRowCount, 4).Value = boolAnswer;
                         worksheet.Cell(currentRowCount, 5).Value = (item as BookedTicket).EventId;
                         worksheet.Cell(currentRowCount, 6).Value = (item as BookedTicket).TouristId;
                     }
@@ -217,7 +227,16 @@ namespace Information_System_MVC.Controllers
                         worksheet.Cell(currentRowCount, 2).Value = (item as Order).Quantity;
                         worksheet.Cell(currentRowCount, 3).Value = (item as Order).Cost;
                         worksheet.Cell(currentRowCount, 4).Value = (item as Order).DateOrder;
-                        worksheet.Cell(currentRowCount, 5).Value = (item as Order).IsDone.ToString();
+                        if ((item as Order).IsDone.ToString() == "True")
+                        {
+                            boolAnswer = "Да";
+                        }
+                        else
+                            if ((item as Order).IsDone.ToString() == "False")
+                        {
+                            boolAnswer = "Нет";
+                        }
+                        worksheet.Cell(currentRowCount, 5).Value = boolAnswer;
                         worksheet.Cell(currentRowCount, 6).Value = (item as Order).TouristId;
                         worksheet.Cell(currentRowCount, 7).Value = (item as Order).ProductId;
                     }
@@ -242,7 +261,16 @@ namespace Information_System_MVC.Controllers
                         worksheet.Cell(currentRowCount, 2).Value = (item as Room).Price;
                         worksheet.Cell(currentRowCount, 3).Value = (item as Room).Beds;
                         worksheet.Cell(currentRowCount, 4).Value = (item as Room).SingleRooms;
-                        worksheet.Cell(currentRowCount, 5).Value = (item as Room).IsAvailable.ToString();
+                        if ((item as Room).IsAvailable.ToString() == "True")
+                        {
+                            boolAnswer = "Да";
+                        }
+                        else
+                            if ((item as Room).IsAvailable.ToString() == "False")
+                        {
+                            boolAnswer = "Нет";
+                        }
+                        worksheet.Cell(currentRowCount, 5).Value = boolAnswer;
                         worksheet.Cell(currentRowCount, 6).Value = (item as Room).BuildingId;
                     }
                     if (list is List<Tourist>)
@@ -310,7 +338,7 @@ namespace Information_System_MVC.Controllers
 
                             if (j == 4 && i != 1)
                             {
-                                if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                if (worksheet.Cell(i, j).Value.ToString() == "Да")
                                 {
                                     paid++;
                                 }
@@ -391,7 +419,7 @@ namespace Information_System_MVC.Controllers
 
                                 if (j == 5 && i != 1)
                                 {
-                                    if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                    if (worksheet.Cell(i, j).Value.ToString() == "Да")
                                     {
                                         paid++;
                                     }
@@ -456,7 +484,7 @@ namespace Information_System_MVC.Controllers
 
                                     if (j == 5 && i != 1)
                                     {
-                                        if (worksheet.Cell(i, j).Value.ToString() == "True")
+                                        if (worksheet.Cell(i, j).Value.ToString() == "Да")
                                         {
                                             paid++;
                                         }
@@ -472,7 +500,7 @@ namespace Information_System_MVC.Controllers
                                     worksheet.Cell(currentRowCount + 2, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
                                     worksheet.Cell(currentRowCount + 3, 5).Value = paid;
                                     worksheet.Cell(currentRowCount + 3, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                                    
+
                                     worksheet.Cell(currentRowCount + 4, 5).Value = "Кол-во занятых";
                                     worksheet.Cell(currentRowCount + 4, 5).Style.Font.Bold = true;
                                     worksheet.Cell(currentRowCount + 4, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
@@ -517,90 +545,6 @@ namespace Information_System_MVC.Controllers
                 }
             }
         }
-
-        //[HttpPost]
-        //[Authorize]
-        //public ActionResult ExportWord(Answer answer)
-        //{
-        //    dynamic list = null;
-        //    string json = answer.JsonFile;
-
-        //    if (answer.Type[0] == "Information_System_MVC.Models.BookedTickets")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<BookedTicket>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Building")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Building>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Equipment")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Equipment>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Event")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Event>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Order")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Order>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Product")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Product>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Profession")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Profession>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Room")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Room>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Tourist")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Tourist>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.Worker")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<Worker>>(json);
-        //    }
-        //    if (answer.Type[0] == "Information_System_MVC.Models.WorkPlace")
-        //    {
-        //        list = JsonConvert.DeserializeObject<List<WorkPlace>>(json);
-        //    }
-
-        //    try
-        //    {
-        //        var app = new Application();
-        //        app.Visible = true;
-
-        //        var wb = app.Workbooks.Add();
-        //        var ws = (Worksheet)wb.Worksheets[1];
-
-        //        for (int i = 1; i < dgwSearchResults.Columns.Count + 1; i++)
-        //        {
-        //            ws.Cells[1, i].Value = dgwSearchResults.Columns[i - 1].HeaderText;
-        //            ws.Cells[1, i].EntireColumn.ColumnWidth = dgwSearchResults.Columns[i - 1].Width / 5;
-        //            ws.Cells[1, i].HorizontalAlignment = XlHAlign.xlHAlignCenter;
-        //        }
-
-        //        for (int i = 0; i < dgwSearchResults.Rows.Count; i++)
-        //        {
-        //            for (int j = 0; j < dgwSearchResults.Columns.Count; j++)
-        //            {
-        //                ws.Cells[i + 2, j + 1].Value = dgwSearchResults.Rows[i].Cells[j].Value.ToString();
-        //                ws.Cells[i + 2, j + 1].HorizontalAlignment = XlHAlign.xlHAlignCenter;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-
-        //    return View();
-        //}
 
         [Authorize]
         [HttpPost]
