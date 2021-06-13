@@ -25,7 +25,6 @@ namespace Information_System_MVC.Controllers
             }
             else
                 return HttpNotFound();
-
         }
         [Authorize]
         [HttpGet]
